@@ -1,12 +1,37 @@
 #   Copyright (c) 2010-2011, Diaspora Inc.  This file is
 #   licensed under the Affero General Public License version 3 or later.  See
 #   the COPYRIGHT file.
+#
+#   Modified 10/14/2001 by Zach Prezkuta
+#   Add function contacts_with_post to display who else a post was shared with 
+#   to users who aren't the author of the post
 
 module AspectGlobalHelper
   def aspects_with_post(aspects, post)
     aspects.select do |aspect|
       AspectVisibility.exists?(:aspect_id => aspect.id, :post_id => post.id)
     end
+  end
+
+  def contacts_with_post(post)
+    pv = PostVisibility.where(:post_id => post.id)
+    contactlist = Array.new
+    pv.each do |pvi|
+      firstname = pvi.contact.user.profile.first_name
+      lastname = pvi.contact.user.profile.last_name
+      handle = pvi.contact.user.diaspora_handle
+      if firstname != "" or lastname != ""
+        if firstname != "" and lastname != ""
+          contactlist << firstname + ' ' + lastname
+        else
+          contactlist << firstname != "" ? firstname : lastname
+        end
+      else
+        contactlist << handle
+      end
+    end
+
+    contactlist
   end
 
   def aspect_badges(aspects, opts={})

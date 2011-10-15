@@ -1,3 +1,5 @@
+-# Modified 10/14/2011 by Zach Prezkuta for different options
+
 %form{:action => "https://www.paypal.com/cgi-bin/webscr", :method => "post"}
   %input{:name => "cmd", :type => "hidden", :value => "_s-xclick"}
   %input{:name => "hosted_button_id", :type => "hidden", :value => AppConfig[:paypal_hosted_button_id]}
@@ -7,5 +9,6 @@
     %option{:value => "Mocha"} Mocha : $3.00USD
     %option{:value => "Americano"} Americano : $5.00USD
     %option{:value => "Box o' Joe"} Box o' Joe : $20.00USD
+    %option{:value => "Tablet"} Tablet : $500.00USD
   %input{:name => "currency_code", :type => "hidden", :value => "USD"}
   %input{:name => "submit", :type => "submit", :value => t('aspects.index.donate')}

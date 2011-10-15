@@ -1,6 +1,15 @@
 #   Copyright (c) 2010-2011, Diaspora Inc.  This file is
 #   licensed under the Affero General Public License version 3 or later.  See
 #   the COPYRIGHT file.
+#
+#   Modified 10/14/2011 by Zach Prezkuta
+#   Modify donations text
+#   Added text definitions for option of user disallowing self's post (or comments, etc.)
+#   to show up in emails, and alternate text for emails when user chooses that option
+#   Added terms and conditions and privacy policy labels, as well as agreement text
+#   Added text for getting_started for adding the pod admin to an aspect as well as
+#   the request to make sure pod emails aren't going to the user's spam box
+#   Added text for displaying contacts that a post was shared with (contacts_shared_with)
 
 # Sample localization file for English. Add more files in this directory for other locales.
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
@@ -38,6 +47,9 @@ en:
   all_aspects: "All Aspects"
   no_results: "No Results Found"
   _contacts: "Contacts"
+  agreement: 'By signing in to your account, you certify that you agree to the latest %{linktos} and %{linkpriv}.'
+  tos: 'Terms of Service'
+  privacy: 'Privacy Policy'
 
 
   #for reference translation, the real activerecord english transations are actually
@@ -163,7 +175,7 @@ en:
       community_spotlight: "Community Spotlight"
       see_more_from_us: "See more of the D* community."
       donate: "Donate"
-      keep_us_running: "Keep %{pod} running fast and buy servers their coffee fix with a monthly donation!"
+      keep_us_running: "Keep %{pod} running fast and buy the webmaster his coffee fix with a one-time donation!"
       your_aspects: "Your Aspects"
       tags_following: "Followed Tags"
       no_tags: "+ Find a tag to follow"
@@ -493,14 +505,21 @@ en:
         sharing: "has started sharing with you!"
         view_profile: "View %{name}'s profile"
     comment_on_post:
+        silenced_subject: "%{name}'s post"
+        silenced: "%{name} has a new comment"
         reply: "Reply or view %{name}'s post >"
     mentioned:
         subject: "%{name} has mentioned you on Diaspora*"
         mentioned: "mentioned you in a post:"
+        silenced: "%{name} has mentioned you in a post."
     private_message:
+        silenced_subject: "%{name}'s private message"
+        silenced: "%{name} has sent you a private message."
         reply_to_or_view: "Reply to or view this conversation >"
     liked:
         liked: "%{name} just liked your post"
+        silenced: "Click link below to see the post"
+        silenced_text: "Visit the Diaspora page to see the post"
         view_post: "View post >"
     reshared:
         reshared: "%{name} just reshared your post"
@@ -773,6 +792,7 @@ en:
       unlike: "Unlike"
       dislike: "Dislike"
       shared_with: "Shared with: %{aspect_names}"
+      contacts_shared_with: "Shared with: %{contact_names}"
     footer:
       logged_in_as: "logged in as %{name}"
       your_aspects: "your aspects"
@@ -868,13 +888,14 @@ en:
       your_email: "Your email"
       edit_account: "Edit account"
       receive_email_notifications: "Receive email notifications when..."
-      also_commented: "...someone also comments on your contact's post?"
+      also_commented: "...someone else comments on a post you commented on?"
       comment_on_post: "...someone comments on your post?"
       mentioned: "...you are mentioned in a post?"
       started_sharing: "...someone starts sharing with you?"
       private_message: "...you receive a private message?"
       liked: "...someone likes your post?"
       reshared: "...someone reshares your post?"
+      silenced: "Allow the text of your posts (or comments, messages, etc.) to be in email notifications?"
       change: "Change"
       email_awaiting_confirmation: "We have sent you an activation link to %{unconfirmed_email}. Until you follow this link and activate the new address, we will continue to use your original address %{email}."
     destroy: "Your account has been locked.  It may take 20 minutes for us to finish closing your account.  Thank you for trying Diaspora."
@@ -910,6 +931,7 @@ en:
       search_for_people: "Search for people"
       connect_with_people_explanation_pt2: "Aspects are an intuitive way to group new and familar faces, private to you, allowing you to filter down or share with subsets of your contacts easily."
       featured_users: "Featured users"
+      podadmin: 'Pod admin. Please add to at least one aspect for pod status messages. You can always create a special aspect (like "Pod Admin") later. For now, try "Acquaintances."'
 
       follow_your_interests: "Follow your interests"
       connect_to: "Connect to"
@@ -921,6 +943,9 @@ en:
       get_updates_from_core: "Get updates about the project from the core team."
 
       hashtag_explanation: "Hashtags allow you to talk about and follow your interests.  They're also a great way to find new people on Diaspora."
+
+      important: "Important Notice"
+      pod_email_spam: "Email notifications from this pod (using the address fermionicdiaspora@q.com) frequently end up in the Spam boxes of users' email. Please ensure that email from this pod is not marked as Spam (in Gmail, for example, you can click on an email in your Spam box and click the 'Not Spam' button)."
 
     update:
       password_changed: "Password changed.  You can now log in with your new password."

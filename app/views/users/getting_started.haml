@@ -1,6 +1,12 @@
 -#   Copyright (c) 2010-2011, Diaspora Inc.  This file is
 -#   licensed under the Affero General Public License version 3 or later.  See
 -#   the COPYRIGHT file.
+-#
+-#   Modified 10/14/2011 Zach Prezkuta
+-#   Added a message to add the pod admin to at least one aspect.
+-#   Added an Important Notice section, with a request to make sure pod emails
+-#   aren't going to the user's Spam box
+-#   Remove Featured Users pane
 
 .span-5.leftNavBar
   #home_user_badge
@@ -89,6 +95,23 @@
             = t('.connect_with_people_explanation_pt1', :bold => content_tag(:b, t('.bold'))).html_safe
             = t('.connect_with_people_explanation_pt2')
 
+          #diaspora_hq_pane
+            - if podadmin = Person.find_by_diaspora_handle("fermion@fermionicdiaspora.dyndns.org")
+              = person_image_link(podadmin, :size => :thumb_medium)
+
+              .name
+                = person_link(podadmin)
+
+              .info
+                = t('.podadmin')
+
+              .add_to_aspect
+                = render :partial => 'people/relationship_action',
+                  :locals => { :person => podadmin,
+                                :contact => current_user.contact_for(podadmin),
+                                :current_user => current_user }
+
+
           -unless AppConfig[:no_follow_diasporahq]
             #diaspora_hq_pane
               - if diasporahq = Person.find_by_diaspora_handle("diasporahq@joindiaspora.com")
@@ -106,26 +129,26 @@
                                   :contact => current_user.contact_for(diasporahq),
                                   :current_user => current_user }
 
-          #featured_users_pane
-            %h4
-              = t('.featured_users')
-
-            %div
-              - Person.featured_users[0..5].each do |person|
-                .featured_user_card_small
-                  .right
-                    .add_to_aspect
-                      = render :partial => 'people/relationship_action',
-                        :locals => { :person => person,
-                                      :contact => current_user.contact_for(person),
-                                      :current_user => current_user }
-                  = person_image_link(person, :target => "_blank")
-                  = person_link(person, :class => "hovercardable", :target => "_blank")
-                  .tags
-                    - person.profile.tags[0..2].each do |tg|
-                      = link_to "##{tg}", tag_path(tg.name), :target => "_blank"
-
-            = link_to "#{t('.see_all_featured_users')} ->", featured_users_path, :target => "_blank"
+-#          #featured_users_pane
+-#            %h4
+-#              = t('.featured_users')
+-#
+-#            %div
+-#              - Person.featured_users[0..5].each do |person|
+-#                .featured_user_card_small
+-#                  .right
+-#                    .add_to_aspect
+-#                      = render :partial => 'people/relationship_action',
+-#                        :locals => { :person => person,
+-#                                      :contact => current_user.contact_for(person),
+-#                                      :current_user => current_user }
+-#                  = person_image_link(person, :target => "_blank")
+-#                  = person_link(person, :class => "hovercardable", :target => "_blank")
+-#                  .tags
+-#                    - person.profile.tags[0..2].each do |tg|
+-#                      = link_to "##{tg}", tag_path(tg.name), :target => "_blank"
+-#
+-#            = link_to "#{t('.see_all_featured_users')} ->", featured_users_path, :target => "_blank"
 
           %br
           #find_friends_pane
@@ -180,6 +203,16 @@
           .cubbies_images
             = image_tag '/images/cubbies_collage.png', :width => 422, :height => 159, :class => "cubbies_collage_small"
             = image_tag '/images/cubbies_screenshot2.png', :height => 151, :width => 200, :class => "cubbies_user_page_small"
+
+      %li.important
+        .getting_started_number
+          %h3
+            = @step += 1
+        .content
+          %h3
+            = t(".important")
+          %p
+            = t(".pod_email_spam")
 
       %li{:style => 'text-align:center;'}
         %p
