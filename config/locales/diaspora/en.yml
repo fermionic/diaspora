@@ -48,8 +48,13 @@ en:
   no_results: "No Results Found"
   _contacts: "Contacts"
   agreement: 'By signing in to your account, you certify that you agree to the latest %{linktos} and %{linkpriv}.'
+<<<<<<< HEAD
   tos: 'terms of service'
   privacy: 'privacy policy'
+=======
+  tos: 'Terms of Service'
+  privacy: 'Privacy Policy'
+>>>>>>> Update for personal deployed pod
 
 
   #for reference translation, the real activerecord english transations are actually
@@ -134,7 +139,7 @@ en:
       view_all_communtiy_spotlight: "See all community spotlight"
       view_all_contacts: "View all contacts"
       no_contacts: "You don't have any contacts here yet."
-      manage_your_aspects: "Manage your aspects."
+      manage_your_aspehttps://code.google.com/p/fabfi/wiki/WikiHome?tm=6cts: "Manage your aspects."
     new:
       name: "Name (only visible to you)"
       create: "Create"
@@ -946,6 +951,8 @@ en:
       featured_users: "Featured users"
       podadmin: 'Pod admin. Please add to at least one aspect for pod status messages. You can always create a special aspect (like "Pod Admin") later. For now, try "Acquaintances."'
       community_spotlight: "Community spotlight"
+      featured_users: "Featured users"
+      podadmin: 'Pod admin. Please add to at least one aspect for pod status messages. You can always create a special aspect (like "Pod Admin") later. For now, try "Acquaintances."'
 
       follow_your_interests: "Follow your interests"
       connect_to: "Connect to"
