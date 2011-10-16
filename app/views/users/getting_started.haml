@@ -7,6 +7,27 @@
 -#   Added an Important Notice section, with a request to make sure pod emails
 -#   aren't going to the user's Spam box
 -#   Remove Featured Users pane
+-#          #featured_users_pane
+-#            %h4
+-#              = t('.featured_users')
+-#
+-#            %div
+-#              - Person.featured_users[0..5].each do |person|
+-#                .featured_user_card_small
+-#                  .right
+-#                    .add_to_aspect
+-#                      = render :partial => 'people/relationship_action',
+-#                        :locals => { :person => person,
+-#                                      :contact => current_user.contact_for(person),
+-#                                      :current_user => current_user }
+-#                  = person_image_link(person, :target => "_blank")
+-#                  = person_link(person, :class => "hovercardable", :target => "_blank")
+-#                  .tags
+-#                    - person.profile.tags[0..2].each do |tg|
+-#                      = link_to "##{tg}", tag_path(tg.name), :target => "_blank"
+-#
+-#            = link_to "#{t('.see_all_featured_users')} ->", featured_users_path, :target => "_blank"
+-#
 
 .span-5.leftNavBar
   #home_user_badge
@@ -96,7 +117,7 @@
             = t('.connect_with_people_explanation_pt2')
 
           #diaspora_hq_pane
-            - if podadmin = Person.find_by_diaspora_handle("fermion@fermionicdiaspora.dyndns.org")
+            - if podadmin = Person.find_by_diaspora_handle("")
               = person_image_link(podadmin, :size => :thumb_medium)
 
               .name
@@ -128,27 +149,6 @@
                     :locals => { :person => diasporahq,
                                   :contact => current_user.contact_for(diasporahq),
                                   :current_user => current_user }
-
--#          #featured_users_pane
--#            %h4
--#              = t('.featured_users')
--#
--#            %div
--#              - Person.featured_users[0..5].each do |person|
--#                .featured_user_card_small
--#                  .right
--#                    .add_to_aspect
--#                      = render :partial => 'people/relationship_action',
--#                        :locals => { :person => person,
--#                                      :contact => current_user.contact_for(person),
--#                                      :current_user => current_user }
--#                  = person_image_link(person, :target => "_blank")
--#                  = person_link(person, :class => "hovercardable", :target => "_blank")
--#                  .tags
--#                    - person.profile.tags[0..2].each do |tg|
--#                      = link_to "##{tg}", tag_path(tg.name), :target => "_blank"
--#
--#            = link_to "#{t('.see_all_featured_users')} ->", featured_users_path, :target => "_blank"
 
           %br
           #find_friends_pane

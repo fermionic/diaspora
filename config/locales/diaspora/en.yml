@@ -523,6 +523,8 @@ en:
         view_post: "View post >"
     reshared:
         reshared: "%{name} just reshared your post"
+        silenced: "Click link below to see the post"
+        silenced_text: "Login to your account to see the post"
         view_post: "View post >"
     confirm_email:
         subject: "Please activate your new email address %{unconfirmed_email}"
@@ -945,7 +947,7 @@ en:
       hashtag_explanation: "Hashtags allow you to talk about and follow your interests.  They're also a great way to find new people on Diaspora."
 
       important: "Important Notice"
-      pod_email_spam: "Email notifications from this pod (using the address fermionicdiaspora@q.com) frequently end up in the Spam boxes of users' email. Please ensure that email from this pod is not marked as Spam (in Gmail, for example, you can click on an email in your Spam box and click the 'Not Spam' button)."
+      pod_email_spam: "Email notifications from this pod (using the address ) frequently end up in the Spam boxes of users' email. Please ensure that email from this pod is not marked as Spam (in Gmail, for example, you can click on an email in your Spam box and click the 'Not Spam' button)."
 
     update:
       password_changed: "Password changed.  You can now log in with your new password."
