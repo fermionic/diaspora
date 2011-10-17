@@ -85,7 +85,7 @@ module AspectGlobalHelper
     klass = checked ? "selected" : ""
 
     str = <<LISTITEM
-<li data-aspect_id=#{aspect.id} class='#{klass}'>
+<li data-aspect_id=#{aspect.id} class='#{klass} aspect_selector'>
   #{aspect.name}
 </li>
 LISTITEM
