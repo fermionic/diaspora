@@ -48,14 +48,8 @@ en:
   no_results: "No Results Found"
   _contacts: "Contacts"
   agreement: 'By signing in to your account, you certify that you agree to the latest %{linktos} and %{linkpriv}.'
-<<<<<<< HEAD
   tos: 'terms of service'
   privacy: 'privacy policy'
-=======
-  tos: 'Terms of Service'
-  privacy: 'Privacy Policy'
->>>>>>> Update for personal deployed pod
-
 
   #for reference translation, the real activerecord english transations are actually
   #in en-US, en-GB, and en-AU yml files
