@@ -214,6 +214,10 @@ td { vertical-align: top; }
    the COPYRIGHT file.
    ========================================================================== */
 
+/* Modified 10/16/2011 Zach Prezkuta
+   Remove -webkit-transform: translateZ(0); lines for hardware acceleration on mobile browsers,
+   as it causes weird "ghost doubles" of links on some Android browsers
+*/
 @import "mixins";
 
 $blue: #3f8fba;
@@ -471,7 +475,7 @@ header {
   top: 0;
 
   /* force hardware acceleration on webkit browsers */
-  -webkit-transform: translateZ(0);
+  /*-webkit-transform: translateZ(0); */
 
   border: {
     bottom: 1px solid #222;
@@ -482,7 +486,7 @@ header {
 
 .stream_element {
   /* force hardware acceleration on webkit browsers */
-  -webkit-transform: translateZ(0);
+  /*-webkit-transform: translateZ(0); */
 }
 
 footer {

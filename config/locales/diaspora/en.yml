@@ -48,8 +48,8 @@ en:
   no_results: "No Results Found"
   _contacts: "Contacts"
   agreement: 'By signing in to your account, you certify that you agree to the latest %{linktos} and %{linkpriv}.'
-  tos: 'Terms of Service'
-  privacy: 'Privacy Policy'
+  tos: 'terms of service'
+  privacy: 'privacy policy'
 
 
   #for reference translation, the real activerecord english transations are actually
