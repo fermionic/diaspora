@@ -17,18 +17,7 @@ module AspectGlobalHelper
     pv = PostVisibility.where(:post_id => post.id)
     contactlist = Array.new
     pv.each do |pvi|
-      firstname = pvi.contact.user.profile.first_name
-      lastname = pvi.contact.user.profile.last_name
-      handle = pvi.contact.user.diaspora_handle
-      if firstname != "" or lastname != ""
-        if firstname != "" and lastname != ""
-          contactlist << firstname + ' ' + lastname
-        else
-          contactlist << firstname != "" ? firstname : lastname
-        end
-      else
-        contactlist << handle
-      end
+      contactlist << pvi.contact.user.name
     end
 
     contactlist
