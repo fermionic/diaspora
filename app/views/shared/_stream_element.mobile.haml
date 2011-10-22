@@ -1,6 +1,9 @@
 -#   Copyright (c) 2010-2011, Diaspora Inc.  This file is
 -#   licensed under the Affero General Public License version 3 or later.  See
 -#   the COPYRIGHT file.
+-#
+-#   Modified 10/22/2011 Zach Prezkuta
+-#   Unescape the Ruby calls to mobile_comment_icon and mobile_like_icon, to display them as images instead of links
 
 .stream_element{:data=>{:guid=>post.id}}
 
@@ -18,8 +21,8 @@
   .bottom_bar
     .floater
       = mobile_reshare_icon(post)
-      = mobile_comment_icon(post)
-      = mobile_like_icon(post)
+      != mobile_comment_icon(post)
+      != mobile_like_icon(post)
 
     != reactions_link(post)
 

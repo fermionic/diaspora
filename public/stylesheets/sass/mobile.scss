@@ -217,6 +217,9 @@ td { vertical-align: top; }
 /* Modified 10/16/2011 Zach Prezkuta
    Remove -webkit-transform: translateZ(0); lines for hardware acceleration on mobile browsers,
    as it causes weird "ghost doubles" of links on some Android browsers
+
+   Modified 10/22/2011 Zach Prezkuta
+   Add .icon class for displaying the "Like" and "Comment" icons in the mobile view as images instead of links
 */
 @import "mixins";
 
@@ -609,6 +612,14 @@ footer {
 .photo_area {
   @include border-radius(3px);
   text-align: center; }
+
+.icon {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  margin-left: 5px;
+  margin-right: 5px;
+  vertical-align: top }
 
 .image_link {
   display: inline-block;

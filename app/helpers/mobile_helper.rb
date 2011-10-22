@@ -1,3 +1,9 @@
+# Modified 10/22/2011 Zach Prezkuta
+# Disable links to the like function and comment function from the icons for now, since
+# the like doesn't update in the desktop view, and commenting from the icon creates a
+# new comment right below the post that remains there even when the comments are expanded,
+# creating an out-of-place double
+
 module MobileHelper
   def aspect_select_options(aspects, selected)
     selected_id = selected == :all ? "" : selected.id
@@ -19,14 +25,17 @@ module MobileHelper
 
   def mobile_like_icon(post)
     if current_user && current_user.liked?(post)
-      link_to '', post_like_path(post.id, current_user.like_for(post).id), :class => "image_link like_action active"
+#      link_to '', post_like_path(post.id, current_user.like_for(post).id), :class => "image_link like_action active"
+      html = '<img src="/images/icons/heart_mobile_red.png?1319213932" class="icon">'
     else
-      link_to '', post_likes_path(post.id), :class => "image_link like_action inactive"
+#      link_to '', post_likes_path(post.id), :class => "image_link like_action inactive"
+      html = '<img src="/images/icons/heart_mobile_grey.png?1319213932" class="icon">'
     end
   end
 
   def mobile_comment_icon(post)
-    link_to '', new_post_comment_path(post), :class => "image_link comment_action inactive"
+#    link_to '', new_post_comment_path(post), :class => "image_link comment_action inactive"
+    html = '<img src="/images/icons/pencil_mobile_grey.png?1319213932" class="icon">'
   end
 
   def reactions_link(post)

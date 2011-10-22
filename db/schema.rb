@@ -10,7 +10,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20111021184041) do
+=======
+ActiveRecord::Schema.define(:version => 20111012215141) do
+>>>>>>> remove links from comment and like icons in mobile view
 
   create_table "aspect_memberships", :force => true do |t|
     t.integer  "aspect_id",  :null => false
@@ -185,7 +189,7 @@ ActiveRecord::Schema.define(:version => 20111021184041) do
     t.text   "data",                 :null => false
   end
 
-  add_index "o_embed_caches", ["url"], :name => "index_o_embed_caches_on_url", :length => {"url"=>255}
+  add_index "o_embed_caches", ["url"], :name => "index_o_embed_caches_on_url", :length => {"url"=>767}
 
   create_table "oauth_access_tokens", :force => true do |t|
     t.integer  "authorization_id",               :null => false
