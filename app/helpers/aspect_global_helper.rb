@@ -14,7 +14,7 @@ module AspectGlobalHelper
   end
 
   def contacts_with_post(post)
-    pv = PostVisibility.where(:post_id => post.id)
+    pv = ShareVisibility.where(:shareable_id => post.id)
     contactlist = Array.new
     pv.each do |pvi|
       contactlist << pvi.contact.user.name

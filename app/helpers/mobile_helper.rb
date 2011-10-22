@@ -40,7 +40,8 @@ module MobileHelper
 
   def reactions_link(post)
     reactions_count = post.comments_count + post.likes_count
-    if reactions_count > 0
+#    if reactions_count > 0
+    if reactions_count >= 0
       link_to "#{t('reactions', :count => reactions_count)}", post_comments_path(post, :format => "mobile"), :class => 'show_comments'
     else
       html = "<span class='show_comments'>"
