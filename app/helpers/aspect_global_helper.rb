@@ -2,9 +2,10 @@
 #   licensed under the Affero General Public License version 3 or later.  See
 #   the COPYRIGHT file.
 #
-#   Modified 10/14/2001 by Zach Prezkuta
+#   Modified 10/14/2001, 10/24/2011 by Zach Prezkuta
 #   Add function contacts_with_post to display who else a post was shared with 
 #   to users who aren't the author of the post
+#   Return only unique members of the contacts list, and alphabetize it
 
 module AspectGlobalHelper
   def aspects_with_post(aspects, post)
@@ -20,7 +21,8 @@ module AspectGlobalHelper
       contactlist << pvi.contact.user.name
     end
 
-    contactlist
+    contactlist.uniq!
+    contactlist.sort
   end
 
   def aspect_badges(aspects, opts={})
