@@ -1,6 +1,9 @@
 #   Copyright (c) 2010-2011, Diaspora Inc.  This file is
 #   licensed under the Affero General Public License version 3 or later.  See
 #   the COPYRIGHT file.
+#
+#   Modified 10/23/2011 Zach Prezkuta
+#   Change sort order to also follow the user-specified order, mobile or not
 
 class ApplicationController < ActionController::Base
   has_mobile_fu
@@ -160,7 +163,8 @@ class ApplicationController < ActionController::Base
   end
 
   def sort_order
-    is_mobile_device? ? 'created_at' : session[:sort_order]
+#    is_mobile_device? ? 'created_at' : session[:sort_order]
+    session[:sort_order]
   end
 
   def max_time

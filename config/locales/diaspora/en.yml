@@ -2,7 +2,7 @@
 #   licensed under the Affero General Public License version 3 or later.  See
 #   the COPYRIGHT file.
 #
-#   Modified 10/14/2011 by Zach Prezkuta
+#   Modified 10/14/2011, 10/23/2011 by Zach Prezkuta
 #   Modify donations text
 #   Added text definitions for option of user disallowing self's post (or comments, etc.)
 #   to show up in emails, and alternate text for emails when user chooses that option
@@ -10,6 +10,7 @@
 #   Added text for getting_started for adding the pod admin to an aspect as well as
 #   the request to make sure pod emails aren't going to the user's spam box
 #   Added text for displaying contacts that a post was shared with (contacts_shared_with)
+#   Added text for mobile post order sort toggle
 
 # Sample localization file for English. Add more files in this directory for other locales.
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
@@ -355,6 +356,8 @@ en:
       powered_by: "POWERED BY DIASPORA*"
       whats_new: "what's new?"
       toggle: "toggle mobile"
+      mobile_commented_on: "sort by commented"
+      mobile_posted: "sort by posted"
       public_feed: "Public Diaspora Feed for %{name}"
       your_aspects: "your aspects"
 
