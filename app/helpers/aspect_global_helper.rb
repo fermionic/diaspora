@@ -21,7 +21,7 @@ module AspectGlobalHelper
       contactlist << pvi.contact.user.name
     end
 
-    contactlist.uniq!
+#    contactlist.uniq!
     contactlist.sort
   end
 
