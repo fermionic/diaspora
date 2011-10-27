@@ -1,6 +1,9 @@
 #   Copyright (c) 2010-2011, Diaspora Inc.  This file is
 #   licensed under the Affero General Public License version 3 or later.  See
 #   the COPYRIGHT file.
+#
+#   Modified 10/24/2011 Zach Prezkuta
+#   Let status messages be longer
 
 class StatusMessage < Post
   include Diaspora::Socketable
@@ -14,7 +17,9 @@ class StatusMessage < Post
   acts_as_taggable_on :tags
   extract_tags_from :raw_message
 
-  validates_length_of :text, :maximum => 10000, :message => I18n.t('status_messages.too_long', :count => 10000)
+#  validates_length_of :text, :maximum => 10000, :message => I18n.t('status_messages.too_long', :count => 10000)
+# note: need to change the rspec test that verifies messages are less than 10000 characters long
+  validates_length_of :text, :maximum => 500000, :message => I18n.t('status_messages.too_long', :count => 500000)
   xml_name :status_message
   xml_attr :raw_message
 

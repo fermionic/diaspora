@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111021184041) do
+ActiveRecord::Schema.define(:version => 20111027031034) do
 
   create_table "aspect_memberships", :force => true do |t|
     t.integer  "aspect_id",  :null => false
@@ -273,13 +273,13 @@ ActiveRecord::Schema.define(:version => 20111021184041) do
   end
 
   create_table "posts", :force => true do |t|
-    t.integer  "author_id",                                              :null => false
-    t.boolean  "public",                              :default => false, :null => false
+    t.integer  "author_id",                                                    :null => false
+    t.boolean  "public",                                    :default => false, :null => false
     t.string   "diaspora_handle"
-    t.string   "guid",                                                   :null => false
-    t.boolean  "pending",                             :default => false, :null => false
-    t.string   "type",                  :limit => 40,                    :null => false
-    t.text     "text"
+    t.string   "guid",                                                         :null => false
+    t.boolean  "pending",                                   :default => false, :null => false
+    t.string   "type",                  :limit => 40,                          :null => false
+    t.text     "text",                  :limit => 16777215
     t.text     "remote_photo_path"
     t.string   "remote_photo_name"
     t.string   "random_string"
@@ -297,8 +297,8 @@ ActiveRecord::Schema.define(:version => 20111021184041) do
     t.string   "objectId"
     t.string   "root_guid",             :limit => 30
     t.string   "status_message_guid"
-    t.integer  "likes_count",                         :default => 0
-    t.integer  "comments_count",                      :default => 0
+    t.integer  "likes_count",                               :default => 0
+    t.integer  "comments_count",                            :default => 0
     t.integer  "o_embed_cache_id"
   end
 
