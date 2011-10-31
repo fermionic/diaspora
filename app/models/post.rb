@@ -76,7 +76,12 @@ class Post < ActiveRecord::Base
   end
 
   def hint
-    text_without_tags = strip_tags(text)
+    if respond_to?(:strip_tags)
+      text_without_tags = strip_tags(text)
+    elsif text !~ /[<>]/
+      text_without_tags = text
+    end
+
     if text_without_tags.length <= 64
       text_without_tags
     else
