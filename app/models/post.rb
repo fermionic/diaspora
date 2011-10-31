@@ -74,4 +74,12 @@ class Post < ActiveRecord::Base
     self.triggers_caching? && RedisCache.configured? &&
       RedisCache.acceptable_types.include?(self.type) && user = self.author.owner
   end
+
+  def hint
+    if text.length <= 64
+      text
+    else
+      text[0...61] + '...'
+    end
+  end
 end
