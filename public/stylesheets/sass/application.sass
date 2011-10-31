@@ -91,7 +91,8 @@ form
     @include border-radius(6px)
     @include box-shadow(0, 1px, 5px, rgba(0,0,0,0.4))
     :display inline-block
-    :width 400px
+    :min-width 400px
+    :max-width 800px
     :padding
       :top 45px
       :bottom 8px
@@ -3432,3 +3433,21 @@ a.toggle_selector
     :float none
     :height 20px
     :width 20px
+
+#gs-name-form-spinner
+  :position absolute
+  :top 24px
+  :right -33px
+
+.left_nav
+  #new_tag_following
+    :margin
+      :left 24px
+
+    input[type='text']
+      :font
+        :size 13px
+
+  #tag_following_submit
+    &.hidden
+      :display none
