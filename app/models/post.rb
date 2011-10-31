@@ -76,6 +76,8 @@ class Post < ActiveRecord::Base
   end
 
   def hint
+    return nil  if text.nil?
+
     if respond_to?(:strip_tags)
       text_without_tags = strip_tags(text)
     elsif text !~ /[<>]/
