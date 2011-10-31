@@ -76,10 +76,11 @@ class Post < ActiveRecord::Base
   end
 
   def hint
-    if text.length <= 64
-      text
+    text_without_tags = strip_tags(text)
+    if text_without_tags.length <= 64
+      text_without_tags
     else
-      text[0...61] + '...'
+      text_without_tags[0...61] + '...'
     end
   end
 end
