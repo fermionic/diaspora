@@ -32,13 +32,13 @@ class Comment < ActiveRecord::Base
   scope :including_author, includes(:author => :profile)
   scope :excluding_ignored, lambda { |ignorer|
     if ignorer.nil?
-      all
+      where('true')
     else
       ignored = ignorer.blocks.includes(:person).map{ |ignored| ignored.person.id }
       if ignored.any?
         where "author_id NOT IN (?)", ignored
       else
-        all
+        where('true')
       end
     end
   }
