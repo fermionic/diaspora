@@ -30,6 +30,18 @@ class Comment < ActiveRecord::Base
 
 
   scope :including_author, includes(:author => :profile)
+  scope :excluding_ignored, lambda { |ignorer|
+    if ignorer.nil?
+      all
+    else
+      ignored = ignorer.blocks.includes(:person).map{ |ignored| ignored.person.id }
+      if ignored.any?
+        where "author_id NOT IN (?)", ignored
+      else
+        all
+      end
+    end
+  }
 
   before_save do
     self.text.strip! unless self.text.nil?
