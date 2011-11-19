@@ -487,4 +487,8 @@ class User < ActiveRecord::Base
       errors[:base] << 'That username has already been taken'
     end
   end
+
+  def ignoring?( other )
+    blocks.includes(:person).any? { |ignored| ignored.person == other.person }
+  end
 end
