@@ -62,7 +62,12 @@ class CommentsController < ApplicationController
     end
 
     if @post
-      @comments = @post.comments.includes(:author => :profile).order('created_at ASC')
+      if user_signed_in?
+        comments_raw = @post.comments_unignored( current_user )
+      else
+        comments_raw = @post.comments
+      end
+      @comments = comments_raw.includes(:author => :profile).order('created_at ASC')
       render :layout => false
     else
       raise ActiveRecord::RecordNotFound.new
