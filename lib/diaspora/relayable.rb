@@ -15,7 +15,7 @@ module Diaspora
 
         validates_associated :parent
         validates :author, :presence => true
-        
+
         delegate :public?, :to => :parent
       end
     end
@@ -70,7 +70,7 @@ module Diaspora
       comment_or_like.socket_to_user(user) if comment_or_like.respond_to? :socket_to_user
 
       if comment_or_like.after_receive(user, person)
-        comment_or_like 
+        comment_or_like
       end
     end
 
