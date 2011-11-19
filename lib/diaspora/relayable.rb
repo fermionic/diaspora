@@ -67,7 +67,9 @@ module Diaspora
         Postzord::Dispatcher.build(user, comment_or_like).post
       end
 
-      comment_or_like.socket_to_user(user) if comment_or_like.respond_to? :socket_to_user
+      if comment_or_like.respond_to?( :socket_to_user ) && ! user.ignoring?( comment_or_like.author )
+        comment_or_like.socket_to_user(user)
+      end
 
       if comment_or_like.after_receive(user, person)
         comment_or_like
