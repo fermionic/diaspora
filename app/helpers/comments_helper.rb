@@ -4,13 +4,14 @@
 
 module CommentsHelper
   GSUB_THIS = "FIUSDHVIUSHDVIUBAIUHAPOIUXJM"
-  def comment_toggle(post, commenting_disabled=false)
-    if post.comments.size <= 3
+  def comment_toggle(post, current_user, commenting_disabled=false)
+    num_comments = post.comments_unignored( current_user ).size
+    if num_comments <= 3
       link_to "#{t('stream_helper.hide_comments')}", post_comments_path(post.id), :class => "toggle_post_comments"
     elsif ! user_signed_in?
-      link_to "#{t('stream_helper.show_comments', :count => post.comments.size - 3)}", post_path(post.id, :all_comments => '1'), :class => "toggle_post_comments"
+      link_to "#{t('stream_helper.show_comments', :count => num_comments - 3)}", post_path(post.id, :all_comments => '1'), :class => "toggle_post_comments"
     else
-      link_to "#{t('stream_helper.show_comments', :count => post.comments.size - 3)}", post_comments_path(post.id), :class => "toggle_post_comments"
+      link_to "#{t('stream_helper.show_comments', :count => num_comments - 3)}", post_comments_path(post.id), :class => "toggle_post_comments"
     end
   end
 
