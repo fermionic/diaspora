@@ -88,4 +88,9 @@ class Post < ActiveRecord::Base
     self.triggers_caching? && RedisCache.configured? &&
       RedisCache.acceptable_types.include?(self.type) && user = self.author.owner
   end
+
+  def comments_unignored( ignorer )
+    @comments_unignored ||= Hash.new
+    @comments_unignored[ignorer] ||= comments.including_author.excluding_ignored( ignorer )
+  end
 end
