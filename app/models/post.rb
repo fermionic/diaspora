@@ -24,12 +24,25 @@ class Post < ActiveRecord::Base
   scope :includes_for_a_stream, includes(:o_embed_cache, {:author => :profile}, :mentions => {:person => :profile}) #note should include root and photos, but i think those are both on status_message
 
   def self.excluding_blocks(user)
-    people = user.blocks.includes(:person).map{|b| b.person}
+    ignored_person_ids = user.blocks.includes(:person).map{|b| b.person.id }
 
-    if people.present?
-      where("posts.author_id NOT IN (?)", people.map { |person| person.id })
-    else
+    if ignored_person_ids.empty?
       scoped
+    else
+      where(
+        %{
+          posts.author_id NOT IN (?)
+          AND (
+            root_guid IS NULL OR (
+              SELECT root_post.author_id
+              FROM posts AS root_post
+              WHERE root_post.guid = posts.root_guid
+            ) NOT IN (?)
+          )
+        },
+        ignored_person_ids,
+        ignored_person_ids
+      )
     end
   end
 
