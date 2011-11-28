@@ -23,4 +23,7 @@ class HomeController < ApplicationController
    end
     redirect_to :back
   end
+
+  def privacy_info
+  end
 end
