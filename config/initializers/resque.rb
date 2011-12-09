@@ -6,8 +6,8 @@ if !AppConfig.single_process_mode?
   if redis_to_go = ENV["REDISTOGO_URL"]
     uri = URI.parse(redis_to_go)
     Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
-  elsif AppConfig[:redis_url]
-    Resque.redis = Redis.new(:host => AppConfig[:redis_url], :port => 6379)
+  elsif AppConfig[:redis_uri]
+    Resque.redis = Redis.new(:host => AppConfig[:redis_uri].host,:port => AppConfig[:redis_uri].port)
   end
 end
 
