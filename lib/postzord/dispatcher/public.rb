@@ -13,6 +13,12 @@ class Postzord::Dispatcher::Public < Postzord::Dispatcher
     @xml = @object.to_diaspora_xml
 
     additional_subscribers = opts[:additional_subscribers] || []
+    AppConfig[:public_federation_destinations].each do |dest|
+      receptacle = Person.find_by_url(dest)
+      if receptacle
+        additional_subscribers << receptacle
+      end
+    end
     @subscribers = subscribers_from_object | [*additional_subscribers]
   end
 

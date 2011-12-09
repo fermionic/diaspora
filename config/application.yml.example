@@ -59,6 +59,12 @@ defaults: &defaults
   # to contact joindiaspora.com, set this to true:
   no_follow_diasporahq: false
 
+  # pod_url of pods where public messages of this pod will also be sent.
+  # This helps increase inter-pod public engagement.  Aspect-limited messages
+  # are not affected by this setting.
+  public_federation_destinations:
+    # - 'https://joindiaspora.com/'
+
   # Community Spotlight
   # (expressed as an array of Diaspora IDs)
   community_spotlight:
