@@ -114,6 +114,15 @@ HELP
     end
   end
 
+  def self.normalize_redis_urls
+    self[:redis_url] = "redis://localhost:6379" if self[:redis_url].blank?
+    self[:redis_cache_url] = self[:redis_url] if self[:redis_cache_url].blank?
+    self[:redis_uri] ||= URI.parse(self[:redis_url])
+    self[:redis_uri].port ||= 6379
+    self[:redis_cache_uri] ||= URI.parse(self[:redis_cache_url])
+    self[:redis_cache_uri].port ||= 6379
+  end
+
   load!
 
   def self.[] (key)
@@ -147,12 +156,4 @@ HELP
     (ENV['SINGLE_PROCESS'] == "true" || ENV['SINGLE_PROCESS_MODE'] == "true" || self[:single_process_mode]) ? true : false
   end
 
-  def self.normalize_redis_urls
-    self[:redis_url] = "redis://localhost:6379" if self[:redis_url].blank?
-    self[:redis_cache_url] = self[:redis_url] if self[:redis_cache_url].blank?
-    self[:redis_uri] ||= URI.parse(self[:redis_url])
-    self[:redis_uri].port ||= 6379
-    self[:redis_cache_uri] ||= URI.parse(self[:redis_cache_url])
-    self[:redis_cache_uri].port ||= 6379
-  end
 end
