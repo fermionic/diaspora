@@ -489,6 +489,11 @@ class User < ActiveRecord::Base
   end
 
   def ignoring?( other )
-    blocks.includes(:person).any? { |ignored| ignored.person == other.person }
+    if other.respond_to?(:person)
+      other_person = other.person
+    else
+      other_person = other
+    end
+    blocks.includes(:person).any? { |ignored| ignored.person == other_person }
   end
 end
