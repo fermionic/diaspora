@@ -28,7 +28,7 @@ class ActsAsTaggableOn::Tag
       SELECT id, name
       FROM v__tags_trending
       ORDER BY count DESC
-      LIMIT 30
+      LIMIT 5
     }
   end
 
@@ -39,7 +39,7 @@ class ActsAsTaggableOn::Tag
       SELECT id, name
       FROM v__tags_trending_new
       ORDER BY count DESC
-      LIMIT 30
+      LIMIT 5
     }
   end
 end
