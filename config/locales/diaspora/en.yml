@@ -871,6 +871,10 @@ en:
       connecting_is_simple: "Connecting your Diaspora account is simple!  Just enter your Diaspora ID (<b>%{diaspora_id}</b>) from your cubbies <a href='%{href_link}'>settings page</a> and hit connect."
       via: "(via %{link})"
 
+  trending:
+    today: 'Trending'
+    new: 'New Trends'
+
   authorizations:
     index:
       revoke_access: "Revoke Access"

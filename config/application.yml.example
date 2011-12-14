@@ -75,6 +75,10 @@ defaults: &defaults
   # This allows an administrator to see info about the workers
   mount_resque_web: true
 
+  # Whether or not to show Trending tags
+  # This works ONLY with PostgreSQL right now!
+  trends: false
+
   # Logging setup
 
   # Enable extensive logging to log/{development,test,production}.log
@@ -127,7 +131,7 @@ defaults: &defaults
 
   # The path to the sendmail binary. Ignored if mailer_method is not set to sendmail
   sendmail_location: '/usr/sbin/sendmail'
-  
+
   # Set this to true if you want to use exim and sendmail
   sendmail_exim_fix: false
 
@@ -199,7 +203,7 @@ defaults: &defaults
   cloudfiles_images_container: 'Image Backup'
 
   # Donations
-  
+
   # Leave this blank to not show the request for donations
   # Use paypal for recurring donations
   paypal_hosted_button_id: ""
