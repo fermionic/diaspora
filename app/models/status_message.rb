@@ -33,7 +33,7 @@ class StatusMessage < Post
   scope :where_person_is_mentioned, lambda { |person|
     joins(:mentions).where(:mentions => {:person_id => person.id})
   }
-  
+
   scope :commented_by, lambda { |person|
     select('DISTINCT posts.*').joins(:comments).where(:comments => {:author_id => person.id})
   }
@@ -168,8 +168,8 @@ class StatusMessage < Post
 
   def queue_gather_oembed_data
     Resque.enqueue(Jobs::GatherOEmbedData, self.id, self.oembed_url)
-  end 
-  
+  end
+
   def contains_oembed_url_in_text?
     require 'uri'
     urls = URI.extract(self.raw_message, ['http', 'https'])
