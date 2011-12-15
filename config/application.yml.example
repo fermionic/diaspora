@@ -59,9 +59,11 @@ defaults: &defaults
   # to contact joindiaspora.com, set this to true:
   no_follow_diasporahq: false
 
-  # pod_url of pods where public messages of this pod will also be sent.
+  # The URLs of pods where public messages of this pod will also be sent.
   # This helps increase inter-pod public engagement.  Aspect-limited messages
   # are not affected by this setting.
+  # The strings MUST match what is found in the people.url column.  In other
+  # words, don't forget the "https://" part, and the trailing slash.
   public_federation_destinations:
     # - 'https://joindiaspora.com/'
 
