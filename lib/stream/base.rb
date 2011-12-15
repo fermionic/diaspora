@@ -51,10 +51,7 @@ class Stream::Base
     self.posts.for_a_stream(
       max_time, order, self.user
     ).reject { |p|
-      (
-        [ 'tag1', ] &
-        p.tag_strings
-      ).any?
+      ( user.tags_that_exclude.map { |t| t.name } & p.tag_strings ).any?
     }
   end
 

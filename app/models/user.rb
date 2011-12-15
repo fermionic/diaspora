@@ -43,6 +43,8 @@ class User < ActiveRecord::Base
   has_many :user_preferences, :dependent => :destroy
   has_many :tag_followings, :dependent => :destroy
   has_many :followed_tags, :through => :tag_followings, :source => :tag, :order => 'tags.name'
+  has_many :tag_exclusions, :dependent => :destroy
+  has_many :tags_that_exclude, :through => :tag_exclusions, :source => :tag, :order => 'tags.name'
   has_many :blocks
 
   has_many :authorizations, :class_name => 'OAuth2::Provider::Models::ActiveRecord::Authorization', :foreign_key => :resource_owner_id
@@ -73,12 +75,12 @@ class User < ActiveRecord::Base
     identifier = invitation.identifier
 
     if service == 'email'
-      existing_user = User.where(:email => identifier).first 
+      existing_user = User.where(:email => identifier).first
     else
       existing_user = User.joins(:services).where(:services => {:type => "Services::#{service.titleize}", :uid => identifier}).first
     end
-   
-   if existing_user.nil? 
+
+   if existing_user.nil?
     i = Invitation.where(:service => service, :identifier => identifier).first
     existing_user = i.recipient if i
    end
@@ -341,7 +343,7 @@ class User < ActiveRecord::Base
       self.invitation_token = nil
       self.password              = opts[:password]
       self.password_confirmation = opts[:password_confirmation]
-      
+
       self.save
       return unless self.errors.empty?
 
