@@ -25,9 +25,14 @@ class ActsAsTaggableOn::Tag
     return []  if ! AppConfig[:trends]
 
     find_by_sql %{
-      SELECT id, name
-      FROM v__tags_trending
-      ORDER BY count DESC
+      SELECT
+          id
+        , name
+      FROM
+          v__tags_trending
+      ORDER BY
+          count DESC
+        , most_recent_tagging DESC
       LIMIT 5
     }
   end
@@ -36,9 +41,14 @@ class ActsAsTaggableOn::Tag
     return []  if ! AppConfig[:trends]
 
     find_by_sql %{
-      SELECT id, name
-      FROM v__tags_trending_new
-      ORDER BY count DESC
+      SELECT
+          id
+        , name
+      FROM
+          v__tags_trending_new
+      ORDER BY
+          count DESC
+        , most_recent_tagging DESC
       LIMIT 5
     }
   end
