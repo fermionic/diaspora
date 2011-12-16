@@ -11,6 +11,7 @@ en:
   account: "Account"
   privacy: "Privacy"
   privacy_policy: "Privacy Policy"
+  filters: 'Filters'
   terms_and_conditions: "Terms and Conditions"
   _services: "Services"
   _applications: "Applications"
@@ -960,6 +961,11 @@ en:
       title: "Privacy Settings"
       ignored_users: "Ignored Users"
       stop_ignoring: "Stop ignoring"
+
+    filters:
+      title: 'Filters'
+      tag_exclusions: 'Tags to Filter Out'
+      delete: 'Delete'
 
     destroy:
       success: "Your account has been locked.  It may take 20 minutes for us to finish closing your account.  Thank you for trying Diaspora."

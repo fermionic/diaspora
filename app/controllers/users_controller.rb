@@ -24,6 +24,10 @@ class UsersController < ApplicationController
     @blocks = current_user.blocks.includes(:person)
   end
 
+  def filters
+    @tag_exclusions = current_user.tag_exclusions
+  end
+
   def update
     password_changed = false
     @user = current_user
@@ -148,7 +152,7 @@ class UsersController < ApplicationController
   def user_photo
     username = params[:username].split('@')[0]
     user = User.find_by_username(username)
-    if user.present? 
+    if user.present?
       redirect_to user.profile.image_url
     else
       render :nothing => true, :status => 404
