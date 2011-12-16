@@ -858,6 +858,14 @@ en:
     destroy:
       success: "Alas! You aren't following #%{name} anymore."
       failure: "Failed to stop following #%{name}. Maybe you already stopped following it?"
+  tag_exclusions:
+    create:
+      success: "You will no longer see posts or comments tagged #%{name}."
+      failure: "Failed to filter by #%{name}.  Are you already filtering by it?"
+      none: "Please specify a hashtag to filter out."
+    destroy:
+      success: "Posts and comments tagged #%{name} are no longer hidden from you."
+      failure: "Failed to remove filter on #%{name}. Maybe you already removed it?"
 
   tokens:
     show:

@@ -58,6 +58,7 @@ Diaspora::Application.routes.draw do
   get "tag_followings" => "tag_followings#index", :as => 'tag_followings'
   resources :mentions, :only => [:index]
   resources "tag_followings", :only => [:create]
+  resources 'tag_exclusions', :only => [:create, :destroy]
 
   get 'comment_stream' => 'comment_stream#index', :as => 'comment_stream'
 
