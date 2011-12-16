@@ -51,7 +51,13 @@ class Stream::Base
     self.posts.for_a_stream(
       max_time, order, self.user
     ).reject { |p|
-      ( user.tags_that_exclude.map { |t| t.name } & p.tag_strings ).any?
+      # No need to check tag filters if there is no user signed in
+      # Reshares and Photos don't have tags
+      if user && p.respond_to?(:tag_strings)
+        (
+          user.tags_that_exclude.map { |t| t.name } & p.tag_strings
+        ).any?
+      end
     }
   end
 
