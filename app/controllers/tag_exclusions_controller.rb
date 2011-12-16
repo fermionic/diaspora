@@ -3,21 +3,18 @@ class TagExclusionsController < ApplicationController
 
   # POST /tag_exclusions
   def create
-    return
-    # TODO
-
-    name_normalized = ActsAsTaggableOn::Tag.normalize(params['name'])
+    name_normalized = ActsAsTaggableOn::Tag.normalize(params['tag_exclusion']['name'])
 
     if name_normalized.nil? || name_normalized.empty?
-      flash[:error] = I18n.t('tag_followings.create.none')
+      flash[:error] = I18n.t('tag_exclusions.create.none')
     else
-      @tag = ActsAsTaggableOn::Tag.find_or_create_by_name(name_normalized)
-      @tag_following = current_user.tag_followings.new(:tag_id => @tag.id)
+      tag = ActsAsTaggableOn::Tag.find_or_create_by_name(name_normalized)
+      tag_exclusion = current_user.tag_exclusions.new(:tag_id => tag.id)
 
-      if @tag_following.save
-        flash[:notice] = I18n.t('tag_followings.create.success', :name => name_normalized)
+      if tag_exclusion.save
+        flash[:notice] = I18n.t('tag_exclusions.create.success', :name => name_normalized)
       else
-        flash[:error] = I18n.t('tag_followings.create.failure', :name => name_normalized)
+        flash[:error] = I18n.t('tag_exclusions.create.failure', :name => name_normalized)
       end
     end
 
