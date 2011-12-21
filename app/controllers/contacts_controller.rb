@@ -70,6 +70,8 @@ class ContactsController < ApplicationController
         next
       end
 
+      next  if person == current_user.person
+
       added = false
       already_added = false
       node.xpath('aspects/aspect').each do |node_aspect|
