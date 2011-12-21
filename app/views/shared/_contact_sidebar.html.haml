@@ -16,7 +16,7 @@
 
   %hr
 
-    = form_tag contacts_import_url, :multipart => true do
+    = form_tag contacts_import_path, :multipart => true do
       %h4
         Import contact list
       = file_field_tag 'file', :accept => 'text/xml'
