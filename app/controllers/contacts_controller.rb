@@ -57,8 +57,16 @@ class ContactsController < ApplicationController
     doc = Nokogiri::XML( file.read )
     doc.xpath('/export/contacts/contact').each do |node|
       num_in_file += 1
-      person = Person.find_by_guid( node.at_xpath('person_guid').content.strip )
-      next  if person.nil?
+      guid = node.at_xpath('person_guid').content.strip
+      person = Person.find_by_guid(guid)
+      if person.nil?
+        node_handle = doc.at_xpath("/export/people/person/guid[text()='#{guid}']/../diaspora_handle")
+        if node_handle
+          Resque.enqueue  Jobs::SocketWebfinger, current_user.id, node_handle.content.strip, {}
+        end
+        # Discard this person record until next import attempt
+        next
+      end
 
       added = false
       already_added = false
