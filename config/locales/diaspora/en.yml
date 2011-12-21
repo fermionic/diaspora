@@ -264,8 +264,9 @@ en:
     spotlight:
       community_spotlight: "Community Spotlight"
     import:
-      imported: 'Imported %{num_added} out of %{num_in_file} contacts.'
-      already_added: '(%{num_already} have already been added.)'
+      imported: 'Imported %{num_added} contact(s).'
+      already_added: '%{num_already} contact(s) have already been added.'
+      searched: '%{num_searched} contact(s) are being downloaded. Try again later.'
 
   conversations:
     index:

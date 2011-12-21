@@ -53,6 +53,7 @@ class ContactsController < ApplicationController
     num_in_file = 0
     num_already = 0
     num_added = 0
+    num_searched = 0
     aspect = current_user.aspects.first
     doc = Nokogiri::XML( file.read )
     doc.xpath('/export/contacts/contact').each do |node|
@@ -63,6 +64,7 @@ class ContactsController < ApplicationController
         node_handle = doc.at_xpath("/export/people/person/guid[text()='#{guid}']/../diaspora_handle")
         if node_handle
           Resque.enqueue  Jobs::SocketWebfinger, current_user.id, node_handle.content.strip, {}
+          num_searched += 1
         end
         # Discard this person record until next import attempt
         next
@@ -89,11 +91,21 @@ class ContactsController < ApplicationController
       end
     end
 
-    message = I18n.t('.contacts.import.imported', :num_added => num_added, :num_in_file => num_in_file)
-    if num_already > 0
-      message << ' ' << I18n.t('.contacts.import.already_added', :num_already => num_already)
+    if num_added > 0
+      message = I18n.t('.contacts.import.imported', :num_added => num_added)
+    elsif num_already > 0
+      message = I18n.t('.contacts.import.already_added', :num_already => num_already)
     end
-    flash[:notice] = message
+    if num_searched > 0
+      message << ' ' << I18n.t('.contacts.import.searched', :num_searched => num_searched)
+    end
+
+    if message
+      flash[:notice] = message
+    else
+      flash[:error] = 'Failed to import any contacts.'
+    end
+
     redirect_to contacts_path
   end
 
