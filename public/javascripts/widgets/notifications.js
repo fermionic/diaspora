@@ -17,10 +17,10 @@
 
       $(".unread-setter").live("mousedown", self.unreadClick);
       $(".stream_element.unread").live("mousedown", self.messageClick);
-      $('.notification_element.read').live('mouseover', function() {
+      $('.notification_element.read, .stream_element.read').live('mouseover', function() {
         $(this).find('.unread-setter').show();
       } );
-      $('.notification_element.read').live('mouseout', function() {
+      $('.notification_element.read, .stream_element.read').live('mouseout', function() {
         $(this).find('.unread-setter').hide();
       } );
 
@@ -44,7 +44,7 @@
     this.unreadClick = function(evt) {
       self.unreadClicked = true;
       $.ajax({
-        url: "notifications/" + $(this).closest('.notification_element').data("guid"),
+        url: "notifications/" + $(this).closest('.notification_element,.stream_element').data("guid"),
         data: { unread: 'true' },
         type: "PUT",
         success: self.clickSuccess
