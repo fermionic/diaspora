@@ -71,6 +71,7 @@
               "class": "timeago",
               "title": notification.created_at
             }))
+            .append('<a class="unread-setter">mark unread</a>')
             .appendTo(self.dropdownNotifications);
 
           notificationElement.find("abbr.timeago").timeago();
