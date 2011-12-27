@@ -69,9 +69,8 @@ class Reshare < Post
       raise "Failed to get #{url}" unless response.success? # Other error, N/A for example
       Diaspora::Parser.from_xml(response.body)
     rescue Timeout::Error
-      # fall through and return a false-ish result
+      nil
     end
-    nil
   end
 
   def root_must_be_public
