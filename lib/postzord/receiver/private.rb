@@ -42,10 +42,15 @@ class Postzord::Receiver::Private < Postzord::Receiver
 
   # @return [Object]
   def receive_object
-    obj = @object.receive(@user, @author)
-    Notification.notify(@user, obj, @author) if obj.respond_to?(:notification_type)
-    Rails.logger.info("event=receive status=complete recipient=#{@user_person.diaspora_handle} sender=#{@sender.diaspora_handle} payload_type=#{obj.class}")
-    obj
+    begin
+      obj = @object.receive(@user, @author)
+      Notification.notify(@user, obj, @author) if obj.respond_to?(:notification_type)
+      Rails.logger.info("event=receive status=complete recipient=#{@user_person.diaspora_handle} sender=#{@sender.diaspora_handle} payload_type=#{obj.class}")
+      obj
+    rescue ActiveRecord::RecordNotUnique
+      Rails.logger.debug "Received object (#{@object.class} guid #{@object.guid}) already in local DB."
+      nil
+    end
   end
 
   def update_cache!
@@ -108,7 +113,7 @@ class Postzord::Receiver::Private < Postzord::Receiver
   def contact_required_unless_request
     unless @object.is_a?(Request) || @user.contact_for(@sender)
       Rails.logger.info("event=receive status=abort reason='sender not connected to recipient' recipient=#{@user_person.diaspora_handle} sender=#{@sender.diaspora_handle}")
-      return true 
+      return true
     end
   end
 
