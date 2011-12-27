@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
 
   respond_to :html, :mobile, :except => :show
   respond_to :js, :only => [:index]
+  respond_to :json
 
   rescue_from ActiveRecord::RecordNotFound do
     render :nothing => true, :status => 404
@@ -36,6 +37,12 @@ class CommentsController < ApplicationController
     else
       render :nothing => true, :status => 422
     end
+  end
+  def preview
+    a_comment = current_user.build_comment(:text => params['text'] )
+    render :json => {
+      'result' => render_to_string( :partial => 'comments/comment_content', :locals => { :comment => a_comment, :can_comment => true } )
+    }
   end
 
   def destroy
