@@ -7,7 +7,7 @@ class Postzord::Receiver::Public < Postzord::Receiver
   attr_accessor :salmon, :author
 
   def initialize(xml)
-    @salmon = Salmon::Slap.from_xml(xml) 
+    @salmon = Salmon::Slap.from_xml(xml)
     @author = Webfinger.new(@salmon.author_id).fetch
   end
 
@@ -45,7 +45,12 @@ class Postzord::Receiver::Public < Postzord::Receiver
   def save_object
     @object = Diaspora::Parser::from_xml(@salmon.parsed_data)
     raise "Object is not public" if object_can_be_public_and_it_is_not?
-    @object.save
+    begin
+      @object.save
+    rescue ActiveRecord::RecordNotUnique
+      Rails.logger.debug "Received object (#{@object.class} ID #{@object.id}) already in local DB."
+      nil
+    end
   end
 
   # @return [Array<Integer>] User ids
