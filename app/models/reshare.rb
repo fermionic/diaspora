@@ -36,7 +36,7 @@ class Reshare < Post
   def notification_type(user, person)
     Notifications::Reshared if root.author == user.person
   end
-  
+
   private
 
   def after_parse
@@ -46,7 +46,7 @@ class Reshare < Post
     return if Post.exists?(:guid => self.root_guid)
 
     fetched_post = self.class.fetch_post(root_author, self.root_guid)
-    
+
     if fetched_post
       #Why are we checking for this?
       if root_author.diaspora_handle != fetched_post.diaspora_handle
@@ -60,13 +60,18 @@ class Reshare < Post
   # Fetch a remote public post, used for receiving reshares of unknown posts
   # @param [Person] author the remote post's author
   # @param [String] guid the remote post's guid
-  # @return [Post] an unsaved remote post or false if the post was not found
+  # @return [Post] an unsaved remote post or nil if the post was not found
   def self.fetch_post author, guid
     url = author.url + "/p/#{guid}.xml"
-    response = Faraday.get(url)
-    return false if response.status == 404 # Old pod, friendika
-    raise "Failed to get #{url}" unless response.success? # Other error, N/A for example
-    Diaspora::Parser.from_xml(response.body)
+    begin
+      response = Faraday.get(url)
+      return nil  if response.status == 404 # Old pod, friendika
+      raise "Failed to get #{url}" unless response.success? # Other error, N/A for example
+      Diaspora::Parser.from_xml(response.body)
+    rescue Timeout::Error
+      # fall through and return a false-ish result
+    end
+    nil
   end
 
   def root_must_be_public
