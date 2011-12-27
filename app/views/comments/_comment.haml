@@ -1,0 +1,9 @@
+-#   Copyright (c) 2010-2011, Diaspora Inc.  This file is
+-#   licensed under the Affero General Public License version 3 or later.  See
+-#   the COPYRIGHT file.
+
+%li.comment.posted{:id => comment.guid, :class => ("hidden" if(defined? hidden))}
+  - if current_user && (current_user.owns?(comment) || current_user.owns?(post))
+    .right.controls
+      = link_to image_tag('deletelabel.png'), post_comment_path(comment.commentable_id, comment), :class => "delete comment_delete", :title => t('delete')
+  = render :partial => 'comments/comment_content', :locals => { :comment => comment, :can_comment => commenting_disabled?(post) }
