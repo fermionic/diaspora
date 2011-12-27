@@ -48,7 +48,7 @@ class Postzord::Receiver::Public < Postzord::Receiver
     begin
       @object.save
     rescue ActiveRecord::RecordNotUnique
-      Rails.logger.debug "Received object (#{@object.class} ID #{@object.id}) already in local DB."
+      Rails.logger.info "Received object (#{@object.class} ID #{@object.id}) already in local DB."
       nil
     end
   end
