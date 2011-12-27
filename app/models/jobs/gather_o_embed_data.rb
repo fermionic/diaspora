@@ -8,9 +8,11 @@ module Jobs
     @queue = :http_service
 
     def self.perform(post_id, url)
-      post = Post.find(post_id)
-      post.o_embed_cache = OEmbedCache.find_or_create_by_url(url)
-      post.save
+      post = Post.find_by_id(post_id)
+      if post
+        post.o_embed_cache = OEmbedCache.find_or_create_by_url(url)
+        post.save
+      end
     end
   end
 end
