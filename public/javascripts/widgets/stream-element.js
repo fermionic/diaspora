@@ -22,7 +22,7 @@
         postScope: element.find("span.post_scope")
       });
       self.commentStream.subscribe("comment/added", function(evt, comment) {
-        self.commentForm.hidePreviewItems(comment.parents(".comment_stream").find("form.new_comment"));
+        self.commentForm.formSubmissionComplete(comment.parents(".comment_stream").find("form.new_comment"));
       });
 
       // twipsy tooltips

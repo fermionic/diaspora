@@ -36,6 +36,9 @@
         return false;
       });
     }
+    this.formSubmissionComplete = function(formElement) {
+      this.hidePreviewItems(formElement);
+    }
     this.showPreviewItems = function(formElement, data) {
       formElement.find('#comm-preview').hide();
       formElement.find( '#comm-preview-edit').removeClass("dim").show();
