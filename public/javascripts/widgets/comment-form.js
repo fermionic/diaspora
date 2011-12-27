@@ -23,7 +23,7 @@
         evt.preventDefault();
         $( this ).addClass('dim');
 
-        $.post('cpreview.json', { text: self.commentFormElement.find('.comment_box[name=text]').val() },
+        $.post('comment_preview.json', { text: self.commentFormElement.find('.comment_box[name=text]').val() },
           function(data){
             self.showPreviewItems(self.commentFormElement, data);
           }
