@@ -54,6 +54,9 @@ en:
       comments:
         show: "show all comments"
         hide: "hide comments"
+        new_comment:
+          preview: "preview"
+          edit: "edit"
       reshares:
         duplicate: "That good, huh?  You've already reshared that post!"
       aspect_navigation:
