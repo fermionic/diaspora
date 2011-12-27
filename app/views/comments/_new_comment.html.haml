@@ -4,6 +4,8 @@
 
 = form_tag( post_comments_path(post_id), :id => "new_comment_on_#{post_id}", :class => 'new_comment', :remote => true) do
   .content_hldr#comment_preview.ltr.collapsible
+    %p.warningText
+      = t('.preview')
     %ul.preview_comments
       %li.comment.previews
   .content_hldr#comment_form
