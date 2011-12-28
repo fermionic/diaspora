@@ -36,7 +36,7 @@ class Postzord::Receiver::Private < Postzord::Receiver
       set_author!
       receive_object
     else
-      raise "not a valid object:#{@object.inspect}"
+      Rails.logger.warn "Not a valid object: #{@object.inspect}"
     end
   end
 
@@ -78,7 +78,11 @@ class Postzord::Receiver::Private < Postzord::Receiver
 
   def validate_object
     raise "Contact required unless request" if contact_required_unless_request
-    raise "Relayable object, but no parent object found" if relayable_without_parent?
+
+    if relayable_without_parent?
+      Rails.logger.info "Relayable object, but no parent object found"
+      return nil
+    end
 
     assign_sender_handle_if_request
 
