@@ -13,7 +13,11 @@ class Postzord::Receiver::Public < Postzord::Receiver
 
   # @return [Boolean]
   def verified_signature?
-    @salmon.verified_for_key?(@author.public_key)
+    if @author
+      @salmon.verified_for_key?(@author.public_key)
+    else
+      false
+    end
   end
 
   # @return [void]
