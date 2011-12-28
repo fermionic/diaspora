@@ -14,7 +14,7 @@ module Jobs
 
       photo.processed_image.store!(unprocessed_image)
 
-      photo.save!
+      photo.save or Rails.logger.info("ProcessPhoto job failed: #{photo.errors.inspect}")
     end
   end
 end
