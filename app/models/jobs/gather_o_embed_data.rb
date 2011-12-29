@@ -11,7 +11,9 @@ module Jobs
       post = Post.find_by_id(post_id)
       if post
         post.o_embed_cache = OEmbedCache.find_or_create_by_url(url)
-        post.save
+        if post.o_embed_cache.data
+          post.save
+        end
       end
     end
   end
