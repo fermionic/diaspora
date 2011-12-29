@@ -35,7 +35,7 @@
       if( self.unreadClicked ) { return; }
       if( $(this).hasClass('read') ) { return; }
       $.ajax({
-        url: "notifications/" + $(this).data("guid"),
+        url: "/notifications/" + $(this).data("guid"),
         data: { unread: 'false' },
         type: "PUT",
         success: self.clickSuccess
@@ -44,7 +44,7 @@
     this.unreadClick = function(evt) {
       self.unreadClicked = true;
       $.ajax({
-        url: "notifications/" + $(this).closest('.notification_element,.stream_element').data("guid"),
+        url: "/notifications/" + $(this).closest('.notification_element,.stream_element').data("guid"),
         data: { unread: 'true' },
         type: "PUT",
         success: self.clickSuccess
