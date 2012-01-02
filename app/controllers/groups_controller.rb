@@ -22,6 +22,7 @@ class GroupsController < ApplicationController
       ! [
         'identifier',
         'name',
+        'admission',
         'description',
       ].include? k
     }

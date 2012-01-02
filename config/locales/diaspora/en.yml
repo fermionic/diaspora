@@ -314,6 +314,11 @@ en:
       submit: 'Create Group'
       group_membership: 'Group Membership'
       group_membership_desc: 'You are a member of these groups:'
+      admission:
+        label: 'Admission:'
+        open: 'Open'
+        on_approval: 'Requires approval'
+        manual: 'Manual addition only'
     show:
       edit_group: 'Edit Group'
       join_group: 'Join Group'
