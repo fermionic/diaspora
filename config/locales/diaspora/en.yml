@@ -331,8 +331,15 @@ en:
       cancel: 'Cancel'
       members: 'Members'
       remove: 'remove'
+      new_members: 'New Member(s)'
+      new_members_label: 'one or more Diaspora IDs'
+      add_new_members: 'Add Member(s)'
     update:
       success: 'Group updated.'
+    members:
+      add:
+        success: '%{num} member(s) added.'
+        failure: 'One or more Diaspora IDs were not found.'
 
   home:
     show:

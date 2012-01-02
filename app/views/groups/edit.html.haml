@@ -18,8 +18,16 @@
 
 %h2= t('.members')
 
-%ul
-- @group.members.each do |m|
-  %li
-    = m.name
-    = link_to t('.remove'), group_member_url(@group, m), :method => :delete
+= form_tag group_members_url(@group) do
+  %h4= t('.new_members')
+  %p
+    = label_tag 'group_members[handles]', t('.new_members_label')
+    = text_field 'group_members', 'handles'
+  %p
+    = submit_tag t('.add_new_members')
+
+%ul#group_members
+  - @group.members.each do |m|
+    %li
+      = m.name
+      = link_to t('.remove'), group_member_url(@group, m), :method => :delete
