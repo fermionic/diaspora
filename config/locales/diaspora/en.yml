@@ -330,11 +330,11 @@ en:
       description_label: 'Description (include hashtags if you wish)'
       submit: 'Update Group'
       cancel: 'Cancel'
-      members: 'Members'
       remove: 'remove'
       new_members: 'New Member(s)'
       new_members_label: 'one or more Diaspora IDs'
       add_new_members: 'Add Member(s)'
+      current_members: 'Current Members'
     update:
       success: 'Group updated.'
     members:
