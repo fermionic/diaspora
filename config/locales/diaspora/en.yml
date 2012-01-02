@@ -314,6 +314,8 @@ en:
       submit: 'Create Group'
       group_membership: 'Group Membership'
       group_membership_desc: 'You are a member of these groups:'
+    show:
+      edit_group: 'Edit Group'
     create:
       already_exists: 'That group already exists.'
       failed: 'Failed to create group.'
@@ -326,6 +328,7 @@ en:
       name_label: 'Name (for example: The Toronto Cycling Club)'
       description_label: 'Description (include hashtags if you wish)'
       submit: 'Update Group'
+      cancel: 'Cancel'
     update:
       success: 'Group updated.'
 

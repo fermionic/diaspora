@@ -76,6 +76,6 @@ class GroupsController < ApplicationController
     )
 
     flash[:notice] = t('groups.update.success')
-    redirect_to(:back)
+    redirect_to group_path(group)
   end
 end

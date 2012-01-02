@@ -9,6 +9,10 @@
       %span.group_identifier
         = @group.identifier_full
 
+      - if current_user.admin_of?(@group)
+        #edit_group
+          = link_to t('.edit_group'), edit_group_path(@group), :class => 'button'
+
       .description
         = markdownify(@group.description)
 
