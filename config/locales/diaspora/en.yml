@@ -305,6 +305,7 @@ en:
       birthday_with_year: "%B %d %Y"
 
   groups:
+    valid_characters: 'Only letters, numbers, hyphen and underscore allowed'
     index:
       create_group: 'Create a New Group'
       identifier: 'Identifier (for example: torontocyclists)'

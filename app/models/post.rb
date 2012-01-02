@@ -93,15 +93,9 @@ class Post < ActiveRecord::Base
   def parse_groups
     return  if ! self.public
 
-    if RUBY_VERSION.include?('1.9')
-      characters ="[[:alnum:]]_-"
-    else
-      characters = "\\w-"
-    end
-
     pod_host = AppConfig[:pod_uri].host
 
-    self.text.scan(/!([#{characters}]+)@#{pod_host}/).each do |match|
+    self.text.scan(/!([#{Group::VALID_CHARACTERS}]+)@#{pod_host}/).each do |match|
       group = Group.find_by_identifier(match[0])
       next  if group.nil?
       next  if ! author.member_of?(group)
