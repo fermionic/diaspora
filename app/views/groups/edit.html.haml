@@ -15,3 +15,11 @@
   %p
     = f.submit t('.submit')
     = link_to t('.cancel'), group_path(@group), :class => 'button'
+
+%h2= t('.members')
+
+%ul
+- @group.members.each do |m|
+  %li
+    = m.name
+    = link_to t('.remove'), group_member_url(@group, m), :method => :delete

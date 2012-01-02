@@ -329,6 +329,8 @@ en:
       description_label: 'Description (include hashtags if you wish)'
       submit: 'Update Group'
       cancel: 'Cancel'
+      members: 'Members'
+      remove: 'remove'
     update:
       success: 'Group updated.'
 
