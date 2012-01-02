@@ -72,11 +72,12 @@ class GroupsController < ApplicationController
     attribs = params['group']
     group.update_attributes(
       :name        => attribs['name'],
-      :description => attribs['description']
+      :description => attribs['description'],
+      :admission   => attribs['admission']
     )
 
     flash[:notice] = t('groups.update.success')
-    redirect_to group_path(group)
+    redirect_to edit_group_path(group)
   end
 
   def join

@@ -12,6 +12,14 @@
     %h4= t('.description')
     = f.label :description, t('.description_label')
     = f.text_area :description, :rows => 8
+  #group_admission
+    %h4= t('.admission_label')
+    = f.radio_button :admission, 'open'
+    %span= t('.admission.open')
+    = f.radio_button :admission, 'on-approval'
+    %span= t('.admission.on_approval')
+    = f.radio_button :admission, 'manual'
+    %span= t('.admission.manual')
   %p
     = f.submit t('.submit')
     = link_to t('.cancel'), group_path(@group), :class => 'button'

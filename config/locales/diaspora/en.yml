@@ -328,6 +328,7 @@ en:
       identifier_label: 'Identifier (for example: torontocyclists)'
       name_label: 'Name (for example: The Toronto Cycling Club)'
       description_label: 'Description (include hashtags if you wish)'
+      admission_label: 'Admission'
       submit: 'Update Group'
       cancel: 'Cancel'
       remove: 'remove'
@@ -338,6 +339,10 @@ en:
       approve: 'approve'
       reject: 'reject'
       current_members: 'Current Members'
+      admission:
+        open: 'Open'
+        on_approval: 'Requires approval'
+        manual: 'Manual addition only'
     update:
       success: 'Group updated.'
     members:
