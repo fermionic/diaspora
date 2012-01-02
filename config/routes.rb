@@ -28,6 +28,7 @@ Diaspora::Application.routes.draw do
 
   resources :groups do
     resources :members, :controller => 'group_members', :only => [:create, :destroy,]
+    post 'join'
   end
   get '/g/:identifier' => 'groups#show', :as => 'group_by_identifier'
 

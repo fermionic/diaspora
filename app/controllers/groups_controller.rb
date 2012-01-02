@@ -78,4 +78,20 @@ class GroupsController < ApplicationController
     flash[:notice] = t('groups.update.success')
     redirect_to group_path(group)
   end
+
+  def join
+    group = Group.find_by_id( params[:group_id].to_i )
+    if group.nil?
+      return redirect_to(:back)
+    end
+
+    if current_user.member_of?(group)
+      flash[:error] = t('groups.join.already_member')
+    else
+      group.members << current_user.person
+      flash[:notice] = t('groups.join.success', :name => group.name)
+    end
+
+    redirect_to(:back)
+  end
 end

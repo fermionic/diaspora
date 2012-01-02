@@ -316,6 +316,7 @@ en:
       group_membership_desc: 'You are a member of these groups:'
     show:
       edit_group: 'Edit Group'
+      join_group: 'Join Group'
     create:
       already_exists: 'That group already exists.'
       failed: 'Failed to create group.'
@@ -340,6 +341,9 @@ en:
       add:
         success: '%{num} member(s) added.'
         failure: 'One or more Diaspora IDs were not found.'
+    join:
+      already_member: 'You are already a member of the group.'
+      success: 'Welcome to %{name}!'
 
   home:
     show:
