@@ -1,0 +1,16 @@
+%h2= t('.editing_group', :name => @group.name)
+
+= form_for @group, :url => { :action => 'update' }, :method => 'put' do |f|
+  %p
+    %h4= t('.identifier')
+    %span= @group.identifier_full
+  %p
+    %h4= t('.name')
+    = f.label :name, t('.name_label')
+    = f.text_field :name
+  %p
+    %h4= t('.description')
+    = f.label :description, t('.description_label')
+    = f.text_area :description, :rows => 8
+  %p
+    = f.submit t('.submit')

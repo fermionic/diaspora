@@ -13,4 +13,8 @@ class Group < ActiveRecord::Base
   has_many :posts, :through => :group_posts
   has_many :group_members
   has_many :members, :through => :group_members, :source => :person
+
+  def identifier_full
+    self.identifier + '@' + AppConfig[:pod_uri].host
+  end
 end

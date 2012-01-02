@@ -291,7 +291,11 @@ class Person < ActiveRecord::Base
   end
 
   def member_of?(group)
-    !! GroupMember.find_by_group_id_and_person_id(group.id, self.id)
+    !! GroupMember.find_by_group_id_and_person_id( group.id, self.id )
+  end
+
+  def admin_of?(group)
+    !! GroupMember.find_by_group_id_and_person_id_and_admin( group.id, self.id, true )
   end
 
   protected

@@ -316,6 +316,17 @@ en:
     create:
       already_exists: 'That group already exists.'
       failed: 'Failed to create group.'
+    edit:
+      editing_group: 'Editing Group: %{name}'
+      identifier: 'Identifier:'
+      name: 'Name:'
+      description: 'Description:'
+      identifier_label: 'Identifier (for example: torontocyclists)'
+      name_label: 'Name (for example: The Toronto Cycling Club)'
+      description_label: 'Description (include hashtags if you wish)'
+      submit: 'Update Group'
+    update:
+      success: 'Group updated.'
 
   home:
     show:

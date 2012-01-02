@@ -55,4 +55,27 @@ class GroupsController < ApplicationController
 
     @stream = Stream::Group.new(current_user, @group.identifier, :max_time => max_time, :page => params[:page])
   end
+
+  def edit
+    @group = Group.find_by_id( params[:id].to_i )
+    if @group.nil? || ! current_user.admin_of?(@group)
+      return redirect_to(:back)
+    end
+  end
+
+  def update
+    group = Group.find_by_id( params[:id].to_i )
+    if group.nil? || ! current_user.admin_of?(group)
+      return redirect_to(:back)
+    end
+
+    attribs = params['group']
+    group.update_attributes(
+      :name        => attribs['name'],
+      :description => attribs['description']
+    )
+
+    flash[:notice] = t('groups.update.success')
+    redirect_to(:back)
+  end
 end
