@@ -87,11 +87,32 @@ class GroupsController < ApplicationController
 
     if current_user.member_of?(group)
       flash[:error] = t('groups.join.already_member')
-    else
+    elsif group.admission == 'on-approval'
+      group.membership_requests.create!( :person_id => current_user.person.id )
+      flash[:notice] = t('groups.join.pending')
+    elsif group.admission == 'open'
       group.members << current_user.person
       flash[:notice] = t('groups.join.success', :name => group.name)
     end
 
-    redirect_to(:back)
+    redirect_to :back
+  end
+
+  def approve
+    group = Group.find_by_id( params['group_id'].to_i )
+    if group.nil? || ! current_user.admin_of?(group)
+      return redirect_to(:back)
+    end
+
+    request = group.membership_requests.find_by_person_id( params['id'].to_i )
+    if request.nil?
+      return redirect_to(:back)
+    end
+
+    group.members << request.person
+    request.destroy
+    flash[:notice] = t('groups.approve.success', :whom => request.person.diaspora_handle)
+
+    redirect_to :back
   end
 end

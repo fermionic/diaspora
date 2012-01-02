@@ -334,6 +334,8 @@ en:
       new_members: 'New Member(s)'
       new_members_label: 'one or more Diaspora IDs'
       add_new_members: 'Add Member(s)'
+      pending_members: 'Membership Requests'
+      approve: 'approve'
       current_members: 'Current Members'
     update:
       success: 'Group updated.'
@@ -344,6 +346,9 @@ en:
     join:
       already_member: 'You are already a member of the group.'
       success: 'Welcome to %{name}!'
+      pending: 'You will be added when an admin approves your request to join.'
+    approve:
+      success: 'You have accepted %{whom} into the group.'
 
   home:
     show:

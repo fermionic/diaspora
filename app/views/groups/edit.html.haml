@@ -26,6 +26,16 @@
   %p
     = submit_tag t('.add_new_members')
 
+- if @group.membership_requests.any?
+  #pending_members
+    %h4= t('.pending_members')
+    %table
+      - @group.membership_requests.map(&:person).each do |p|
+        %tr
+          %td= p.name
+          %td= p.diaspora_handle
+          %td= link_to t('.approve'), group_approve_membership_request_url(@group, p), :method => :post
+
 %h4= t('.current_members')
 %table#group_members
   - @group.members.each do |m|

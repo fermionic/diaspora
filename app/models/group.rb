@@ -26,6 +26,7 @@ class Group < ActiveRecord::Base
   has_many :posts, :through => :group_posts
   has_many :group_members
   has_many :members, :through => :group_members, :source => :person
+  has_many :membership_requests, :class_name => 'GroupMembershipRequest'
 
   def identifier_full
     self.identifier + '@' + AppConfig[:pod_uri].host

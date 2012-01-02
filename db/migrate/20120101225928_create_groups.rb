@@ -5,11 +5,20 @@ class CreateGroups < ActiveRecord::Migration
       t.string  :name, :null => false
       t.text    :description
       t.string  :image_url
+      # open, on-approval, add-only
+      t.string  :admission, :null => false, :default => 'open'
 
       t.timestamps
     end
 
     add_index :groups, [:identifier], :unique => true
+
+    create_table :group_membership_requests do |t|
+      t.integer :group_id, :null => false
+      t.integer :person_id, :null => false
+      t.timestamps
+    end
+    add_index :group_membership_requests, [:group_id, :person_id], :unique => true
 
     create_table :group_members do |t|
       t.integer :group_id, :null => false
