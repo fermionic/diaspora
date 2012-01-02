@@ -34,7 +34,9 @@
         %tr
           %td= p.name
           %td= p.diaspora_handle
-          %td= link_to t('.approve'), group_approve_membership_request_url(@group, p), :method => :post
+          %td
+            = link_to t('.approve'), group_approve_membership_request_url(@group, p), :method => :post
+            = link_to t('.reject'), group_reject_membership_request_url(@group, p), :method => :delete
 
 %h4= t('.current_members')
 %table#group_members

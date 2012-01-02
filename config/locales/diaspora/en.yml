@@ -336,6 +336,7 @@ en:
       add_new_members: 'Add Member(s)'
       pending_members: 'Membership Requests'
       approve: 'approve'
+      reject: 'reject'
       current_members: 'Current Members'
     update:
       success: 'Group updated.'
@@ -347,8 +348,10 @@ en:
       already_member: 'You are already a member of the group.'
       success: 'Welcome to %{name}!'
       pending: 'You will be added when an admin approves your request to join.'
-    approve:
+    approve_request:
       success: 'You have accepted %{whom} into the group.'
+    reject_request:
+      success: 'You have rejected the request of %{whom}.'
 
   home:
     show:

@@ -98,7 +98,7 @@ class GroupsController < ApplicationController
     redirect_to :back
   end
 
-  def approve
+  def approve_request
     group = Group.find_by_id( params['group_id'].to_i )
     if group.nil? || ! current_user.admin_of?(group)
       return redirect_to(:back)
@@ -111,7 +111,24 @@ class GroupsController < ApplicationController
 
     group.members << request.person
     request.destroy
-    flash[:notice] = t('groups.approve.success', :whom => request.person.diaspora_handle)
+    flash[:notice] = t('groups.approve_request.success', :whom => request.person.diaspora_handle)
+
+    redirect_to :back
+  end
+
+  def reject_request
+    group = Group.find_by_id( params['group_id'].to_i )
+    if group.nil? || ! current_user.admin_of?(group)
+      return redirect_to(:back)
+    end
+
+    request = group.membership_requests.find_by_person_id( params['id'].to_i )
+    if request.nil?
+      return redirect_to(:back)
+    end
+
+    request.destroy
+    flash[:notice] = t('groups.reject_request.success', :whom => request.person.diaspora_handle)
 
     redirect_to :back
   end
