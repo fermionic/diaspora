@@ -19,6 +19,7 @@ class Post < ActiveRecord::Base
   belongs_to :o_embed_cache
 
   after_create :cache_for_author
+  after_create :parse_groups
 
   #scopes
   scope :includes_for_a_stream, includes(:o_embed_cache, {:author => :profile}, :mentions => {:person => :profile}) #note should include root and photos, but i think those are both on status_message
@@ -87,5 +88,23 @@ class Post < ActiveRecord::Base
   def should_cache_for_author?
     self.triggers_caching? && RedisCache.configured? &&
       RedisCache.acceptable_types.include?(self.type) && user = self.author.owner
+  end
+
+  def parse_groups
+    return  if ! self.public
+
+    if RUBY_VERSION.include?('1.9')
+      characters ="[[:alnum:]]_-"
+    else
+      characters = "\\w-"
+    end
+
+    pod_host = AppConfig[:pod_uri].host
+    self.text.scan(/!([#{characters}]+)@#{pod_host}/).each do |match|
+      group = Group.find_by_identifier(match[0])
+      next  if group.nil?
+
+      group.posts << self
+    end
   end
 end
