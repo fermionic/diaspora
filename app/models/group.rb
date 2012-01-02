@@ -8,6 +8,7 @@ class Group < ActiveRecord::Base
 
   validates :identifier, :presence => true, :length => { :maximum => 64 }, :uniqueness => true
   validates :name, :presence => true, :length => { :maximum => 128 }
+  validates :description, :length => { :maximum => 2048 }
 
   has_many :group_posts
   has_many :posts, :through => :group_posts

@@ -7,10 +7,10 @@
       %h2
         = @group.name
       %span.group_identifier
-        = @group.identifier
+        = @group.identifier_full
 
       .description
-        = @group.description
+        = markdownify(@group.description)
 
     %hr
 

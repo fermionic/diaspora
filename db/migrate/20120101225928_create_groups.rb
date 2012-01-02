@@ -3,7 +3,7 @@ class CreateGroups < ActiveRecord::Migration
     create_table :groups do |t|
       t.string  :identifier, :null => false
       t.string  :name, :null => false
-      t.string  :description
+      t.text    :description
       t.string  :image_url
 
       t.timestamps
