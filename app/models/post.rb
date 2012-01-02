@@ -104,6 +104,7 @@ class Post < ActiveRecord::Base
     self.text.scan(/!([#{characters}]+)@#{pod_host}/).each do |match|
       group = Group.find_by_identifier(match[0])
       next  if group.nil?
+      next  if ! author.member_of?(group)
 
       group.posts << self
     end

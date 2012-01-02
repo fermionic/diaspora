@@ -288,6 +288,10 @@ class Person < ActiveRecord::Base
     self.update_attributes(:url => newuri)
   end
 
+  def member_of?(group)
+    !! GroupMember.find_by_group_id_and_person_id(group.id, self.id)
+  end
+
   protected
 
   def clean_url

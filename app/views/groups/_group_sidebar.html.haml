@@ -4,4 +4,11 @@
 
 #group_sidebar
   .group_photo
-    Hey
+    %img{:src => '/images/user/default.png', :width => '100'}
+
+  #group_members
+    %h3 Members
+
+    %ul
+    - group.people.each do |person|
+      %li= person.name
