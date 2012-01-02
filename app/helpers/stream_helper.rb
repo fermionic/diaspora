@@ -26,6 +26,10 @@ module StreamHelper
       like_stream_path(:max_time => time_for_scroll(opts[:ajax_stream], @stream), :sort_order => session[:sort_order])
     elsif controller.instance_of?(CommentStreamController)
       comment_stream_path(:max_time => time_for_scroll(opts[:ajax_stream], @stream), :sort_order => session[:sort_order])
+    elsif controller.instance_of?(GroupsController)
+      # TODO
+      # group_stream_path(:max_time => time_for_scroll(opts[:ajax_stream], @stream), :sort_order => session[:sort_order])
+      raise 'TODO: group_stream_path'
     else
       raise 'in order to use pagination for this new controller, update next_page_path in stream helper'
     end

@@ -102,7 +102,33 @@ ActiveRecord::Schema.define(:version => 20111101202137) do
     t.datetime "updated_at"
   end
 
-  add_index "conversations", ["author_id"], :name => "conversations_author_id_fk"
+  create_table "group_members", :force => true do |t|
+    t.integer  "group_id",                      :null => false
+    t.integer  "person_id",                     :null => false
+    t.boolean  "admin",      :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_members", ["group_id", "person_id"], :name => "index_group_members_on_group_id_and_person_id", :unique => true
+
+  create_table "group_posts", :force => true do |t|
+    t.integer "group_id", :null => false
+    t.integer "post_id",  :null => false
+  end
+
+  add_index "group_posts", ["group_id", "post_id"], :name => "index_group_posts_on_group_id_and_post_id", :unique => true
+
+  create_table "groups", :force => true do |t|
+    t.string   "identifier",  :null => false
+    t.string   "name",        :null => false
+    t.string   "description"
+    t.string   "image_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["identifier"], :name => "index_groups_on_identifier", :unique => true
 
   create_table "invitations", :force => true do |t|
     t.text     "message"

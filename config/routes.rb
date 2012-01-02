@@ -26,6 +26,8 @@ Diaspora::Application.routes.draw do
     resources :likes, :only => [:create, :destroy, :index]
   end
 
+  resources :groups
+  get '/g/:identifier' => 'groups#show', :as => 'group_by_identifier'
 
   get 'bookmarklet' => 'status_messages#bookmarklet'
 
