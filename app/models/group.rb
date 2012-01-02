@@ -12,5 +12,5 @@ class Group < ActiveRecord::Base
   has_many :group_posts
   has_many :posts, :through => :group_posts
   has_many :group_members
-  has_many :people, :through => :group_members
+  has_many :members, :through => :group_members, :source => :person
 end

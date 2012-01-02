@@ -304,6 +304,19 @@ en:
       birthday: "%B %d"
       birthday_with_year: "%B %d %Y"
 
+  groups:
+    index:
+      create_group: 'Create a New Group'
+      identifier: 'Identifier (for example: torontocyclists)'
+      name: 'Name (for example: The Toronto Cycling Club)'
+      description: 'Description (include hashtags if you wish)'
+      submit: 'Create Group'
+      group_membership: 'Group Membership'
+      group_membership_desc: 'You are a member of these groups:'
+    create:
+      already_exists: 'That group already exists.'
+      failed: 'Failed to create group.'
+
   home:
     show:
       share_what_you_want: "Share what you want, with whom you want."
@@ -349,6 +362,7 @@ en:
   layouts:
     header:
       profile: "Profile"
+      groups: "Groups"
       settings: "Settings"
       logout: "Log out"
       blog: "blog"

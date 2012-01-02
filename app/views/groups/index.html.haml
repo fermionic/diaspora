@@ -1,0 +1,23 @@
+%h2= t('.create_group')
+
+= form_for @group, :url => { :action => 'create' } do |f|
+  %p
+    = f.label :identifier, t('.identifier')
+    = f.text_field :identifier
+  %p
+    = f.label :name, t('.name')
+    = f.text_field :name
+  %p
+    = f.label :description, t('.description')
+    = f.text_area :description, :rows => 8
+  %p
+    = f.submit t('.submit')
+
+%h2= t('.group_membership')
+
+%p
+  = t('.group_membership_desc')
+
+%ul
+  - current_user.groups.each do |g|
+    %li= link_to( g.name, group_by_identifier_path(g.identifier) )
