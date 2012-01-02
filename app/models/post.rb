@@ -100,6 +100,7 @@ class Post < ActiveRecord::Base
     end
 
     pod_host = AppConfig[:pod_uri].host
+
     self.text.scan(/!([#{characters}]+)@#{pod_host}/).each do |match|
       group = Group.find_by_identifier(match[0])
       next  if group.nil?
