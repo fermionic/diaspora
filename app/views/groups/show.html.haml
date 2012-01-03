@@ -18,7 +18,7 @@
             = t('.pending')
             = link_to t('.join_group'), '#', :class => 'button disabled'
           - elsif @group.admission == 'open' || @group.admission == 'on-approval'
-            = link_to t('.join_group'), group_join_url(@group), :class => 'button', :method => 'POST'
+            = link_to t('.join_group'), group_join_path(@group), :class => 'button', :method => 'POST'
           - elsif @group.admission == 'manual'
             = t('.private_membership')
             = link_to t('.join_group'), '#', :class => 'button disabled'

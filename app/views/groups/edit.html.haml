@@ -27,7 +27,7 @@
 %hr
 
 %h4= t('.new_members')
-= form_tag group_members_url(@group), :class => 'add_group_members' do
+= form_tag group_members_path(@group), :class => 'add_group_members' do
   %p
     = label_tag 'group_members[handles]', t('.new_members_label')
     = text_field 'group_members', 'handles'
@@ -43,8 +43,8 @@
           %td= p.name
           %td= p.diaspora_handle
           %td
-            = link_to t('.approve'), group_approve_membership_request_url(@group, p), :method => :post
-            = link_to t('.reject'), group_reject_membership_request_url(@group, p), :method => :delete
+            = link_to t('.approve'), group_approve_membership_request_path(@group, p), :method => :post
+            = link_to t('.reject'), group_reject_membership_request_path(@group, p), :method => :delete
 
 %h4= t('.current_members')
 %table#group_members
@@ -52,4 +52,4 @@
     %tr
       %td= m.name
       %td= m.diaspora_handle
-      %td= link_to t('.remove'), group_member_url(@group, m), :method => :delete
+      %td= link_to t('.remove'), group_member_path(@group, m), :method => :delete
