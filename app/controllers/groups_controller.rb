@@ -104,6 +104,10 @@ class GroupsController < ApplicationController
     redirect_to :back
   end
 
+  def leave
+    # TODO
+  end
+
   def approve_request
     group = Group.find_by_id( params['group_id'].to_i )
     if group.nil? || ! current_user.admin_of?(group)
