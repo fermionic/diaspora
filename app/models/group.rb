@@ -11,6 +11,9 @@ class Group < ActiveRecord::Base
   acts_as_taggable_on :tags
   extract_tags_from :description
   before_create :build_tags
+  before_save do |group|
+    group.identifier.downcase!
+  end
 
   validates(
     :identifier,
