@@ -92,6 +92,7 @@ class Post < ActiveRecord::Base
 
   def parse_groups
     return  if ! self.public
+    return  if self.text.nil?
 
     pod_host = AppConfig[:pod_uri].host
 
