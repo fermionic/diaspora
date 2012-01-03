@@ -32,4 +32,14 @@ class Group < ActiveRecord::Base
   def identifier_full
     self.identifier + '@' + AppConfig[:pod_uri].host
   end
+
+  def has_membership_request_from?(someone)
+    if someone.respond_to?(:person)
+      person = someone.person
+    else
+      person = someone
+    end
+
+    person && !! membership_requests.find_by_person_id( person.id )
+  end
 end
