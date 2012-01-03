@@ -1,3 +1,5 @@
+require File.join(Rails.root, 'lib', 'stream', 'group')
+
 class GroupsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
 
