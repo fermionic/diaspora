@@ -24,6 +24,7 @@ class GroupMembersController < ApplicationController
         begin
           group.members << person
           num_added += 1
+          # TODO: Notify new member
         rescue ActiveRecord::RecordNotUnique
           # quietly ignore
         end
@@ -45,6 +46,7 @@ class GroupMembersController < ApplicationController
         target = group.group_members.find_by_person_id( params[:id].to_i )
         if target
           target.destroy
+          # TODO: Notify removed person
         end
       end
     end

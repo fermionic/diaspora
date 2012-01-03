@@ -92,9 +92,11 @@ class GroupsController < ApplicationController
     elsif group.admission == 'on-approval'
       group.membership_requests.create!( :person_id => current_user.person.id )
       flash[:notice] = t('groups.join.pending')
+      # TODO: notify admin
     elsif group.admission == 'open'
       group.members << current_user.person
       flash[:notice] = t('groups.join.success', :name => group.name)
+      # TODO: notify admin
     end
 
     redirect_to :back
@@ -114,6 +116,7 @@ class GroupsController < ApplicationController
     group.members << request.person
     request.destroy
     flash[:notice] = t('groups.approve_request.success', :whom => request.person.diaspora_handle)
+    # TODO: Notify new member
 
     redirect_to :back
   end
@@ -131,6 +134,7 @@ class GroupsController < ApplicationController
 
     request.destroy
     flash[:notice] = t('groups.reject_request.success', :whom => request.person.diaspora_handle)
+    # TODO: Notify rejected person
 
     redirect_to :back
   end
