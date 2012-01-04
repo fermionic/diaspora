@@ -43,7 +43,12 @@ module MarkdownifyHelper
 
     message = Diaspora::Taggable.format_tags(message, :no_escape => true)
 
-    return message.html_safe
+    # Group bangtags
+    Group.groups_from_string(message).each do |group|
+      message.gsub! group.identifier_full, %{<a href="/g/#{group.identifier}">#{group.identifier_full}</a>}
+    end
+
+    message.html_safe
   end
 
   def process_newlines(message)

@@ -32,6 +32,17 @@ class Group < ActiveRecord::Base
   has_many :members, :through => :group_members, :source => :person
   has_many :membership_requests, :class_name => 'GroupMembershipRequest'
 
+  def self.groups_from_string(s)
+    groups = []
+    pod_host = AppConfig[:pod_uri].host
+
+    s.scan(/!([#{VALID_CHARACTERS}]+)@#{pod_host}/).each do |match|
+      groups << Group.find_by_identifier(match[0])
+    end
+
+    groups.compact
+  end
+
   def identifier_full
     '!' + self.identifier + '@' + AppConfig[:pod_uri].host
   end
