@@ -1,31 +1,51 @@
-%h2= t('.create_group')
+- if current_user
 
-= form_for @group, :url => { :action => 'create' } do |f|
-  %p
-    = f.label :identifier, t('.identifier')
-    = f.text_field :identifier
-  %p
-    = f.label :name, t('.name')
-    = f.text_field :name
-  %p
-    = f.label :description, t('.description')
-    = f.text_area :description, :rows => 8
-  #group_admission
-    %span= t('.admission.label')
-    = f.radio_button :admission, 'open'
-    %span= t('.admission.open')
-    = f.radio_button :admission, 'on-approval'
-    %span= t('.admission.on_approval')
-    = f.radio_button :admission, 'manual'
-    %span= t('.admission.manual')
-  %p
-    = f.submit t('.submit')
+  %h2= t('.create_group')
 
-%h2= t('.group_membership')
+  = form_for @group, :url => { :action => 'create' } do |f|
+    %p
+      = f.label :identifier, t('.identifier')
+      = f.text_field :identifier
+    %p
+      = f.label :name, t('.name')
+      = f.text_field :name
+    %p
+      = f.label :description, t('.description')
+      = f.text_area :description, :rows => 8
+    #group_admission
+      %span= t('.admission.label')
+      = f.radio_button :admission, 'open'
+      %span= t('.admission.open')
+      = f.radio_button :admission, 'on-approval'
+      %span= t('.admission.on_approval')
+      = f.radio_button :admission, 'manual'
+      %span= t('.admission.manual')
+    %p
+      = f.submit t('.submit')
 
-%p
-  = t('.group_membership_desc')
+  %h2= t('.group_membership')
 
-%ul
-  - current_user.groups.each do |g|
-    %li= link_to( g.name, group_by_identifier_path(g.identifier) )
+  %p
+    = t('.group_membership_desc')
+
+  %ul
+    - current_user.groups.each do |g|
+      %li= link_to( g.name, group_by_identifier_path(g.identifier) )
+
+  %hr
+
+%h2= t('.biggest')
+
+%ol
+  - @biggest.each do |group|
+    %li
+      = link_to group.name, group_path(group)
+      = '(' + pluralize(group.member_count, 'member') + ')'
+
+%h2= t('.newest')
+
+%ol
+  - @newest.each do |group|
+    %li
+      = link_to group.name, group_path(group)
+      = t('.old', :age => time_ago_in_words(group.created_at))

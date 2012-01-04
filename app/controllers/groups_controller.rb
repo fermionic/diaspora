@@ -1,7 +1,7 @@
 require File.join(Rails.root, 'lib', 'stream', 'group')
 
 class GroupsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show]
+  before_filter :authenticate_user!, :except => [:index, :show,]
 
   # respond_to :html, :except => [:tag_index]
   # respond_to :json, :only => [:index, :show]
@@ -13,6 +13,37 @@ class GroupsController < ApplicationController
 
   def index
     @group = Group.new
+
+    @biggest = Group.find_by_sql( %{
+      SELECT
+          g.*
+        , member_counts.count AS member_count
+      FROM
+          groups g
+        , (
+          SELECT
+              group_id
+            , COUNT(*) AS count
+          FROM group_members gm
+          GROUP BY group_id
+        ) AS member_counts
+      WHERE
+        g.id = member_counts.group_id
+      ORDER BY
+          member_count DESC
+        , g.created_at
+      LIMIT 20
+    } )
+
+    @newest = Group.find_by_sql( %{
+      SELECT
+          g.*
+      FROM
+          groups g
+      ORDER BY
+          g.created_at DESC
+      LIMIT 20
+    } )
   end
 
   def create
@@ -48,9 +79,6 @@ class GroupsController < ApplicationController
 
   def show
     if params[:id]
-      if params[:id] == 'list'
-        return render(:list)
-      end
       @group = Group.find_by_id( params[:id].to_i )
     elsif params[:identifier]
       @group = Group.find_by_identifier( params[:identifier] )
@@ -146,38 +174,5 @@ class GroupsController < ApplicationController
     # TODO: Notify rejected person
 
     redirect_to :back
-  end
-
-  def list
-    @biggest = Group.find_by_sql( %{
-      SELECT
-          g.*
-        , member_counts.count AS member_count
-      FROM
-          groups g
-        , (
-          SELECT
-              group_id
-            , COUNT(*) AS count
-          FROM group_members gm
-          GROUP BY group_id
-        ) AS member_counts
-      WHERE
-        g.id = member_counts.group_id
-      ORDER BY
-          member_count DESC
-        , g.created_at
-      LIMIT 20
-    } )
-
-    @newest = Group.find_by_sql( %{
-      SELECT
-          g.*
-      FROM
-          groups g
-      ORDER BY
-          g.created_at DESC
-      LIMIT 20
-    } )
   end
 end
