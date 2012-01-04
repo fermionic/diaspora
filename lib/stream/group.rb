@@ -15,4 +15,9 @@ class Stream::Group < Stream::Base
   def posts
     group.posts
   end
+
+  def publisher_opts
+    {:prefill => "\n\n\n" + group.identifier_full, :open => true}
+  end
 end
+

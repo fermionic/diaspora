@@ -33,7 +33,7 @@ class Group < ActiveRecord::Base
   has_many :membership_requests, :class_name => 'GroupMembershipRequest'
 
   def identifier_full
-    self.identifier + '@' + AppConfig[:pod_uri].host
+    '!' + self.identifier + '@' + AppConfig[:pod_uri].host
   end
 
   def has_membership_request_from?(someone)

@@ -1,3 +1,6 @@
+- content_for :head do
+  = include_javascripts :home
+
 .span-6
   = render :partial => 'groups/group_sidebar', :locals => {:group => @group}
 
@@ -27,7 +30,8 @@
       .description
         = markdownify(@group.description)
 
-    %hr
+    - if current_user
+      = render 'shared/publisher', :selected_aspects => @stream.aspect_ids, :aspect_ids => @stream.aspect_ids, :aspect => @stream.aspect, :publisher_public => true
 
     - if @stream && @stream.stream_posts.length > 0
       #main_stream.stream
