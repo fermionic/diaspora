@@ -1,0 +1,17 @@
+#group_lists
+
+%h2= t('.biggest')
+
+%ol
+  - @biggest.each do |group|
+    %li
+      = link_to group.name, group_path(group)
+      = '(' + pluralize(group.member_count, 'member') + ')'
+
+%h2= t('.newest')
+
+%ol
+  - @newest.each do |group|
+    %li
+      = link_to group.name, group_path(group)
+      = t('.old', :age => time_ago_in_words(group.created_at))

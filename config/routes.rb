@@ -32,6 +32,7 @@ Diaspora::Application.routes.draw do
     post 'approve/:id', :action => 'approve_request', :as => 'approve_membership_request'
     delete 'reject/:id', :action => 'reject_request', :as => 'reject_membership_request'
   end
+  get '/group_list' => 'groups#list'
   get '/g/:identifier' => 'groups#show', :as => 'group_by_identifier'
 
   get 'bookmarklet' => 'status_messages#bookmarklet'
