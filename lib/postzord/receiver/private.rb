@@ -48,7 +48,11 @@ class Postzord::Receiver::Private < Postzord::Receiver
       Rails.logger.info("event=receive status=complete recipient=#{@user_person.diaspora_handle} sender=#{@sender.diaspora_handle} payload_type=#{obj.class}")
       obj
     rescue ActiveRecord::RecordNotUnique
-      Rails.logger.debug "Received object (#{@object.class} guid #{@object.guid}) already in local DB."
+      if @object.respond_to?(:guid)
+        Rails.logger.debug "Received object (#{@object.class} guid #{@object.guid}) already in local DB."
+      else
+        Rails.logger.debug "Received object (#{@object.class} id #{@object.id}) already in local DB."
+      end
       nil
     end
   end
