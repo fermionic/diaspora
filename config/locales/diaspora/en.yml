@@ -949,6 +949,7 @@ en:
     aspects_stream: "Aspects"
     mentioned_stream: "@Mentions"
     followed_tags_stream: "#Followed Tags"
+    groups_stream: 'Groups'
 
     mentions:
       title: "@Mentions"
