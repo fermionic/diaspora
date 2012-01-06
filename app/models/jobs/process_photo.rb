@@ -10,7 +10,9 @@ module Jobs
       photo = Photo.find(id)
       unprocessed_image = photo.unprocessed_image
 
+      puts( "will test")
       return false if photo.processed? || unprocessed_image.path.try(:include?, ".gif")
+      puts( "will process")
 
       photo.processed_image.store!(unprocessed_image)
 
