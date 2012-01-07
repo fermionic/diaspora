@@ -5,80 +5,72 @@
 
 - content_for :head do
   :javascript
-    function createUploader(){
-     var uploader = new qq.FileUploaderBasic({
-         element: document.getElementById('group_photo_drop'),
-         params: {'photo' : {'pending' : true, 'aspect_ids' : "all", 'set_profile_photo': true}},
-         allowedExtensions: ['jpg', 'jpeg', 'png'],
-         action: "#{photos_path}",
-         button: document.getElementById('group-photo'),
-         sizeLimit: 4194304,
+    function createGroupUploader(){
+      var uploader = new qq.FileUploaderBasic({
+        element: document.getElementById('group-photo'),
+        params: {'photo' : {'pending' : true, 'aspect_ids' : "all", 'group_photo_id': 1}},
+        allowedExtensions: ['jpg', 'jpeg', 'png'],
+        action: "/photos",
+        button: document.getElementById('group-photo'),
+        sizeLimit: 4194304,
 
-         onProgress: function(id, fileName, loaded, total){
-          var progress = Math.round(loaded / total * 100 );
-           $('#fileInfo').text(fileName + ' ' + progress + '%');
-         },
+        messages: {
+          typeError: "{file} has invalid extension. Only {extensions} are allowed.",
+          sizeError: "{file} is too large, maximum file size is {sizeLimit}.",
+          emptyError: "{file} is empty, please select files again without it."
+        },
 
-         messages: {
-             typeError: "#{t('photos.new_photo.invalid_ext')}",
-             sizeError: "#{t('photos.new_photo.size_error')}",
-             emptyError: "#{t('photos.new_photo.empty')}"
-         },
+        onSubmit: function(id, fileName){
+          showProgressAnimate();
+        },
 
-         onSubmit: function(id, fileName){
-          $('#file-upload').addClass("loading");
-          $("#profile_photo_upload").find(".avatar").addClass('loading');
-          $("#file-upload-spinner").removeClass("hidden");
-         },
-
-         onComplete: function(id, fileName, responseJSON){
-          $("#file-upload-spinner").addClass("hidden");
-          $('#fileInfo').text(fileName + ' completed').fadeOut(2000);
-          $('#file-upload').removeClass("loading");
-
+        onComplete: function(id, fileName, responseJSON){
           /* flash message prompt */
-          var message = Diaspora.I18n.t("photo_uploader.looking_good");
+          var message = Diaspora.I18n.t("photo_uploader.group_photo_updated");
           Diaspora.page.flashMessages.render({success: true, notice: message});
 
-          var id = responseJSON.data.photo.id;
           var url = responseJSON.data.photo.unprocessed_image.url;
-          var oldPhoto = $('#photo_id');
-          if(oldPhoto.length == 0) {
-            $('#update_profile_form').prepend("<input type='hidden' value='" + id + "' id='photo_id' name='photo_id'/>");
-          }else{
-            oldPhoto.val(id);
-          }
-
-          $("#profile_photo_upload").find(".avatar").removeClass('loading');
-          $("#profile_photo_upload").find(".avatar").attr("src",url);
-          $(".avatar[data-person_id=#{current_user.person.id}]").attr("src",url);
-         }
-     });
+          hideProgressAnimate( url);
+          $("#clear-photo").show();
+        }
+      });
     }
-    window.onload = createUploader;
+    $(document).ready( function(){
+      createGroupUploader();
+      $("#clear-photo").click( function(){
+        showProgressAnimate();
+        $.ajax({
+          type: 'POST',
+          url: '/groups/clear_photo',
+          data: {'group_photo_id': 1},
+          success: function( data ) {
+            hideProgressAnimate( data.url);
+            $("#clear-photo").hide();
+          },
+          dataType: 'JSON'
+        });
+      });
+    });
+    function hideProgressAnimate( url ) {
+      $('#group-photo').removeClass("loading");
+      $("#group_photo_drop").find("img").removeClass('loading');
+      $("img#group_photo_img").attr("src", url).load( function() {
+        $("#file-upload-spinner").addClass("hidden");
+        $("img#group_photo_img").show();
+      });
+    }
+    function showProgressAnimate() {
+      $('#group-photo').addClass("loading");
+      $("img#group_photo_img").addClass('loading');
+      $("img#group_photo_img").hide();
+      $("#file-upload-spinner").removeClass("hidden");
+    }
 
-#profile_photo_upload
-  = owner_image_tag(:thumb_medium)
-
-  -if !aspect.nil? && aspect == :getting_started
-    %br
-    %br
-
-  #file-upload.button
-    =t('.upload')
-
+.group_photo#group_photo_drop
+  = image_tag( good_image_for_group( group ), :id => 'group_photo_img', :width=>'100' )
   = image_tag('mobile-spinner.gif', :class => 'hidden', :style => "z-index:-1", :id => 'file-upload-spinner')
 
-  %br
-  %br
-  %p
-    #fileInfo
-
-  -if !aspect.nil? && aspect != :getting_started && current_user.person.has_photos?
-    %br
-    %br
-    %p
-      \...#{t('.or_select_one_existing', :photos => link_to(t('_photos'), person_photos_path(person))).html_safe}
-
-  #publisher_photo_upload
-
+  #group-photo{:title => t('.upload_photos')}
+    = image_tag 'icons/camera.png', :alt => t('.upload_photos').titleize
+  .button#clear-photo{:style=> group.image_url.nil? ? 'display:none' : 'display:inline' }
+    clear

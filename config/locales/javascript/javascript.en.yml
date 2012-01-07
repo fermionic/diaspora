@@ -66,6 +66,7 @@ en:
         alright_ill_wait: "Alright, I'll wait."
         preparing_your_stream: "Preparing your personalized stream..."
       photo_uploader:
-        looking_good: "OMG, you look awesome!"
+          looking_good: "OMG, you look awesome!"
+          group_photo_updated: "Group photo updated."
       tags:
         wasnt_that_interesting: "OK, I suppose #{{tagName}} wasn't all that interesting..."
