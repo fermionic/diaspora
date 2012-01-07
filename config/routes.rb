@@ -33,6 +33,7 @@ Diaspora::Application.routes.draw do
     delete 'reject/:id', :action => 'reject_request', :as => 'reject_membership_request'
   end
   get '/g/:identifier' => 'groups#show', :as => 'group_by_identifier'
+  post 'groups/clear_photo' => 'groups#clear_photo'
 
   get 'bookmarklet' => 'status_messages#bookmarklet'
 
