@@ -6,6 +6,7 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  clear: "Clear"
   settings: "Settings"
   profile: "Profile"
   account: "Account"
@@ -667,6 +668,9 @@ en:
       invalid_ext: "{file} has invalid extension. Only {extensions} are allowed."
       size_error: "{file} is too large, maximum file size is {sizeLimit}."
       empty: "{file} is empty, please select files again without it."
+    new_group_photo:
+      upload_photos: "Upload photos"
+      clear: "Clear"
     new_profile_photo:
       upload: "Upload a new profile photo!"
       or_select_one_existing: "or select one from your already existing %{photos}"

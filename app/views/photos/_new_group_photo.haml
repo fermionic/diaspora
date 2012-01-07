@@ -2,8 +2,7 @@
 -#   licensed under the Affero General Public License version 3 or later.  See
 -#   the COPYRIGHT file.
 
-
-- content_for :head do
+- if ( current_user.admin_of?(group) )
   :javascript
     function createGroupUploader(){
       var uploader = new qq.FileUploaderBasic({
@@ -70,7 +69,8 @@
   = image_tag( good_image_for_group( group ), :id => 'group_photo_img', :width=>'100' )
   = image_tag('mobile-spinner.gif', :class => 'hidden', :style => "z-index:-1", :id => 'file-upload-spinner')
 
-  #group-photo{:title => t('.upload_photos')}
-    = image_tag 'icons/camera.png', :alt => t('.upload_photos').titleize
-  .button#clear-photo{:style=> group.image_url.nil? ? 'display:none' : 'display:inline' }
-    clear
+  - if ( current_user.admin_of?(group) )
+    #group-photo{:title => t('.upload_photos')}
+      = image_tag 'icons/camera.png', :alt => t('.upload_photos').titleize
+    .button#clear-photo{:style=> group.image_url.nil? ? 'display:none' : 'display:inline' }
+      = t('clear')
