@@ -142,17 +142,27 @@ describe CommentsController do
       response.should be_success
     end
 
-    it 'returns all the comments for a post' do
-      comments = [alice, bob, eve].map{ |u| u.comment("hey", :post => @message) }
+    describe 'given some comments on a post' do
+      before do
+        @comments = [alice, bob, eve].map{ |u| u.comment("hey", :post => @message) }
+      end
 
-      get :index, :post_id => @message.id, :format => 'js'
-      assigns[:comments].should == comments
+      it 'returns all the comments for a post by default' do
+        get :index, :post_id => @message.id, :format => 'js'
+        assigns[:comments].should == @comments
+      end
+
+      it 'returns the last n comments if num is specified' do
+        get :index, :post_id => @message.id, :num => 2, :format => 'js'
+        assigns[:comments].should == @comments[-2..-1]
+      end
     end
 
     it 'returns a 404 on a nonexistent post' do
       get :index, :post_id => 235236, :format => 'js'
       response.status.should == 404
     end
+
     it 'returns a 404 on a post that is not visible to the signed in user' do
       aspect_to_post = eve.aspects.where(:name => "generic").first
       message = eve.post(:status_message, :text => "hey", :to => aspect_to_post.id)

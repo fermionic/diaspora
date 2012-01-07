@@ -8,9 +8,15 @@ module CommentsHelper
     if post.comments.size <= 3
       link_to "#{t('stream_helper.hide_comments')}", post_comments_path(post.id), :class => "toggle_post_comments"
     elsif ! user_signed_in?
-      link_to t('stream_helper.show_comments', :count => post.comments.size - 3), post_path(post.id, :all_comments => '1'), :class => "toggle_post_comments"
+      link_to t('stream_helper.show_comments', :count => post.comments.size), post_path(post.id, :all_comments => '1'), :class => "toggle_post_comments"
     else
-      link_to t('stream_helper.show_comments', :count => post.comments.size - 3), post_comments_path(post.id), :class => "toggle_post_comments"
+      link_to t('stream_helper.show_comments', :count => post.comments.size), post_comments_path(post.id), :class => "toggle_post_comments"
+    end
+  end
+
+  def link_next_comments(post, num = 3+6)
+    if user_signed_in?
+      link_to t('stream_helper.show_more_comments', :count => 6).html_safe, post_comments_path(post.id), :class => "show_more_comments", 'data-num' => num
     end
   end
 

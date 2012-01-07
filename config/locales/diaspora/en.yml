@@ -832,11 +832,16 @@ en:
   stream_helper:
     show_comments:
       zero: "No more comments"
-      one: "Show one more comment"
-      two: "Show two more comments"
-      few: "Show %{count} more comments"
-      many: "Show %{count} more comments"
-      other: "Show %{count} more comments"
+      one: "Show older comment"
+      two: "Show all 2 comments"
+      few: "Show all %{count} comments"
+      many: "Show all %{count} comments"
+      other: "Show all %{count} comments"
+    show_more_comments:
+      zero: "No more comments"
+      one: "Show 1 more comment"
+      two: "Show 2 more comments"
+      other: "Show <span class='num_more'>%{count}</span> more comment(s)"
     hide_comments: "Hide all comments"
 
   tags:
