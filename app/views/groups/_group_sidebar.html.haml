@@ -1,6 +1,5 @@
 #group_sidebar
-  .group_photo
-    %img{:src => '/images/user/default.png', :width => '100'}
+  = render :partial => 'photos/new_group_photo', :locals => { :group => group }
 
   #group_members
     %h3 Members

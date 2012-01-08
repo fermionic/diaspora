@@ -96,7 +96,16 @@ class GroupsController < ApplicationController
       return redirect_to(:back)
     end
   end
-
+  
+  def clear_photo
+    @group = Group.find_by_id( params[:group_photo_id].to_i )
+    unless @group.nil? || ! current_user.admin_of?(@group)
+      @group.update_attributes( :image_url => nil )
+    end
+    
+    render :json => { :url => '/images/user/default.png' }.to_json
+  end
+  
   def update
     group = Group.find_by_id( params[:id].to_i )
     if group.nil? || ! current_user.admin_of?(group)

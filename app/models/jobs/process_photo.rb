@@ -11,7 +11,7 @@ module Jobs
       unprocessed_image = photo.unprocessed_image
 
       return false if photo.processed? || unprocessed_image.path.try(:include?, ".gif")
-
+      
       photo.processed_image.store!(unprocessed_image)
 
       photo.save!
