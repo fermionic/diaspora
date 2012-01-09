@@ -56,4 +56,10 @@ class Group < ActiveRecord::Base
 
     person && !! membership_requests.find_by_person_id( person.id )
   end
+
+  def image_url_sized(size)
+    if image_url
+      image_url.gsub  /thumb_(small|medium|large)_/, "thumb_#{size}_"
+    end
+  end
 end

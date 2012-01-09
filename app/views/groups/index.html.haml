@@ -28,24 +28,38 @@
   %p
     = t('.group_membership_desc')
 
-  %ul
+  %table.groups
     - current_user.groups.each do |g|
-      %li= link_to( g.name, group_by_identifier_path(g.identifier) )
+      %tr
+        %td
+          %img{'src' => g.image_url_sized('small') || '/images/user/default.png', 'class' => 'group-avatar-listed'}
+        %td
+          = link_to( g.name, group_by_identifier_path(g.identifier) )
 
   %hr
 
 %h2= t('.biggest')
 
-%ol
-  - @biggest.each do |group|
-    %li
-      = link_to group.name, group_path(group)
-      = '(' + pluralize(group.member_count, 'member') + ')'
+%table.groups
+  - @biggest.each_with_index do |group,i|
+    %tr
+      %td= i+1
+      %td
+        %img{'src' => group.image_url_sized('small') || '/images/user/default.png', 'class' => 'group-avatar-listed'}
+      %td
+        = link_to group.name, group_path(group)
+      %td
+        = '(' + pluralize(group.member_count, 'member') + ')'
 
 %h2= t('.newest')
 
-%ol
-  - @newest.each do |group|
-    %li
-      = link_to group.name, group_path(group)
-      = t('.old', :age => time_ago_in_words(group.created_at))
+%table.groups
+  - @newest.each_with_index do |group,i|
+    %tr
+      %td= i+1
+      %td
+        %img{'src' => group.image_url_sized('small') || '/images/user/default.png', 'class' => 'group-avatar-listed'}
+      %td
+        = link_to group.name, group_path(group)
+      %td
+        = t('.old', :age => time_ago_in_words(group.created_at))
