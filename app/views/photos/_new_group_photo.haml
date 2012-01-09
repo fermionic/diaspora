@@ -41,7 +41,7 @@
         $.ajax({
           type: 'POST',
           url: '/groups/clear_photo',
-          data: {'group_photo_id': 1},
+          data: {'group_photo_id': #{group.id}},
           success: function( data ) {
             hideProgressAnimate( data.url);
             $("#clear-photo").hide();
