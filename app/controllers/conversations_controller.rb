@@ -72,6 +72,16 @@ class ConversationsController < ApplicationController
       @contact_ids = current_user.contacts.find(params[:contact_id]).id
     elsif params[:aspect_id]
       @contact_ids = current_user.aspects.find(params[:aspect_id]).contacts.map{|c| c.id}.join(',')
+    elsif params[:group_id]
+      group = current_user.groups.find_by_id( params[:group_id].to_i )
+      if group
+        params[:name] = group.name
+        @contact_ids = current_user.contacts.map { |c|
+          if group.members.find_by_id( c.person_id )
+            c.id
+          end
+        }.compact.join(',')
+      end
     end
     render :layout => false
   end

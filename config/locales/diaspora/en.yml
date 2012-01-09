@@ -328,6 +328,7 @@ en:
       join_group: 'Join Group'
       pending: '(membership request pending)'
       private_membership: '(private membership)'
+      private_message: 'Private Message'
     create:
       already_exists: 'That group already exists.'
       failed: 'Failed to create group.'
