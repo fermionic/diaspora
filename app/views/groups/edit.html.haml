@@ -1,8 +1,5 @@
 %h2= t('.editing_group', :name => @group.name)
 
-%p
-  = render :partial => 'photos/new_group_photo', :locals => { :group => @group }
-
 = form_for @group, :url => { :action => 'update' }, :method => 'put' do |f|
   %p
     %h4= t('.identifier')
@@ -26,6 +23,10 @@
   %p
     = f.submit t('.submit')
     = link_to t('.cancel'), group_path(@group), :class => 'button'
+
+%p
+  %h4= t('.group_image')
+  = render :partial => 'photos/new_group_photo', :locals => { :group => @group }
 
 %hr
 

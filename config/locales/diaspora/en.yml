@@ -341,6 +341,7 @@ en:
       name_label: 'Name (for example: The Toronto Cycling Club)'
       description_label: 'Description (include hashtags if you wish)'
       admission_label: 'Admission'
+      group_image: 'Group Image'
       submit: 'Update Group'
       cancel: 'Cancel'
       remove: 'remove'
