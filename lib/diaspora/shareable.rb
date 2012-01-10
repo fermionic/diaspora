@@ -27,14 +27,15 @@ module Diaspora
 
         def self.owned_or_visible_by_user(user)
           self.joins("LEFT OUTER JOIN share_visibilities ON share_visibilities.shareable_id = posts.id AND share_visibilities.shareable_type = 'Post'").
-               joins("LEFT OUTER JOIN contacts ON contacts.id = share_visibilities.contact_id").
-               where(Contact.arel_table[:user_id].eq(user.id).or(
-                 self.arel_table[:public].eq(true).or(
-                   self.arel_table[:author_id].eq(user.person.id)
-                   )
-                 )
-               ).
-               select("DISTINCT #{self.table_name}.*")
+            joins("LEFT OUTER JOIN contacts ON contacts.id = share_visibilities.contact_id").
+            where(
+              Contact.arel_table[:user_id].eq(user.id).or(
+                self.arel_table[:public].eq(true).or(
+                  self.arel_table[:author_id].eq(user.person.id)
+                )
+              )
+            ).
+            select("DISTINCT #{self.table_name}.*")
         end
 
         def self.for_visible_shareable_sql(max_time, order, limit = 15, types = Stream::Base::TYPES_OF_POST_IN_STREAM)
