@@ -30,6 +30,7 @@ en:
   fill_me_out: "Fill me out"
   back: "Back"
   public: "Public"
+  pod_only: 'Pod Only'
   limited: "Limited"
   search: "Search"
   find_people: "Find people or #tags"

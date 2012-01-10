@@ -1,11 +1,12 @@
 class Publisher
-  attr_accessor :user, :open, :prefill, :public, :explain
+  attr_accessor :user, :open, :prefill, :public, :pod_only, :explain
 
   def initialize(user, opts={})
     self.user = user
     self.open = opts[:open]
     self.prefill = opts[:prefill]
     self.public = opts[:public]
+    self.pod_only = opts[:pod_only]
     self.explain = opts[:explain]
   end
 
@@ -19,6 +20,10 @@ class Publisher
 
   def public?
     self.public
+  end
+
+  def pod_only?
+    self.pod_only
   end
 
   def explain?

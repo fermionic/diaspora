@@ -12,6 +12,7 @@ module Diaspora
         key = opts.delete(:key) || :id
         post = klass.where(key => id).joins(:contacts).where(:contacts => {:user_id => self.id}).where(opts).select(klass.table_name+".*").first
         post ||= klass.where(key => id, :author_id => self.person.id).where(opts).first
+        post ||= klass.where(key => id, :pod_only => true).where(opts).first
         post ||= klass.where(key => id, :public => true).where(opts).first
       end
 
@@ -29,7 +30,7 @@ module Diaspora
           cache = RedisCache.new(self, opts[:order_field])
 
           #total hax
-          if self.contacts.where(:sharing => true, :receiving => true).count > 0 
+          if self.contacts.where(:sharing => true, :receiving => true).count > 0
             cache.ensure_populated!(opts)
           end
 

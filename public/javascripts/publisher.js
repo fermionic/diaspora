@@ -312,6 +312,10 @@ var Publisher = {
     return $('#publisher [name="aspect_ids[]"]').first().val() == "public";
   },
 
+  isPodOnlyPost: function(){
+    return $('#publisher [name="aspect_ids[]"]').first().val() == "pod_only";
+  },
+
   isToAllAspects: function(){
     return $('#publisher [name="aspect_ids[]"]').first().val() == "all_aspects";
   },
@@ -327,7 +331,7 @@ var Publisher = {
     $.each(hiddenFields, function(index, value){
       var el = $(value);
 
-      if(el.val() == "all_aspects" || el.val() == "public") {
+      if(el.val() == "all_aspects" || el.val() == "public" || el.val() == 'pod_only') {
         el.remove();
       }
     });
@@ -418,7 +422,7 @@ var Publisher = {
       var postedTo = Publisher.selectedAspectIds();
 
 
-      if(Publisher.isPublicPost() || Publisher.isToAllAspects()){
+      if(Publisher.isPublicPost() || Publisher.isPodOnlyPost() || Publisher.isToAllAspects()){
         isPostVisible = true;
 
       } else {
