@@ -81,7 +81,7 @@ class Postzord::Receiver::Private < Postzord::Receiver
   end
 
   def validate_object
-    raise "Contact required unless request" if contact_required_unless_request
+    return  if contact_required_unless_request
 
     if relayable_without_parent?
       Rails.logger.info "Relayable object, but no parent object found"
@@ -90,7 +90,7 @@ class Postzord::Receiver::Private < Postzord::Receiver
 
     assign_sender_handle_if_request
 
-    raise "Author does not match XML author" if author_does_not_match_xml_author?
+    return  if author_does_not_match_xml_author?
 
     @object
   end
