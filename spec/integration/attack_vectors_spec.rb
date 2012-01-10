@@ -21,9 +21,7 @@ describe "attack vectors" do
       post_count = Post.count
 
       zord = Postzord::Receiver::Private.new(bob, :salmon_xml => salmon_xml)
-      expect {
-        zord.perform!
-      }.should raise_error /Contact required unless request/
+      zord.perform!.should be_nil
 
       bob.visible_shareables(Post).include?(post_from_non_contact).should be_false
       Post.count.should == post_count
@@ -38,9 +36,7 @@ describe "attack vectors" do
 
     salmon_xml = bob.salmon(original_message).xml_for(alice.person)
     zord = Postzord::Receiver::Private.new(bob, :salmon_xml => salmon_xml)
-    expect {
-      zord.perform!
-    }.should raise_error /Contact required unless request/
+    zord.perform!.should be_nil
 
     alice.reload.visible_shareables(Post).should_not include(StatusMessage.find(original_message.id))
   end
@@ -96,9 +92,7 @@ describe "attack vectors" do
       salmon_xml = alice.salmon(profile).xml_for(bob.person)
 
       zord = Postzord::Receiver::Private.new(bob, :salmon_xml => salmon_xml)
-      expect {
-        zord.perform!
-      }.should raise_error /Author does not match XML author/
+      zord.perform!.should be_nil
 
       eve.reload.profile.first_name.should == first_name
     end
@@ -163,9 +157,7 @@ describe "attack vectors" do
 
       salmon_xml = alice.salmon(ret).xml_for(bob.person)
       zord = Postzord::Receiver::Private.new(bob, :salmon_xml => salmon_xml)
-      expect {
-        zord.perform!
-      }.should raise_error /Author does not match XML author/
+      zord.perform!.should be_nil
 
       bob.reload.visible_shareables(Post).count.should == 1
     end
@@ -195,9 +187,7 @@ describe "attack vectors" do
 
       salmon_xml = alice.salmon(ret).xml_for(bob.person)
       zord = Postzord::Receiver::Private.new(bob, :salmon_xml => salmon_xml)
-      expect {
-        zord.perform!
-      }.should raise_error /Author does not match XML author/
+      zord.perform!.should be_nil
 
       bob.reload.contacts.count.should == 2
     end
