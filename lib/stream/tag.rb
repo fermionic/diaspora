@@ -28,7 +28,7 @@ class Stream::Tag < Stream::Base
   end
 
   def tagged_people_count
-    @people_count ||= Person.profile_tagged_with(tag_name).count
+    @people_count ||= ::Person.profile_tagged_with(tag_name).count
   end
 
   def posts
