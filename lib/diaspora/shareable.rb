@@ -31,7 +31,9 @@ module Diaspora
             where(
               Contact.arel_table[:user_id].eq(user.id).or(
                 self.arel_table[:public].eq(true).or(
-                  self.arel_table[:author_id].eq(user.person.id)
+                  self.arel_table[:pod_only].eq(true).or(
+                    self.arel_table[:author_id].eq(user.person.id)
+                  )
                 )
               )
             ).
