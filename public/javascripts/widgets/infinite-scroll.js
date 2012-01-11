@@ -28,9 +28,7 @@
     };
 
     this.checkAndScroll = function() {
-      var root = document.compatMode == 'BackCompat'? document.body : document.documentElement;
-      // Get more posts if the page is not full yet.
-      if( root.scrollHeight < root.clientHeight ) {
+      if( $('#main_stream').height() < $(window).height() ) {
         $('#main_stream').infinitescroll(self.options, function(newElements) {
           self.globalPublish("stream/scrolled", newElements);
           self.checkAndScroll();
