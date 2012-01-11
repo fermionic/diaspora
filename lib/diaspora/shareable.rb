@@ -24,6 +24,8 @@ module Diaspora
 
         #scopes
         scope :all_public, where(:public => true, :pending => false)
+        scope :all_pod_only, where(:pod_only => true, :pending => false)
+        scope :all_public_and_pod_only, where('( public = ? OR pod_only = ? ) AND pending = ?', true, true, false)
 
         def self.owned_or_visible_by_user(user)
           self.joins("LEFT OUTER JOIN share_visibilities ON share_visibilities.shareable_id = posts.id AND share_visibilities.shareable_type = 'Post'").

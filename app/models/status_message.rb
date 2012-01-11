@@ -33,7 +33,7 @@ class StatusMessage < Post
   scope :where_person_is_mentioned, lambda { |person|
     joins(:mentions).where(:mentions => {:person_id => person.id})
   }
-  
+
   scope :commented_by, lambda { |person|
     select('DISTINCT posts.*').joins(:comments).where(:comments => {:author_id => person.id})
   }
@@ -50,6 +50,12 @@ class StatusMessage < Post
   def self.public_tag_stream(tag_ids)
     all_public.
       tag_stream(tag_ids)
+  end
+  def self.pod_only_tag_stream(tag_ids)
+    all_pod_only.tag_stream(tag_ids)
+  end
+  def self.public_and_pod_only_tag_stream(tag_ids)
+    all_public_and_pod_only.tag_stream(tag_ids)
   end
 
   def text(opts = {})
@@ -168,8 +174,8 @@ class StatusMessage < Post
 
   def queue_gather_oembed_data
     Resque.enqueue(Jobs::GatherOEmbedData, self.id, self.oembed_url)
-  end 
-  
+  end
+
   def contains_oembed_url_in_text?
     require 'uri'
     urls = URI.extract(self.raw_message, ['http', 'https'])
