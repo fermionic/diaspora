@@ -27,11 +27,20 @@
       }
     };
 
-    this.subscribe("widget/ready", function() {
-      if($('#main_stream').length !== 0) {
+    this.checkAndScroll = function() {
+      var root = document.compatMode == 'BackCompat'? document.body : document.documentElement;
+      // Get more posts if the page is not full yet.
+      if( root.scrollHeight < root.clientHeight ) {
         $('#main_stream').infinitescroll(self.options, function(newElements) {
           self.globalPublish("stream/scrolled", newElements);
+          self.checkAndScroll();
         });
+      }
+    }
+
+    this.subscribe("widget/ready", function() {
+      if($('#main_stream').length !== 0) {
+        self.checkAndScroll();
       } else if($('#people_stream').length !== 0) {
         $("#people_stream").infinitescroll($.extend(self.options, {
           navSelector  : ".pagination",

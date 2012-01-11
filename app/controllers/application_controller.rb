@@ -154,7 +154,7 @@ class ApplicationController < ActionController::Base
     @stream = stream_klass.new(current_user, :max_time => max_time, :order => sort_order)
 
     if params[:only_posts]
-      render :partial => 'shared/stream', :locals => {:posts => @stream.stream_posts}
+      render :partial => 'shared/stream', :locals => { :posts => @stream.stream_posts.limit( AppConfig['stream_pagination_size'] || 10 ) }
     else
       render 'aspects/index'
     end
