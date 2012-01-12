@@ -7,7 +7,7 @@
   var InfiniteScroll = function() {
     var self = this;
     this.options = {
-      bufferPx: 500,
+      bufferPx: 40,
       debug: false,
       donetext: Diaspora.I18n.t("infinite_scroll.no_more"),
       loadingText: "",
@@ -26,19 +26,20 @@
         return newPath.replace(/max_time=\d+/, "max_time=" + lastTime);
       }
     };
-
-    this.checkAndScroll = function() {
-      if( $('#main_stream').height() < $(window).height() ) {
-        $('#main_stream').infinitescroll(self.options, function(newElements) {
-          self.globalPublish("stream/scrolled", newElements);
-          self.checkAndScroll();
-        });
-      }
-    }
+    this.initializing = true;
 
     this.subscribe("widget/ready", function() {
       if($('#main_stream').length !== 0) {
-        self.checkAndScroll();
+        $('#main_stream').infinitescroll(self.options, function(newElements) {
+          self.globalPublish("stream/scrolled", newElements);
+          /* If stream page size is configured to be a small number, the initial page
+          load may not have enough posts to generate the vertical scrollbar.  Without
+          the scrollbar, the user cannot trigger infinitescroll, so we must force more
+          posts in. */
+          if( $(document).height() <= $(window).height() ) {
+            $('#main_stream').infinitescroll('retrieve');
+          }
+        });
       } else if($('#people_stream').length !== 0) {
         $("#people_stream").infinitescroll($.extend(self.options, {
           navSelector  : ".pagination",
