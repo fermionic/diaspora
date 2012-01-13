@@ -71,6 +71,7 @@
         = link_to current_user.name, '#', :title => current_user.diaspora_handle
       %li= link_to t('.profile'), local_or_remote_person_path(current_user.person)
       %li= link_to t('_contacts'), contacts_link
+      %li= link_to t('.groups'), groups_path
       %li= link_to t('.settings'), edit_user_path
       -if current_user.admin?
         %li= link_to t('.admin'), user_search_path

@@ -6,6 +6,7 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  clear: "Clear"
   settings: "Settings"
   profile: "Profile"
   account: "Account"
@@ -311,6 +312,72 @@ en:
       birthday: "%B %d"
       birthday_with_year: "%B %d %Y"
 
+  groups:
+    valid_characters: 'Only letters, numbers, hyphen and underscore allowed'
+    index:
+      create_group: 'Create a New Group'
+      identifier: 'Identifier (for example: torontocyclists)'
+      name: 'Name (for example: The Toronto Cycling Club)'
+      description: 'Description (include hashtags if you wish)'
+      submit: 'Create Group'
+      group_membership: 'Group Membership'
+      group_membership_desc: 'You are a member of these groups:'
+      admission:
+        label: 'Admission:'
+        open: 'Open'
+        on_approval: 'Requires approval'
+        manual: 'Manual addition only'
+      biggest: 'Biggest Groups'
+      newest: 'Newest Groups'
+      old: '%{age} old'
+    show:
+      edit_group: 'Edit Group'
+      join_group: 'Join Group'
+      pending: '(membership request pending)'
+      private_membership: '(private membership)'
+      private_message: 'Private Message'
+    create:
+      already_exists: 'That group already exists.'
+      failed: 'Failed to create group.'
+    edit:
+      editing_group: 'Editing Group: %{name}'
+      identifier: 'Identifier:'
+      name: 'Name:'
+      description: 'Description:'
+      identifier_label: 'Identifier (for example: torontocyclists)'
+      name_label: 'Name (for example: The Toronto Cycling Club)'
+      description_label: 'Description (include hashtags if you wish)'
+      admission_label: 'Admission'
+      group_image: 'Group Image'
+      submit: 'Update Group'
+      cancel: 'Cancel'
+      remove: 'remove'
+      new_members: 'New Member(s)'
+      new_members_label: 'one or more Diaspora IDs'
+      add_new_members: 'Add Member(s)'
+      pending_members: 'Membership Requests'
+      approve: 'approve'
+      reject: 'reject'
+      current_members: 'Current Members'
+      admission:
+        open: 'Open'
+        on_approval: 'Requires approval'
+        manual: 'Manual addition only'
+    update:
+      success: 'Group updated.'
+    members:
+      add:
+        success: '%{num} member(s) added.'
+        failure: 'One or more Diaspora IDs were not found.'
+    join:
+      already_member: 'You are already a member of the group.'
+      success: 'Welcome to %{name}!'
+      pending: 'You will be added when an admin approves your request to join.'
+    approve_request:
+      success: 'You have accepted %{whom} into the group.'
+    reject_request:
+      success: 'You have rejected the request of %{whom}.'
+
   home:
     show:
       share_what_you_want: "Share what you want, with whom you want."
@@ -356,6 +423,7 @@ en:
   layouts:
     header:
       profile: "Profile"
+      groups: "Groups"
       settings: "Settings"
       logout: "Log out"
       blog: "blog"
@@ -609,6 +677,9 @@ en:
       invalid_ext: "{file} has invalid extension. Only {extensions} are allowed."
       size_error: "{file} is too large, maximum file size is {sizeLimit}."
       empty: "{file} is empty, please select files again without it."
+    new_group_photo:
+      upload_photos: "Upload photos"
+      clear: "Clear"
     new_profile_photo:
       upload: "Upload a new profile photo!"
       or_select_one_existing: "or select one from your already existing %{photos}"
@@ -902,6 +973,7 @@ en:
     aspects_stream: "Aspects"
     mentioned_stream: "@Mentions"
     followed_tags_stream: "#Followed Tags"
+    groups_stream: 'Groups'
 
     mentions:
       title: "@Mentions"

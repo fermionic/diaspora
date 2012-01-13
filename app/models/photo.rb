@@ -65,6 +65,26 @@ class Photo < ActiveRecord::Base
 
     photo
   end
+  
+  def post_creation_actions( auth_user, opts )
+    self.set_as_profile_pic( auth_user ) if opts[:set_profile_photo]
+    self.set_as_group_pic( auth_user, opts[:group_photo_id] ) unless opts[:group_photo_id].nil?
+  end
+
+  def set_as_profile_pic( the_user )
+    profile_params = {:image_url => self.url(:thumb_large),
+                     :image_url_medium => self.url(:thumb_medium),
+                     :image_url_small => self.url(:thumb_small)}
+
+    the_user.update_profile(profile_params)
+  end
+  
+  def set_as_group_pic( the_user, group_id )
+    group = Group.find_by_id( group_id.to_i )
+    unless group.nil? || ! the_user.admin_of?(group)
+      group.update_attributes( :image_url        => self.url(:thumb_large) )
+    end
+  end
 
   def processed?
     processed_image.path.present?

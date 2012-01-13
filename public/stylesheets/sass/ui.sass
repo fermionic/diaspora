@@ -4,7 +4,7 @@
 
 @import 'mixins'
 
-$button-border-color: #aaa 
+$button-border-color: #aaa
 
 .ui-autocomplete
   :left -11px
@@ -51,6 +51,9 @@ $button-border-color: #aaa
 input.button
   :padding 3px 9px
     :bottom 4px
+
+.button.disabled
+  :opacity 0.5
 
 .button .selected
   @include linear-gradient(#f0f0f0,#fafafa,29%,85%)
@@ -119,7 +122,7 @@ input.button
 
       > li
         :font-size 11px !important
-        :padding 3px 2px 
+        :padding 3px 2px
           :left 24px
         :position relative
         :color #222

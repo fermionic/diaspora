@@ -28,6 +28,14 @@ Diaspora::Application.routes.draw do
     resources :likes, :only => [:create, :destroy, :index]
   end
 
+  resources :groups do
+    resources :members, :controller => 'group_members', :only => [:create, :destroy,]
+    post 'join'
+    post 'approve/:id', :action => 'approve_request', :as => 'approve_membership_request'
+    delete 'reject/:id', :action => 'reject_request', :as => 'reject_membership_request'
+  end
+  get '/g/:identifier' => 'groups#show', :as => 'group_by_identifier'
+  post 'groups/clear_photo' => 'groups#clear_photo'
 
   get 'bookmarklet' => 'status_messages#bookmarklet'
 

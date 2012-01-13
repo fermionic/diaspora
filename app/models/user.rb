@@ -498,4 +498,16 @@ class User < ActiveRecord::Base
     end
     blocks.includes(:person).any? { |ignored| ignored.person == other_person }
   end
+
+  def groups
+    self.person.groups
+  end
+
+  def member_of?(group)
+    self.person.member_of? group
+  end
+
+  def admin_of?(group)
+    self.person.admin_of? group
+  end
 end

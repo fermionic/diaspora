@@ -17,7 +17,7 @@ class Stream::Multi < Stream::Base
 
   def posts
     @posts ||= lambda do
-      post_ids = aspects_post_ids + followed_tags_post_ids + mentioned_post_ids
+      post_ids = aspects_post_ids + followed_tags_post_ids + mentioned_post_ids + groups_post_ids
       post_ids += community_spotlight_post_ids if include_community_spotlight?
       Post.where(:id => post_ids)
     end.call
@@ -71,7 +71,7 @@ class Stream::Multi < Stream::Base
   # @return [Array<Symbol>]
   def streams_included
     @streams_included ||= lambda do
-      array = [:mentioned, :aspects, :followed_tags]
+      array = [:mentioned, :aspects, :followed_tags, :groups,]
       array << :community_spotlight if include_community_spotlight?
       array
     end.call
@@ -99,6 +99,28 @@ class Stream::Multi < Stream::Base
 
   def mentioned_post_ids
     @mentioned_post_ids ||= ids(StatusMessage.where_person_is_mentioned(user.person))
+  end
+
+  def groups_post_ids
+    @groups_post_ids ||= Post.find_by_sql( [
+      %{
+        SELECT
+          p.*
+        FROM
+            group_members gm
+          , group_posts gp
+          , posts p
+        WHERE
+          gm.person_id = ?
+          AND gp.group_id = gm.group_id
+          AND p.id = gp.post_id
+        ORDER BY
+          gp.post_id DESC
+        LIMIT
+          30
+      },
+      user.person.id
+    ] ).map { |p| p.id }
   end
 
   def community_spotlight_post_ids

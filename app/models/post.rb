@@ -19,6 +19,7 @@ class Post < ActiveRecord::Base
   belongs_to :o_embed_cache
 
   after_create :cache_for_author
+  after_create :post_to_groups
 
   #scopes
   scope :includes_for_a_stream, includes(:o_embed_cache, {:author => :profile}, :mentions => {:person => :profile}) #note should include root and photos, but i think those are both on status_message
@@ -117,5 +118,16 @@ class Post < ActiveRecord::Base
   def comments_unignored( ignorer )
     @comments_unignored ||= Hash.new
     @comments_unignored[ignorer] ||= comments.including_author.excluding_ignored( ignorer )
+  end
+
+  def post_to_groups
+    return  if ! self.public
+    return  if self.text.nil?
+
+    Group.groups_from_string(self.text).each do |group|
+      if author.member_of?(group)
+        group.posts << self
+      end
+    end
   end
 end

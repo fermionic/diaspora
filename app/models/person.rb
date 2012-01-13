@@ -30,6 +30,8 @@ class Person < ActiveRecord::Base
   has_many :posts, :foreign_key => :author_id, :dependent => :destroy # This person's own posts
   has_many :photos, :foreign_key => :author_id, :dependent => :destroy # This person's own photos
   has_many :comments, :foreign_key => :author_id, :dependent => :destroy # This person's own comments
+  has_many :group_members
+  has_many :groups, :through => :group_members
 
   belongs_to :owner, :class_name => 'User'
 
@@ -40,7 +42,7 @@ class Person < ActiveRecord::Base
 
   before_destroy :remove_all_traces
   before_validation :clean_url
-  
+
   validates :url, :presence => true
   validates :profile, :presence => true
   validates :serialized_public_key, :presence => true
@@ -78,7 +80,7 @@ class Person < ActiveRecord::Base
     super
     self.profile ||= Profile.new unless profile_set
   end
-  
+
   def self.find_from_id_or_username(params)
     p = if params[:id].present?
           Person.where(:id => params[:id]).first
@@ -273,11 +275,11 @@ class Person < ActiveRecord::Base
   def self.url_batch_update(people, url)
     people.each do |person|
       person.update_url(url)
-    end 
+    end
   end
 
-  
-  
+
+
   # @param person [Person]
   # @param url [String]
   def update_url(url)
@@ -286,6 +288,14 @@ class Person < ActiveRecord::Base
     newuri += ":#{location.port}" unless ["80", "443"].include?(location.port.to_s)
     newuri += "/"
     self.update_attributes(:url => newuri)
+  end
+
+  def member_of?(group)
+    !! GroupMember.find_by_group_id_and_person_id( group.id, self.id )
+  end
+
+  def admin_of?(group)
+    !! GroupMember.find_by_group_id_and_person_id_and_admin( group.id, self.id, true )
   end
 
   protected

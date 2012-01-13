@@ -3452,6 +3452,12 @@ a.toggle_selector
 .mentioned_stream
   .indicator
     :background-color #E3E856
+.groups_stream
+  .indicator
+    :background-color #DE7B3D
+.groups_stream.aspects_stream
+  .indicator
+    :background-color $green
 
 .center
   :text-align center
@@ -3550,3 +3556,46 @@ a.toggle_selector
 
 #tag_exclusion_submit
   :margin-bottom 15px
+
+.new_group, .edit_group, .add_group_members
+  :width 500px
+  :margin-bottom 20px
+
+#group_info
+  .description
+    :margin-top 1em
+    :margin-bottom 1em
+
+#group_buttons
+  :float right
+
+#group_admission
+  :margin-bottom 1em
+  input
+    :width auto
+    :display inline
+    :top 0px
+    :margin-left 0px
+  span
+    :margin-right 1em
+
+#group_members
+  :margin-top 1em
+  :width auto
+
+.group-avatar-listed
+  :height 24px
+  :width 24px
+
+table.groups
+  :width auto
+
+#pending_members
+  :border 2px solid red
+  :margin-top 1em
+  :margin-bottom 1em
+  :padding 1em
+  table
+    :width auto
+    a
+      :margin-left 2em
