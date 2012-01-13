@@ -913,8 +913,8 @@ en:
       contacts_title: "Recent Posters"
 
     multi:
-      title: "Stream"
-      contacts_title: "People in your Stream"
+      title: "Messages Posted"
+      contacts_title: "People who have posted"
 
     aspects:
       title: "Your Aspects"
