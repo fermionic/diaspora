@@ -624,6 +624,7 @@ en:
     edit:
       your_public_profile: "Your public profile"
       your_private_profile: "Your private profile"
+      view_your_profile: "View your profile as seen by others"
       your_name: "Your name"
       first_name: "First name"
       last_name: "Last name"
