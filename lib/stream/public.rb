@@ -22,6 +22,6 @@ class Stream::Public < Stream::Base
   end
 
   def can_comment?(post)
-    post.author.local?
+    true
   end
 end

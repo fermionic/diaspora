@@ -28,8 +28,7 @@ class Stream::Base
 
   # @return [Boolean]
   def can_comment?(post)
-    return true if post.author.local?
-    post_is_from_contact?(post)
+    true
   end
 
   def post_from_group(post)

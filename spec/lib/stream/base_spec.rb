@@ -37,9 +37,9 @@ describe Stream::Base do
       @stream.can_comment?(post).should be_true
     end
 
-    it 'returns false if person is remote and not a contact' do
+    it 'returns true if person is remote and not a contact' do
       post = Factory(:status_message, :author => @person)
-      @stream.can_comment?(post).should be_false
+      @stream.can_comment?(post).should be_true
     end
   end
 
