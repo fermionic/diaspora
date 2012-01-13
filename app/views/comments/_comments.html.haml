@@ -5,6 +5,8 @@
   - unless comments_expanded || all_comments?
     %ul.show_comments{:class => ("hidden" if post.comments_unignored(current_user).size <= 3)}
       %li
+        - if post.comments.size > 3+6
+          = link_next_comments(post)
         = comment_toggle( post, current_user )
 
   %ul.comments{:class => ('loaded' if post.comments_unignored(current_user).size <= 3)}

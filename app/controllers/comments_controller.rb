@@ -74,7 +74,19 @@ class CommentsController < ApplicationController
       else
         comments_scoped = @post.comments
       end
-      @comments = comments_scoped.includes(:author => :profile).order('created_at ASC')
+      comments = comments_scoped.includes(:author => :profile).order('created_at ASC').to_a
+
+      # If num is specified, just get that many comments, else get all
+      if params['num']
+        num = params['num'].to_i.abs
+        if num > comments.size
+          num = comments.size
+        end
+      else
+        num = comments.size
+      end
+      @comments = comments[-num..-1]
+      @num_left = comments.size - num
       render :layout => false
     else
       raise ActiveRecord::RecordNotFound.new
