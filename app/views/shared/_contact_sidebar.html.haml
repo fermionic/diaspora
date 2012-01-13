@@ -14,3 +14,10 @@
     %li{:class => ("active" if @finder)}
       = link_to "Facebook Friends", friend_finder_path('facebook'), :class => "element_selector"
 
+  %hr
+
+    = form_tag contacts_import_path, :multipart => true do
+      %h4
+        Import contact list
+      = file_field_tag 'file', :accept => 'text/xml'
+      = submit_tag 'Upload'

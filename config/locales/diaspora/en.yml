@@ -266,6 +266,10 @@ en:
       many_people_are_you_sure: "Are you sure you want to start a private conversation with more than %{suggested_limit} contacts? Posting to this aspect may be a better way to contact them."
     spotlight:
       community_spotlight: "Community Spotlight"
+    import:
+      imported: 'Imported %{num_added} contact(s).'
+      already_added: '%{num_already} contact(s) have already been added.'
+      searched: '%{num_searched} contact(s) are being downloaded. Try again later.'
 
   conversations:
     index:

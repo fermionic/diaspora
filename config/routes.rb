@@ -125,6 +125,7 @@ Diaspora::Application.routes.draw do
   get 'spotlight' => 'community_spotlight#index', :as => 'spotlight'
 
   get 'community_spotlight' => "contacts#spotlight", :as => 'community_spotlight'
+  post '/contacts/import' => 'contacts#import', :as => 'contacts_import'
 
   get 'stream' => "multis#index", :as => 'multi'
 
