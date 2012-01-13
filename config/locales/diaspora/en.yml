@@ -892,19 +892,19 @@ en:
 
     mentions:
       title: "@Mentions"
-      contacts_title: "People who mentioned you"
+      contacts_title: "People who posted these messages"
 
     comment_stream:
-      title: "Commented Posts"
-      contacts_title: "People whose posts you commented on"
+      title: "Messages Commented On"
+      contacts_title: "People who posted these messages"
 
     like_stream:
-      title: "Like Stream"
-      contacts_title: "People whose posts you like"
+      title: "Messages Liked"
+      contacts_title: "People who posted these messages"
 
     followed_tag:
       title: "#Followed Tags"
-      contacts_title: "People who dig these tags"
+      contacts_title: "People who posted these messages"
       add_a_tag: "Add a tag"
       follow: "Follow"
 
