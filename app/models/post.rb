@@ -88,4 +88,20 @@ class Post < ActiveRecord::Base
     self.triggers_caching? && RedisCache.configured? &&
       RedisCache.acceptable_types.include?(self.type) && user = self.author.owner
   end
+
+  def hint
+    return nil  if text.nil?
+
+    if respond_to?(:strip_tags)
+      text_without_tags = strip_tags(text)
+    elsif text !~ /[<>]/
+      text_without_tags = text
+    end
+
+    if text_without_tags.length <= 64
+      text_without_tags
+    else
+      text_without_tags[0...61] + '...'
+    end
+  end
 end

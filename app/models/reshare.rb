@@ -36,7 +36,11 @@ class Reshare < Post
   def notification_type(user, person)
     Notifications::Reshared if root.author == user.person
   end
-  
+
+  def hint
+    root.hint
+  end
+
   private
 
   def after_parse
