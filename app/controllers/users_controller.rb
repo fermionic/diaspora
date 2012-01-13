@@ -24,6 +24,10 @@ class UsersController < ApplicationController
     @blocks = current_user.blocks.includes(:person)
   end
 
+  def filters
+    @tag_exclusions = current_user.tag_exclusions
+  end
+
   def update
     password_changed = false
     @user = current_user

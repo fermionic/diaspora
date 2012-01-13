@@ -60,6 +60,7 @@ Diaspora::Application.routes.draw do
   get "tag_followings" => "tag_followings#index", :as => 'tag_followings'
   resources :mentions, :only => [:index]
   resources "tag_followings", :only => [:create]
+  resources 'tag_exclusions', :only => [:create, :destroy]
 
   get 'comment_stream' => 'comment_stream#index', :as => 'comment_stream'
 
@@ -85,6 +86,7 @@ Diaspora::Application.routes.draw do
     get 'public/:username'          => :public,           :as => 'users_public'
     match 'getting_started'         => :getting_started,  :as => 'getting_started'
     match 'privacy'                 => :privacy_settings, :as => 'privacy_settings'
+    get 'filters'                   => :filters,          :as => 'filters'
     get 'getting_started_completed' => :getting_started_completed
     get 'confirm_email/:token'      => :confirm_email,    :as => 'confirm_email'
   end

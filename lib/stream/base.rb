@@ -48,7 +48,17 @@ class Stream::Base
 
   # @return [ActiveRecord::Relation<Post>]
   def stream_posts
-    self.posts.for_a_stream(max_time, order, self.user)
+    self.posts.for_a_stream(
+      max_time, order, self.user
+    ).reject { |p|
+      # No need to check tag filters if there is no user signed in
+      # Reshares and Photos don't have tags
+      if user && p.respond_to?(:tag_strings)
+        (
+          user.tags_that_exclude.map { |t| t.name } & p.tag_strings
+        ).any?
+      end
+    }
   end
 
   # @return [ActiveRecord::Association<Person>] AR association of people within stream's given aspects
@@ -84,7 +94,7 @@ class Stream::Base
     true
   end
 
-  #NOTE: MBS bad bad methods the fact we need these means our views are foobared. please kill them and make them 
+  #NOTE: MBS bad bad methods the fact we need these means our views are foobared. please kill them and make them
   #private methods on the streams that need them
   def aspects
     user.aspects
@@ -96,7 +106,7 @@ class Stream::Base
   end
 
   def aspect_ids
-    aspects.map{|x| x.id} 
+    aspects.map{|x| x.id}
   end
 
   def max_time=(time_string)

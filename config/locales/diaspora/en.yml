@@ -11,6 +11,7 @@ en:
   account: "Account"
   privacy: "Privacy"
   privacy_policy: "Privacy Policy"
+  filters: 'Filters'
   terms_and_conditions: "Terms and Conditions"
   _services: "Services"
   _applications: "Applications"
@@ -862,6 +863,14 @@ en:
     destroy:
       success: "Alas! You aren't following #%{name} anymore."
       failure: "Failed to stop following #%{name}. Maybe you already stopped following it?"
+  tag_exclusions:
+    create:
+      success: "You will no longer see posts tagged #%{name}."
+      failure: "Failed to filter by #%{name}.  Are you already filtering by it?"
+      none: "Please specify a hashtag to filter out."
+    destroy:
+      success: "Posts tagged #%{name} are no longer hidden from you."
+      failure: "Failed to remove filter on #%{name}. Maybe you already removed it?"
 
   tokens:
     show:
@@ -965,6 +974,12 @@ en:
       title: "Privacy Settings"
       ignored_users: "Ignored Users"
       stop_ignoring: "Stop ignoring"
+
+    filters:
+      title: 'Filters'
+      tag_exclusions: 'Tags to Filter Out'
+      add: 'Add Filter'
+      delete: 'Delete'
 
     destroy:
       success: "Your account has been locked.  It may take 20 minutes for us to finish closing your account.  Thank you for trying Diaspora."

@@ -1,0 +1,24 @@
+- content_for :page_title do
+  = t('.title')
+
+#section_header
+  %h2
+    = t('filters')
+  = render 'shared/settings_nav'
+
+.span-12.prepend-5.last
+  %h3
+    = t('.tag_exclusions')
+
+  = form_for 'tag_exclusion', :url => tag_exclusions_path, :html => { :method => :post } do |f|
+    = f.error_messages
+    %p
+      = f.text_field 'name'
+      = f.submit t('.add'), :class => "button"
+
+  - @tag_exclusions.each do |tx|
+    = link_to "##{tx.tag.name}", tag_path(:name => tx.tag.name)
+    \-
+    = link_to t('.delete'), tag_exclusion_path(tx), :method => :delete
+    %br
+
