@@ -55,16 +55,22 @@ module Diaspora
           link = resolve_redirection( link_ )
         else
           link = link_
+          domain_only = link[ %r{^https?://([a-zA-Z0-9.-]+/).+}, 1 ]
+          if domain_only
+            link_text = "#{domain_only}..."
+          end
         end
+
+        link_text ||= link_
 
         auto_link(
           link,
           :link => :urls,
           :html => {
             'target' => '_blank',
-            'title'  => link != link_ ? link : nil,
+            'title'  => link != link_text  ? link : nil,
           }
-        ) { link_ }
+        ) { link_text }
       end
 
     end

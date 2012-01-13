@@ -118,5 +118,16 @@ describe Diaspora::Markdownify::HTML do
         end
       end
     end
+
+    it 'shortens most URLs to just the domain with an ellipsis' do
+      markup = @html.autolink('https://joindiaspora.com/stream', nil)
+      markup.should == %{<a href="https://joindiaspora.com/stream" target="_blank" title="https://joindiaspora.com/stream">joindiaspora.com/...</a>}
+
+      markup = @html.autolink('http://joindiaspora.com/', nil)
+      markup.should == %{<a href="http://joindiaspora.com/" target="_blank">http://joindiaspora.com/</a>}
+
+      markup = @html.autolink('http://joindiaspora.com', nil)
+      markup.should == %{<a href="http://joindiaspora.com" target="_blank">http://joindiaspora.com</a>}
+    end
   end
 end
