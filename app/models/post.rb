@@ -100,4 +100,9 @@ class Post < ActiveRecord::Base
       text_without_tags[0...61] + '...'
     end
   end
+
+  def comments_unignored( ignorer )
+    @comments_unignored ||= Hash.new
+    @comments_unignored[ignorer] ||= comments.including_author.excluding_ignored( ignorer )
+  end
 end

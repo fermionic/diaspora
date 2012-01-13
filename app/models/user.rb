@@ -73,12 +73,12 @@ class User < ActiveRecord::Base
     identifier = invitation.identifier
 
     if service == 'email'
-      existing_user = User.where(:email => identifier).first 
+      existing_user = User.where(:email => identifier).first
     else
       existing_user = User.joins(:services).where(:services => {:type => "Services::#{service.titleize}", :uid => identifier}).first
     end
-   
-   if existing_user.nil? 
+
+   if existing_user.nil?
     i = Invitation.where(:service => service, :identifier => identifier).first
     existing_user = i.recipient if i
    end
@@ -341,7 +341,7 @@ class User < ActiveRecord::Base
       self.invitation_token = nil
       self.password              = opts[:password]
       self.password_confirmation = opts[:password_confirmation]
-      
+
       self.save
       return unless self.errors.empty?
 
@@ -486,5 +486,14 @@ class User < ActiveRecord::Base
     if self.username_changed? && Person.exists?(:diaspora_handle => diaspora_id)
       errors[:base] << 'That username has already been taken'
     end
+  end
+
+  def ignoring?( other )
+    if other.respond_to?(:person)
+      other_person = other.person
+    else
+      other_person = other
+    end
+    blocks.includes(:person).any? { |ignored| ignored.person == other_person }
   end
 end
