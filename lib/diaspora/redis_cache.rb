@@ -101,7 +101,7 @@ class RedisCache
   #
   # @return [Redis]
   def self.redis_connection
-    Redis.new(:host => RedisCache.redis_host, :port => RedisCache.redis_port)
+    Redis.new(:host => AppConfig[:redis_cache_uri].host, :port => AppConfig[:redis_cache_uri].port)
   end
 
   protected
@@ -109,14 +109,6 @@ class RedisCache
   # @return [Redis]
   def redis
     @redis ||= RedisCache.redis_connection
-  end
-
-  def self.redis_host
-    (AppConfig[:redis_location].blank?) ? nil : AppConfig[:redis_location]
-  end
-
-  def self.redis_port
-    (AppConfig[:redis_port].blank?) ? nil : AppConfig[:redis_port]
   end
 
   # @return [String]

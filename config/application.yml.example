@@ -31,7 +31,7 @@ defaults: &defaults
 
 
   # URL for a remote redis, on the default port. Don't forget to restrict IP access!
-  # leave it empty for the default (localhost)
+  # leave it empty for the default (redis://localhost:6379)
   redis_url: ''
 
   # Amazon S3 for photos
@@ -174,9 +174,8 @@ defaults: &defaults
   # Leave this blank to use the same Redis database
   # that your Resque workers use (happy path).
   #
-  # This takes an ip (or DNS record).  It assumes that your Redis database
-  # is running on the default Redis port.
-  redis_location: ''
+  # If blank it defaults to redis_url. Format: redis://host:port
+  redis_cache_url: ''
 
 
   # Web tracking
