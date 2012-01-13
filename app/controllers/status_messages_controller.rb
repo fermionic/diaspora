@@ -4,7 +4,7 @@
 
 class StatusMessagesController < ApplicationController
   before_filter :authenticate_user!
-  
+
   before_filter :remove_getting_started, :only => [:create]
 
   respond_to :html
@@ -52,8 +52,14 @@ class StatusMessagesController < ApplicationController
     end
 
     if @status_message.save
-      # always send to all aspects if public
-      if params[:status_message][:public] || params[:status_message][:aspect_ids].first == "all_aspects"
+      first_aspect = params[:status_message][:aspect_ids].first
+
+      # Always send to all aspects if public or pod-only
+      if(
+        params[:status_message][:public] ||
+        first_aspect == 'pod_only' ||
+        first_aspect == "all_aspects"
+      )
         aspect_ids = current_user.aspects.map{|a| a.id}
       else
         aspect_ids = params[:aspect_ids]
@@ -61,7 +67,11 @@ class StatusMessagesController < ApplicationController
 
       aspects = current_user.aspects_from_ids(aspect_ids)
       current_user.add_to_streams(@status_message, aspects)
-      receiving_services = current_user.services.where(:type => params[:services].map{|s| "Services::"+s.titleize}) if params[:services]
+      if first_aspect == "pod_only"
+        receiving_services = []
+      else
+        receiving_services = current_user.services.where(:type => params[:services].map{|s| "Services::"+s.titleize}) if params[:services]
+      end
       current_user.dispatch_post(@status_message, :url => short_post_url(@status_message.guid), :services => receiving_services)
 
       if request.env['HTTP_REFERER'].include?("people") # if this is a post coming from a profile page

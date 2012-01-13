@@ -94,7 +94,7 @@ class Stream::Multi < Stream::Base
   end
 
   def followed_tags_post_ids
-    @followed_tags_ids ||= ids(StatusMessage.public_tag_stream(tag_ids))
+    @followed_tags_ids ||= ids(StatusMessage.public_and_pod_only_tag_stream(tag_ids))
   end
 
   def mentioned_post_ids

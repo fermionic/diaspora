@@ -51,6 +51,12 @@ class StatusMessage < Post
     all_public.
       tag_stream(tag_ids)
   end
+  def self.pod_only_tag_stream(tag_ids)
+    all_pod_only.tag_stream(tag_ids)
+  end
+  def self.public_and_pod_only_tag_stream(tag_ids)
+    all_public_and_pod_only.tag_stream(tag_ids)
+  end
 
   def text(opts = {})
     self.formatted_message(opts)

@@ -6,6 +6,7 @@
 class Postzord::Dispatcher
   require File.join(Rails.root, 'lib/postzord/dispatcher/private')
   require File.join(Rails.root, 'lib/postzord/dispatcher/public')
+  require File.join(Rails.root, 'lib/postzord/dispatcher/pod_only')
 
   attr_reader :sender, :object, :xml, :subscribers
 
@@ -17,6 +18,8 @@ class Postzord::Dispatcher
 
     if self.object_should_be_processed_as_public?(object)
       Postzord::Dispatcher::Public.new(user, object, opts)
+    elsif object.respond_to?(:pod_only?) && object.pod_only?
+      Postzord::Dispatcher::PodOnly.new(user, object, opts)
     else
       Postzord::Dispatcher::Private.new(user, object, opts)
     end
@@ -30,7 +33,7 @@ class Postzord::Dispatcher
     else
       false
     end
-  end 
+  end
 
   # @return [Object]
   def post(opts={})
@@ -57,7 +60,9 @@ class Postzord::Dispatcher
       self.deliver_to_local(local_people)
     end
 
-    self.deliver_to_remote(remote_people)
+    if ! @object.respond_to?(:pod_only?) || ! @object.pod_only?
+      self.deliver_to_remote(remote_people)
+    end
   end
 
   # @return [Array<Person>] Recipients of the object, minus any additional subscribers
@@ -83,10 +88,10 @@ class Postzord::Dispatcher
   # @param remote_people [Array<Person>] Recipients of the post on other pods
   # @return [void]
   def queue_remote_delivery_job(remote_people)
-    Resque.enqueue(Jobs::HttpMulti, 
-                   @sender.id, 
-                   Base64.encode64s(@object.to_diaspora_xml), 
-                   remote_people.map{|p| p.id}, 
+    Resque.enqueue(Jobs::HttpMulti,
+                   @sender.id,
+                   Base64.encode64s(@object.to_diaspora_xml),
+                   remote_people.map{|p| p.id},
                    self.class.to_s)
   end
 

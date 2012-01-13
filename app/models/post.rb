@@ -62,6 +62,7 @@ class Post < ActiveRecord::Base
     new_post = self.new params.to_hash
     new_post.author = params[:author]
     new_post.public = params[:public] if params[:public]
+    new_post.pod_only = ( params['aspect_ids'] == ['pod_only'] )
     new_post.pending = params[:pending] if params[:pending]
     new_post.diaspora_handle = new_post.author.diaspora_handle
     new_post
