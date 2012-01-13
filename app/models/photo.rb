@@ -27,7 +27,7 @@ class Photo < ActiveRecord::Base
   after_create :queue_processing_job
 
   def clear_empty_status_message
-    if self.status_message_guid && self.status_message.text_and_photos_blank?
+    if self.status_message_guid && self.status_message && self.status_message.text_and_photos_blank?
       self.status_message.destroy
     else
       true

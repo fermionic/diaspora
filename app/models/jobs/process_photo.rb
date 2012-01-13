@@ -7,14 +7,15 @@ module Jobs
   class ProcessPhoto < Base
     @queue = :photos
     def self.perform(id)
-      photo = Photo.find(id)
-      unprocessed_image = photo.unprocessed_image
+      photo = Photo.find_by_id(id)
+      return false  if photo.nil?
 
+      unprocessed_image = photo.unprocessed_image
       return false if photo.processed? || unprocessed_image.path.try(:include?, ".gif")
 
       photo.processed_image.store!(unprocessed_image)
 
-      photo.save!
+      photo.save or Rails.logger.info("ProcessPhoto job failed: #{photo.errors.inspect}")
     end
   end
 end

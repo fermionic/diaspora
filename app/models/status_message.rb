@@ -99,7 +99,12 @@ class StatusMessage < Post
 
   def create_mentions
     mentioned_people_from_string.each do |person|
-      self.mentions.create(:person => person)
+      begin
+        self.mentions.create(:person => person)
+      rescue ActiveRecord::RecordNotUnique
+        # Mention has already been created for this message.
+        # Quietly ignore.
+      end
     end
   end
 

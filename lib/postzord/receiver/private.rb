@@ -36,16 +36,25 @@ class Postzord::Receiver::Private < Postzord::Receiver
       set_author!
       receive_object
     else
-      raise "not a valid object:#{@object.inspect}"
+      Rails.logger.warn "Not a valid object: #{@object.inspect}"
     end
   end
 
   # @return [Object]
   def receive_object
-    obj = @object.receive(@user, @author)
-    Notification.notify(@user, obj, @author) if obj.respond_to?(:notification_type)
-    Rails.logger.info("event=receive status=complete recipient=#{@user_person.diaspora_handle} sender=#{@sender.diaspora_handle} payload_type=#{obj.class}")
-    obj
+    begin
+      obj = @object.receive(@user, @author)
+      Notification.notify(@user, obj, @author) if obj.respond_to?(:notification_type)
+      Rails.logger.info("event=receive status=complete recipient=#{@user_person.diaspora_handle} sender=#{@sender.diaspora_handle} payload_type=#{obj.class}")
+      obj
+    rescue ActiveRecord::RecordNotUnique
+      if @object.respond_to?(:guid)
+        Rails.logger.debug "Received object (#{@object.class} guid #{@object.guid}) already in local DB."
+      else
+        Rails.logger.debug "Received object (#{@object.class} id #{@object.id}) already in local DB."
+      end
+      nil
+    end
   end
 
   def update_cache!
@@ -72,12 +81,16 @@ class Postzord::Receiver::Private < Postzord::Receiver
   end
 
   def validate_object
-    raise "Contact required unless request" if contact_required_unless_request
-    raise "Relayable object, but no parent object found" if relayable_without_parent?
+    return  if contact_required_unless_request
+
+    if relayable_without_parent?
+      Rails.logger.info "Relayable object, but no parent object found"
+      return nil
+    end
 
     assign_sender_handle_if_request
 
-    raise "Author does not match XML author" if author_does_not_match_xml_author?
+    return  if author_does_not_match_xml_author?
 
     @object
   end
@@ -108,7 +121,7 @@ class Postzord::Receiver::Private < Postzord::Receiver
   def contact_required_unless_request
     unless @object.is_a?(Request) || @user.contact_for(@sender)
       Rails.logger.info("event=receive status=abort reason='sender not connected to recipient' recipient=#{@user_person.diaspora_handle} sender=#{@sender.diaspora_handle}")
-      return true 
+      return true
     end
   end
 

@@ -56,7 +56,9 @@ class Comment < ActiveRecord::Base
   end
 
   after_destroy do
-    self.parent.update_comments_counter
+    if self.parent
+      self.parent.update_comments_counter
+    end
   end
 
   def diaspora_handle
