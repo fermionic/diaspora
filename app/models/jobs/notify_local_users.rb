@@ -9,12 +9,7 @@ module Jobs
     require File.join(Rails.root, 'app/models/notification')
 
     def self.perform(user_ids, object_klass, object_id, person_id)
-
       object = object_klass.constantize.find_by_id(object_id)
-
-      #hax
-      return if (object.author.diaspora_handle == 'diasporahq@joindiaspora.com' || (object.respond_to?(:relayable?) && object.parent.author.diaspora_handle == 'diasporahq@joindiaspora.com'))
-      #end hax
 
       users = User.where(:id => user_ids)
       person = Person.find_by_id(person_id)
