@@ -21,6 +21,8 @@ Diaspora::Application.routes.draw do
   end
   get 'p/:id' => 'posts#show', :as => 'short_post'
   get 'public_stream' => 'posts#index', :as => 'public_stream'
+  post 'preview' => 'posts#preview'
+  post 'comment_preview' => 'comments#preview'
   # roll up likes into a nested resource above
   resources :comments, :only => [:create, :destroy] do
     resources :likes, :only => [:create, :destroy, :index]

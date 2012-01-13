@@ -47,8 +47,9 @@ h1
 ul > li
   :list-style none
 
-.content ul li
-  :list-style disc
+.content, #preview-result
+  ul li
+    :list-style disc
 
 form
   :position relative
@@ -409,7 +410,7 @@ ul.as-selections
     :text
       :decoration none
 
-.stream_element
+.stream_element, #preview-result
   :position relative
   :word-wrap break-word
   :color #555
@@ -592,6 +593,7 @@ ul.as-selections
     :align right
 
 ul.comments,
+ul.preview_comments,
 ul.show_comments,
 .likes_container,
 .stream_element .reshare
@@ -675,6 +677,18 @@ ul.show_comments
   :margin
     :top 6px
 
+.comment_form_indent
+  :left 35px
+
+#comment_preview
+  :display none
+  ul.preview_comments
+    :border 1px solid red
+  p.warningText
+    :color red
+    :margin
+      :bottom 3px
+
 form.new_comment
   :padding 8px 5px
   .avatar
@@ -682,10 +696,15 @@ form.new_comment
     :display inline
     :width 30px
     :height 30px
+  #comm-preview
+    :min-width 40px
 
   :min-height 35px
 
   input
+    :display none
+
+  .comment-preview
     :display none
 
   :margin
@@ -714,7 +733,6 @@ form.new_comment
       :bottom 0
       :top -10px
     :position relative
-    :left 35px
 
   &.open
     .submit_button
@@ -725,6 +743,8 @@ form.new_comment
         :right 2px
 
     input
+      :display inline-block
+    #comm-preview
       :display inline-block
 
 
@@ -1126,6 +1146,24 @@ label:not(.bootstrapped)
   #publisher_textarea_wrapper
     #hide_publisher
       :display none
+
+#preview-result
+  :display none
+  :border 1px solid #666666
+  :background white
+  :color #000000
+  :clear both
+  :padding 0px
+  :overflow auto
+  :margin 0px
+
+  @include border-radius(2px)
+
+  .content
+    :padding 1em
+
+#preview-edit
+  :display none
 
 .dim
   @include opacity(0.3)

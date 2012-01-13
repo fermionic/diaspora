@@ -3,10 +3,19 @@
 -#   the COPYRIGHT file.
 
 = form_tag( post_comments_path(post_id), :id => "new_comment_on_#{post_id}", :class => 'new_comment', :remote => true) do
-  = person_image_tag(current_user)
-  %p
-    = label_tag "comment_text_on_#{post_id}", t('.comment')
-    = text_area_tag :text, nil, :rows => 2, :class => "comment_box",:id => "comment_text_on_#{post_id}"
+  .content_hldr#comment_preview.ltr.collapsible
+    %p.warningText
+      = t('.preview')
+    %ul.preview_comments
+      %li.comment.previews
+  .content_hldr#comment_form
+    = person_image_tag(current_user)
+    %p.comment_form_indent
+      = label_tag "comment_text_on_#{post_id}", t('.comment')
+      = text_area_tag :text, nil, :rows => 2, :class => "comment_box",:id => "comment_text_on_#{post_id}"
+
   .submit_button
+    = link_to t('.preview'), '#', :id => 'comm-preview', :class => 'button comment-preview'
+    = link_to t('.edit'), '#', :id => 'comm-preview-edit', :class => 'button comment-preview'
     = submit_tag t('.comment'), :id => "comment_submit_#{post_id}", :class => "comment_submit button creation", :disable_with => t('.commenting')
 
