@@ -76,13 +76,6 @@
 
           if(notification.unread) {
             notificationElement.addClass("unread");
-            $.ajax({
-              url: "/notifications/" + notification.id,
-              type: "PUT",
-              success: function() {
-                Diaspora.page.header.notifications.decrementCount();
-              }
-            });
           }
         });
       });
