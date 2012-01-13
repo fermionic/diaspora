@@ -63,6 +63,7 @@
         $.each(notifications, function(index, notification) {
           var notificationElement = $("<div/>")
             .addClass("notification_element")
+            .data( "guid", notification.id )
             .html(notification.translation)
             .prepend($("<img/>", { src: notification.actors[0].avatar }))
             .append("<br />")
@@ -70,12 +71,16 @@
               "class": "timeago",
               "title": notification.created_at
             }))
+            .append('<a class="unread-setter">mark unread</a>')
             .appendTo(self.dropdownNotifications);
 
           notificationElement.find("abbr.timeago").timeago();
+          notificationElement.click(Diaspora.page.header.notifications.messageClick);
 
           if(notification.unread) {
             notificationElement.addClass("unread");
+          } else {
+            notificationElement.addClass("read");
           }
         });
       });
