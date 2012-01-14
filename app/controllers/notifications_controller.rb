@@ -48,6 +48,18 @@ class NotificationsController < VannaController
     Notification.where(:recipient_id => current_user.id).update_all(:unread => false)
   end
 
+  def num_unread
+    {
+      'num_unread' => Notification.count(
+        :conditions => [
+          'recipient_id = ? AND unread = ?',
+          current_user.id,
+          true
+        ]
+      )
+    }
+  end
+
   post_process :html do
     def post_read_all(json)
       Response.new(:status => 302, :location => multi_path)
