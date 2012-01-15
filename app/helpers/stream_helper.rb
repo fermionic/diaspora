@@ -44,9 +44,9 @@ module StreamHelper
     when AspectsController, MultisController
       post.send session[:sort_order].to_sym
     else
-      Rails.logger.info '!' * 80
+      Rails.logger.info '!' * 30
       Rails.logger.info controller.class.to_s
-      Rails.logger.info session[:sort_order]
+      # Rails.logger.info session[:sort_order]
       post.created_at
     end
   end
