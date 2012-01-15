@@ -2,7 +2,13 @@ function updateNumUnread() {
   $.getJSON(
     '/notifications/num_unread.json',
     function(data) {
-      $('#notification_badge .badge_count').html(data.num_unread);
+      var num_unread = parseInt(data.num_unread);
+      $('#notification_badge .badge_count').html(num_unread);
+      if( num_unread == 0 ) {
+        $('#notification_badge .badge_count').addClass('hidden');
+      } else {
+        $('#notification_badge .badge_count').removeClass('hidden');
+      }
     }
   );
 }
