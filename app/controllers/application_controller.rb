@@ -154,6 +154,11 @@ class ApplicationController < ActionController::Base
     @stream = stream_klass.new(current_user, :max_time => max_time, :order => sort_order)
 
     if params[:only_posts]
+      @stream.stream_posts[ 0...(AppConfig['stream_pagination_size'] || 10) ].each do |p|
+        Rails.logger.info '*'*20 + p.updated_at.to_s
+      end
+      Rails.logger.info 'max_time: ' + Time.at(max_time).to_s
+      Rails.logger.info '.'*200
       render :partial => 'shared/stream', :locals => { :posts => @stream.stream_posts[ 0...(AppConfig['stream_pagination_size'] || 10) ] }
     else
       render 'aspects/index'
