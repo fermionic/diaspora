@@ -91,4 +91,22 @@ class Comment < ActiveRecord::Base
     self.post = parent
   end
 
+  def hint
+    return nil  if text.nil?
+
+    if respond_to?(:strip_tags)
+      text_without_tags = strip_tags(text)
+    elsif text !~ /[<>]/
+      text_without_tags = text
+    else
+      text_without_tags = '...'
+    end
+
+    if text_without_tags.length <= 64
+      text_without_tags
+    else
+      text_without_tags[0...61] + '...'
+    end
+  end
+
 end
