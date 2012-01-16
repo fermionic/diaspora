@@ -587,6 +587,7 @@ en:
         reply_to_or_view: "Reply to or view this conversation >"
     liked:
         liked: "%{name} liked your post"
+        liked_comment: "%{name} liked your comment on a post"
         view_post: "View post >"
     reshared:
         reshared: "%{name} reshared your post"
