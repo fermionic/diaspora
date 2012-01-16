@@ -30,6 +30,8 @@
     this.formatItem = function(row) {
       if (typeof row.search !== "undefined") {
         return Diaspora.I18n.t("search_for", row);
+      } else if (typeof row.search_posts !== "undefined") {
+        return Diaspora.I18n.t("search_posts", row);
       } else {
         return "<img src='"+ row.avatar +"' class='avatar'/>" + row.name;
       }
@@ -53,12 +55,23 @@
         value: self.searchInput.val()
       });
 
+      results.push({
+        data: {
+          term: self.searchInput.val(),
+          url: '/search_posts?q=' + self.searchInput.val(),
+          search_posts: true
+        },
+        value: self.searchInput.val()
+      });
+
       return results;
     };
 
     this.selectItemCallback = function(evt, data, formatted) {
       if (data['search'] === true) { // The placeholder "search for" result
         window.location = self.searchFormAction + '?' + self.searchInputName + '=' + data['name'];
+      } else if (data['search_posts'] === true) {
+        window.location = data['url'];
       } else { // The actual result
         self.options.element.val(formatted);
         window.location = data['url'];

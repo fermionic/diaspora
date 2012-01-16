@@ -26,6 +26,7 @@ en:
           watch: "Watch this video on {{provider}}"
           unknown: "Unknown video type"
       search_for: "Search for {{name}}"
+      search_posts: "Search your posts and comments for {{term}}"
       publisher:
         at_least_one_aspect: "You must publish to at least one aspect"
         limited: "Limited - your post will only be seen by people you are sharing with"
