@@ -137,7 +137,27 @@ class Stream::Multi < Stream::Base
   end
 
   def ids(query)
-    Post.connection.select_values(query.for_a_stream(max_time, order).select('posts.id').to_sql)
+    Post.connection.select_values(
+      query.
+      for_a_stream(max_time, order).
+      select('posts.id').
+      where(
+        %{
+          COALESCE(
+            (
+              SELECT NOT sv.hidden
+              FROM share_visibilities sv
+              WHERE
+                sv.shareable_type = 'Post'
+                AND sv.shareable_id = posts.id
+              LIMIT 1
+            ),
+            TRUE
+          )
+        }
+      ).
+      to_sql
+    )
   end
 
 end
