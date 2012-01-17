@@ -34,7 +34,7 @@
   %hr
   %br
 
-  %h3 
+  %h3
     = t('.change_password')
   = form_for 'user', :url => user_path, :html => { :method => :put } do |f|
     = f.error_messages
@@ -59,7 +59,7 @@
   %hr
   %br
 
-  %h3 
+  %h3
     = t('.change_language')
   = form_for 'user', :url => user_path, :html => { :method => :put } do |f|
     = f.error_messages
@@ -92,7 +92,7 @@
   %br
 
   %h3#getting-started-preferences
-    = t('.show_getting_started') 
+    = t('.show_getting_started')
   = form_for current_user, :url => user_path, :html => { :method => :put } do |f|
     = f.error_messages
 
@@ -107,7 +107,7 @@
   %br
   %hr
   %br
-  %h3 
+  %h3
     = t('.receive_email_notifications')
   = form_for 'user', :url => user_path, :html => { :method => :put } do |f|
     = f.error_messages
@@ -119,7 +119,7 @@
           = type.check_box :also_commented, {:checked =>  @email_prefs['also_commented']}, false, true
         %br
         %p.checkbox_select
-          = type.label :mentioned, t('.mentioned') 
+          = type.label :mentioned, t('.mentioned')
           = type.check_box :mentioned, {:checked =>  @email_prefs['mentioned']}, false, true
 
 
@@ -157,14 +157,14 @@
 
 
   #account_data.span-5.append-2
-    %h3 
+    %h3
       = t('.export_data')
     = link_to t('.download_xml'), export_user_path, :class => "button"
     %br
     = link_to t('.download_photos'), "#", :class => "button", :id => "photo-export-button", :title => t('.photo_export_unavailable')
 
   .span-5.last
-    %h3 
+    %h3
       = t('.close_account')
     = form_for 'user', :url => user_path, :html => { :method => :delete } do |f|
       = f.error_messages
