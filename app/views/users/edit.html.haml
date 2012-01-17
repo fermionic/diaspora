@@ -174,3 +174,18 @@
         = f.password_field :current_password, :id => :close_account_password
       %p
         = f.submit t('.close_account'), :confirm => t('are_you_sure')
+
+  #custom.span-12
+
+    = form_for 'user', :url => user_path, :html => { :method => :put } do |f|
+      = f.error_messages
+
+      %h3= t('.custom_js')
+      %p
+        = f.text_area 'custom_js', :value => @user.custom_js, :rows => 8, :cols => 80
+
+      %h3= t('.custom_css')
+      %p
+        = f.text_area 'custom_css', :value => @user.custom_css, :rows => 8, :cols => 80
+
+      = f.submit t('.update'), :class => "button"

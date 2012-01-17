@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120110061231) do
+ActiveRecord::Schema.define(:version => 20120117042506) do
 
   create_table "aspect_memberships", :force => true do |t|
     t.integer  "aspect_id",  :null => false
@@ -509,6 +509,8 @@ ActiveRecord::Schema.define(:version => 20120110061231) do
     t.string   "confirm_email_token",                :limit => 30
     t.datetime "locked_at"
     t.boolean  "show_community_spotlight_in_stream",                :default => true,  :null => false
+    t.text     "custom_css"
+    t.text     "custom_js"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

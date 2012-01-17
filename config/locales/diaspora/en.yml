@@ -1051,6 +1051,9 @@ en:
       show_community_spotlight: "Show Community Spotlight in Stream?"
       show_getting_started: 'Re-enable Getting Started'
       getting_started: 'New User Prefrences'
+      custom_css: 'Custom CSS'
+      custom_js: 'Custom Javascript'
+      update: 'Update'
 
     privacy_settings:
       title: "Privacy Settings"
