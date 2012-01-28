@@ -50,7 +50,7 @@
     };
 
     this.getNotifications = function() {
-      $.getJSON("/notifications?per_page=5", function(notifications) {
+      $.getJSON("/notifications?per_page=5&unread_only=true", function(notifications) {
         self.notifications = notifications;
         self.renderNotifications();
       });
