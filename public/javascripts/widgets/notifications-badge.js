@@ -85,6 +85,8 @@
         });
       });
 
+      $('#notification_badge .badge_count').html( self.notifications.num_unread );
+
       self.ajaxLoader.hide();
     };
   };
