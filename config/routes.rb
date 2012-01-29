@@ -56,6 +56,7 @@ Diaspora::Application.routes.draw do
   resources :notifications, :only => [:index, :update] do
     get :read_all, :on => :collection
   end
+  get 'notifications/num_unread' => 'notifications#num_unread'# , :as => 'num_unread_notifications'
 
   resources :tags, :only => [:index]
   scope "tags/:name" do
