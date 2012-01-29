@@ -1,0 +1,15 @@
+<h3><%= t('.posts') %></h3>
+
+<ul>
+<% @posts.each do |p| %>
+  <li><a href="<%= post_path(p) %>"><%= t('ago', :time => time_ago_in_words(p.created_at)) %></a> - <%= p.hint %></li>
+<% end %>
+</ul>
+
+<h3><%= t('.comments') %></h3>
+
+<ul>
+<% @comments.each do |c| %>
+  <li><a href="<%= post_path(c.post) %>"><%= t('ago', :time => time_ago_in_words(c.created_at)) %></a> - <%= strip_tags(c.text)[0...80] %></li>
+<% end %>
+</ul>

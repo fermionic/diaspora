@@ -78,6 +78,21 @@ class PostsController < ApplicationController
     }
   end
 
+  def search
+    if params['q'].nil?
+      return redirect_to(:back)
+    end
+
+    q = params['q'][0...256].strip
+    if q.length < 3
+      @posts = []
+      @comments = []
+    else
+      @posts = current_user.posts.where('text ILIKE ?', "%#{q}%").order('created_at desc').limit(30)
+      @comments = current_user.comments.where('text ILIKE ?', "%#{q}%").order('created_at desc').limit(30)
+    end
+  end
+
   private
 
   def user_can_not_comment_on_post?

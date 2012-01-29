@@ -611,6 +611,8 @@ en:
       couldnt_find_them_send_invite: "Couldn't find them?  Send an invite!"
       no_one_found: "...and no one was found."
       looking_for: "Looking for posts tagged %{tag_link}?"
+      or_search_posts: 'Or maybe you wanted to %{search_link}.'
+      search_posts: 'search posts and comments for %{q}'
     webfinger:
       fail: "Sorry, we couldn't find %{handle}."
     show:
@@ -691,6 +693,9 @@ en:
       destroy: "Delete"
       permalink: "permalink"
       not_found: "Sorry, we couldn't find that post."
+    search:
+      posts: 'Your Posts'
+      comments: 'Your Comments'
 
   share_visibilites:
     update:

@@ -31,7 +31,10 @@ class User < ActiveRecord::Base
   validate :no_person_with_same_username
 
   has_one :person, :foreign_key => :owner_id
-  delegate :public_key, :posts, :photos, :owns?, :diaspora_handle, :name, :public_url, :profile, :first_name, :last_name, :to => :person
+  delegate(
+    :public_key, :posts, :comments, :photos, :owns?, :diaspora_handle, :name, :public_url, :profile, :first_name, :last_name,
+    :to => :person
+  )
 
   has_many :invitations_from_me, :class_name => 'Invitation', :foreign_key => :sender_id, :dependent => :destroy
   has_many :invitations_to_me, :class_name => 'Invitation', :foreign_key => :recipient_id, :dependent => :destroy
