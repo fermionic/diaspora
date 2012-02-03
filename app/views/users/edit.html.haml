@@ -189,3 +189,15 @@
         = f.text_area 'custom_css', :value => @user.custom_css, :rows => 8, :cols => 80
 
       = f.submit t('.update'), :class => "button"
+
+  %hr
+
+  #fapi
+    %h3
+      = t('.fapi')
+
+    #fapi_current
+      = t('.current_token_api')
+      = current_user.token_api || t('.no_token_api')
+
+    = link_to t('.generate_token_api'), generate_token_api_user_path

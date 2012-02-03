@@ -1061,6 +1061,12 @@ en:
       custom_css: 'Custom CSS'
       custom_js: 'Custom Javascript'
       update: 'Update'
+      fapi: 'API'
+      generate_token_api: 'Generate a new API token'
+      current_token_api: 'Current API token:'
+      no_token_api: '(none)'
+      generate_token_api_success: 'New API token successfully generated.'
+      generate_token_api_failure: 'Failed to generate a new API token.'
 
     privacy_settings:
       title: "Privacy Settings"

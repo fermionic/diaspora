@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120117042506) do
+ActiveRecord::Schema.define(:version => 20120203185339) do
 
   create_table "aspect_memberships", :force => true do |t|
     t.integer  "aspect_id",  :null => false
@@ -511,6 +511,7 @@ ActiveRecord::Schema.define(:version => 20120117042506) do
     t.boolean  "show_community_spotlight_in_stream",                :default => true,  :null => false
     t.text     "custom_css"
     t.text     "custom_js"
+    t.string   "token_api",                          :limit => 32
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
@@ -518,6 +519,7 @@ ActiveRecord::Schema.define(:version => 20120117042506) do
   add_index "users", ["invitation_service", "invitation_identifier"], :name => "index_users_on_invitation_service_and_invitation_identifier", :unique => true
   add_index "users", ["invitation_token"], :name => "index_users_on_invitation_token"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token", :unique => true
+  add_index "users", ["token_api"], :name => "index_users_on_token_api", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   add_foreign_key "aspect_memberships", "aspects", :name => "aspect_memberships_aspect_id_fk", :dependent => :delete

@@ -90,6 +90,7 @@ Diaspora::Application.routes.draw do
     get :getting_started_completed
     get :export
     get :export_photos
+    get :generate_token_api
   end
 
   controller :users do
@@ -196,6 +197,13 @@ Diaspora::Application.routes.draw do
     end
   end
 
+  namespace 'fapi' do
+    namespace 'v0' do
+      resource 'me', :only => [:show,], :controller => :me
+      resources 'posts', :only => [:index,]
+      resources 'notifications', :only => [:index,]
+    end
+  end
 
   # Mobile site
 

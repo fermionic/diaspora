@@ -173,4 +173,14 @@ class UsersController < ApplicationController
     end
     redirect_to edit_user_path
   end
+
+  def generate_token_api
+    current_user.token_api = ActiveSupport::SecureRandom.hex(16)
+    if current_user.save
+      flash[:notice] = t('users.edit.generate_token_api_success')
+    else
+      flash[:notice] = t('users.edit.generate_token_api_failure')
+    end
+    redirect_to edit_user_path + '#fapi'
+  end
 end

@@ -515,4 +515,8 @@ class User < ActiveRecord::Base
   def admin_of?(group)
     self.person.admin_of? group
   end
+
+  def notifications
+    Notification.where( 'recipient_id = ?', self.id )
+  end
 end
