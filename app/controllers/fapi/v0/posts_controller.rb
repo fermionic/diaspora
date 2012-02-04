@@ -18,7 +18,6 @@ module Fapi
         msg.public = true
         msg.save
 
-
         aspect_ids = @user.aspects.map{|a| a.id}
         aspects = @user.aspects_from_ids(aspect_ids)
         @user.add_to_streams(msg, aspects)

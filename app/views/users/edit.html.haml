@@ -197,7 +197,7 @@
       = t('.fapi')
 
     #fapi_current
-      = t('.current_token_api')
-      = current_user.token_api || t('.no_token_api')
+      = t('.current_api_token')
+      = current_user.api_token || t('.no_api_token')
 
-    = link_to t('.generate_token_api'), generate_token_api_user_path
+    = link_to t('.generate_api_token'), generate_api_token_user_path

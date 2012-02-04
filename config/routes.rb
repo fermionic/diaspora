@@ -90,7 +90,7 @@ Diaspora::Application.routes.draw do
     get :getting_started_completed
     get :export
     get :export_photos
-    get :generate_token_api
+    get :generate_api_token
   end
 
   controller :users do

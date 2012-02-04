@@ -1062,11 +1062,11 @@ en:
       custom_js: 'Custom Javascript'
       update: 'Update'
       fapi: 'API'
-      generate_token_api: 'Generate a new API token'
-      current_token_api: 'Current API token:'
-      no_token_api: '(none)'
-      generate_token_api_success: 'New API token successfully generated.'
-      generate_token_api_failure: 'Failed to generate a new API token.'
+      generate_api_token: 'Generate a new API token'
+      current_api_token: 'Current API token:'
+      no_api_token: '(none)'
+      generate_api_token_success: 'New API token successfully generated.'
+      generate_api_token_failure: 'Failed to generate a new API token.'
 
     privacy_settings:
       title: "Privacy Settings"

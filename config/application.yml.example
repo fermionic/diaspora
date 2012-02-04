@@ -83,6 +83,11 @@ defaults: &defaults
   # This allows an administrator to see info about the workers
   mount_resque_web: true
 
+  # API throttling.
+  # The number of seconds callers must wait between API calls
+  # (or the request is rejected)
+  api_min_time_between: 5
+
   # Logging setup
 
   # Enable extensive logging to log/{development,test,production}.log
