@@ -3,7 +3,7 @@ module Fapi
     class NotificationsController < BaseController
       def index
         respond_with( {
-          'posts' => @user.notifications.where(:unread => true).order('id DESC')[0..10]
+          'notifications' => @user.notifications.where(:unread => true).order('id')[0...10]
         } )
       end
     end
