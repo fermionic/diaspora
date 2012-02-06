@@ -28,8 +28,11 @@ class ChatMessagesController < ApplicationController
     elsif recipient == current_user.person
       render :json => { 'success' => false, 'error' => "Chesterton said that a man that does not talk to himself must not think he's someone worth talking to.  Good for you!" }
       return
-    elsif ! recipient.owner.contacts.any? { |c| c.person == current_user.person && c.receiving }
-      receiver_not_sharing = true
+    elsif (
+      ! recipient.owner.chat_with_anyone &&
+      ! recipient.owner.contacts.any? { |c| c.person == current_user.person && c.receiving }
+    )
+      receiver_wont_receive = true
     end
 
     text = strip_tags( params['text'] )
@@ -44,7 +47,7 @@ class ChatMessagesController < ApplicationController
     if m && m.valid?
       # We don't want to inform people whether other people are following them back,
       # so if the recipient is not following the sender, it's an uninformative failure.
-      if ! receiver_not_sharing
+      if ! receiver_wont_receive
         socketed = m.socket_to_user(recipient.owner)
         m.socket_to_user current_user
       end
