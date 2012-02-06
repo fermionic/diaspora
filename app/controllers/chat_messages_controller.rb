@@ -25,6 +25,9 @@ class ChatMessagesController < ApplicationController
       # so we don't say whether the ID is legit or not
       render :json => { 'success' => false, 'error' => message  }
       return
+    elsif recipient == current_user.person
+      render :json => { 'success' => false, 'error' => "Chesterton said that a man that does not talk to himself must not think he's someone worth talking to.  Good for you!" }
+      return
     elsif ! recipient.owner.contacts.any? { |c| c.person == current_user.person && c.receiving }
       receiver_not_sharing = true
     end

@@ -46,10 +46,15 @@ $(document).ready( function() {
     }
   } );
 
-  $('#people_stream.contacts .online .content').click( function() {
+  $('#people_stream.contacts .online .content, .chat_message .to').live( 'click', function() {
     $('#chat_dropdown').show();
     updateChatBadge(0);
     $('#chat-partner').val( $(this).data('diaspora_handle') );
     $('#chat-text').focus();
   } );
+
+  $('.chat_message')
+    .live( 'mouseenter', function() { $(this).find('.to').show(); } )
+    .live( 'mouseleave', function() { $(this).find('.to').hide(); } )
+  ;
 } );
