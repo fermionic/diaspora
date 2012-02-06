@@ -10,9 +10,19 @@ $(document).ready( function() {
       $(this).addClass('disabled');
       $.post(
         '/chat_messages',
-        { text: $(this).val() },
+        {
+          text: $(this).val(),
+          partner: $('#chat-partner').val()
+        },
         function(data) {
-          $('#chat-text').val('');
+          if( ! data.success ) {
+            if( data.error ) {
+              alert(data.error);
+            }
+          } else {
+            $('#chat-text').val('');
+          }
+
           $('#chat-text').removeClass('disabled');
           $('#chat-text').removeAttr('disabled');
         }

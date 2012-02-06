@@ -11,14 +11,19 @@ class ChatMessagesController < ApplicationController
   end
 
   def create
-    if current_user.id == 1
-      recipient = User.find(2).person
-    else
-      recipient = User.find(1).person
+    if params['text'].nil? || params['partner'].nil?
+      render :json => { 'success' => false }
+      return
     end
 
-    if params['text'].nil?
-      render :json => { 'success' => false }
+    recipient = Person.find_by_diaspora_handle(params['partner'])
+    if recipient.nil?
+      if params['partner'].empty?
+        message = 'Please specify the Diaspora ID of the person you wish to chat with.'
+      else
+        message = "Unknown person: #{params['partner']}"
+      end
+      render :json => { 'success' => false, 'error' => message  }
       return
     end
 

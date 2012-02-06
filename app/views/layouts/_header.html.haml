@@ -57,6 +57,9 @@
           = image_tag("ajax-loader.gif")
 
     #chat_dropdown
+      .header
+        To:
+        = text_field_tag 'chat-partner', '', :id => 'chat-partner'
       .incoming
       .outgoing
         = text_area_tag 'chat-text', '', :rows => 3, :id => 'chat-text'
