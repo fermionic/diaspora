@@ -17,12 +17,26 @@ class ChatMessagesController < ApplicationController
       recipient = User.find(1).person
     end
 
-    m = ChatMessage.create!(
-      :author => current_user.person,
-      :recipient => recipient,
-      :text => strip_tags( params['text'] )
-    )
-    m.socket_to_user recipient.owner
-    render :json => { 'success' => '1' }
+    if params['text'].nil?
+      render :json => { 'success' => false }
+      return
+    end
+
+    text = strip_tags( params['text'] )
+    if ! text.empty?
+      m = ChatMessage.create(
+        :author => current_user.person,
+        :recipient => recipient,
+        :text => text
+      )
+    end
+
+    if m && m.valid?
+      m.socket_to_user recipient.owner
+      m.socket_to_user current_user
+      render :json => { 'success' => true }
+    else
+      render :json => { 'success' => false }
+    end
   end
 end

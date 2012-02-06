@@ -6,11 +6,15 @@ $(document).ready( function() {
 
   $('#chat-text').keypress( function (e) {
     if( e.which == 13 ) {
+      $(this).attr('disabled','disabled');
+      $(this).addClass('disabled');
       $.post(
         '/chat_messages',
-        { text: $('#chat-text').val() },
+        { text: $(this).val() },
         function(data) {
           $('#chat-text').val('');
+          $('#chat-text').removeClass('disabled');
+          $('#chat-text').removeAttr('disabled');
         }
       );
     }
