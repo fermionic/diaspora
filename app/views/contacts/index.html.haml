@@ -28,16 +28,20 @@
           = link_to t('.add_to_aspect', :name => @aspect.name), edit_aspect_path(@aspect), :rel => "facebox"
 
     - if @contacts.size > 0
-      %h3= t('.online')
-      - for contact in @contacts
-        - if Diaspora::WebSocket.is_connected?( contact.person.owner && contact.person.owner.id )
-          .online.stream_element{:id => contact.person.id}
-            = person_image_link(contact.person)
-            .content{:title => 'Click to chat with this person', 'data-diaspora_handle' => contact.person.diaspora_handle}
-              %span.from
-                = contact.person.name
-              .info
-                = contact.person.diaspora_handle
+      #contacts_online
+        %h3= t('.online')
+        - if @contacts_online.size == 0
+          = t('.none_online')
+        - else
+          - for contact in @contacts_online
+            - if Diaspora::WebSocket.is_connected?( contact.person.owner && contact.person.owner.id )
+              .online.stream_element{:id => contact.person.id}
+                = person_image_link(contact.person)
+                .content{:title => 'Click to chat with this person', 'data-diaspora_handle' => contact.person.diaspora_handle}
+                  %span.from
+                    = contact.person.name
+                  .info
+                    = contact.person.diaspora_handle
 
       %h3= t('.title')
       - for contact in @contacts

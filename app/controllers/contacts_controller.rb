@@ -20,6 +20,12 @@ class ContactsController < ApplicationController
       end
     end
 
+    @contacts_online = @contacts.find_all { |c|
+      if c.person.owner && c.sharing && c.receiving
+        Diaspora::WebSocket.is_connected?( c.person.owner.id )
+      end
+    }
+
     respond_to do |format|
       format.html { @contacts = sort_and_paginate_profiles(@contacts) }
       format.mobile { @contacts = sort_and_paginate_profiles(@contacts) }
