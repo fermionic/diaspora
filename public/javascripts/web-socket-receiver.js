@@ -30,6 +30,10 @@ var WSR = WebSocketReceiver = {
             .append(message.html)
             .scrollTop( $('#chat_dropdown .incoming')[0].scrollHeight )
           ;
+          if( $('#chat_dropdown').css('display') == 'none' ) {
+            var n = parseInt( $('#chat_badge .badge_count').html() );
+            updateChatBadge( n+1 );
+          }
         default:
           if(WSR.onPageForAspects(message.aspect_ids)) {
             ContentUpdater.addPostToStream(message.html);
