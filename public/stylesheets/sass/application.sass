@@ -3230,8 +3230,10 @@ a.toggle_selector
     :max-height 300px
 
   .chat_message
-    :border-bottom solid #888 1px
-    :padding 0.5em
+    :padding-top 0.4em
+    :padding-bottom 0.4em
+  .chat_message + .chat_message
+    :border-top solid #888 1px
 
   textarea.disabled
     :opacity 0.4

@@ -27,7 +27,7 @@ class ChatMessagesController < ApplicationController
       m = ChatMessage.create(
         :author => current_user.person,
         :recipient => recipient,
-        :text => text
+        :text => text[0...512]
       )
     end
 

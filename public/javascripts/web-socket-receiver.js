@@ -26,7 +26,10 @@ var WSR = WebSocketReceiver = {
           ContentUpdater.addLikesToPost(message.post_guid, message.html);
           break;
         case 'chat_messages':
-          $('#chat_dropdown .incoming').append('<div>' + message.html + '</div>');
+          $('#chat_dropdown .incoming')
+            .append(message.html)
+            .scrollTop( $('#chat_dropdown .incoming')[0].scrollHeight )
+          ;
         default:
           if(WSR.onPageForAspects(message.aspect_ids)) {
             ContentUpdater.addPostToStream(message.html);
