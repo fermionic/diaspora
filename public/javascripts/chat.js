@@ -29,4 +29,10 @@ $(document).ready( function() {
       );
     }
   } );
+
+  $('#people_stream.contacts .online .content').click( function() {
+    $('#chat_dropdown').show();
+    $('#chat-partner').val( $(this).data('diaspora_handle') );
+    $('#chat-text').focus();
+  } );
 } );

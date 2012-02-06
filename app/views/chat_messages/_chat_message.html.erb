@@ -1,4 +1,4 @@
 <div class="chat_message">
-  <div class="author">&lt;<%= message.author.diaspora_handle %>&gt;</div>
+  <div class="author"><%= person_link(message.author) %></div>
   <span class="text"><%= message.text %></span>
 </div>
