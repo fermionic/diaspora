@@ -1719,6 +1719,10 @@ h3 span.current_gs_step
   img
     :position relative
 
+#chat_badge
+  img
+    :height 16px
+
 .badge_count
   @include border-radius(2px)
 
@@ -3207,6 +3211,20 @@ a.toggle_selector
     :left 0px
   :padding
     :bottom 10px
+
+#chat_dropdown
+  @include dropdown-shadow
+
+  :background white
+  :border solid #888 1px
+  :position absolute
+  :top 32px
+  :left 555px
+  :width 300px
+  :max-height 500px
+  :display none
+  :color #444
+  :padding 10px
 
 .cubbies_collage
   :position absolute

@@ -53,6 +53,9 @@ module SocketsHelper
       elsif object.is_a? Notification
         v = render_to_string(:partial => 'notifications/popup', :locals => {:note => object, :person => opts[:actor]})
 
+      elsif object.is_a? ChatMessage
+        v = object.text
+
       else
         raise "#{object.inspect} with class #{object.class} is not actionhashable." unless object.is_a? Retraction
       end

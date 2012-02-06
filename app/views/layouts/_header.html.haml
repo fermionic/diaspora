@@ -38,6 +38,12 @@
           .badge_count{:class => ("hidden" if @unread_message_count == 0)}
             = @unread_message_count
 
+      #chat_badge.badge
+        = link_to chat_messages_path do
+          = image_tag 'icons/speechbubble.png'
+          .badge_count
+            0
+
     #notification_dropdown
       .header
         .right
@@ -49,6 +55,11 @@
       .notifications
         .ajax_loader
           = image_tag("ajax-loader.gif")
+
+    #chat_dropdown
+      .incoming
+      .outgoing
+        = text_area_tag 'chat-text', '', :rows => 3, :id => 'chat-text'
 
     #hovercard_container
       #hovercard
