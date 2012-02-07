@@ -45,10 +45,13 @@ class ApplicationController < ActionController::Base
           end
           @chat_messages_unread[m.author] << m
         end
+
+        @chat_messages_read = Hash.new { |h,k| h[k] = Array.new }
         @contact_persons_online = current_user.contacts_online.map(&:person)
-        @contact_persons_online.each do |p|
+        @contact_persons_online[0...6].each do |p|
           if ! @chat_partners.include?(p)
             @chat_partners << p
+            @chat_messages_read[p] = ChatMessage.history_between(current_user.person, p, :limit => 5)
           end
         end
       end

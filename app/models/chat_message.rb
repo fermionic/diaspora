@@ -13,4 +13,21 @@ class ChatMessage < ActiveRecord::Base
     super(user_or_id, opts)
   end
 
+  def self.history_between(p1, p2, options = {})
+    limit = options[:limit] || 5
+    read = options[:read].nil? ? true : options[:read]
+    where(
+      %{
+        (
+          recipient_id = ? AND author_id = ?
+          OR recipient_id = ? AND author_id = ?
+        )
+        AND read = ?
+      },
+      p1.id, p2.id,
+      p2.id, p1.id,
+      read
+    ).order('id DESC').limit(limit).reverse
+  end
+
 end

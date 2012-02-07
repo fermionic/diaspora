@@ -64,7 +64,7 @@
 
         .conversations
           - @chat_partners.each_with_index do |partner,i|
-            = render :partial => 'chat_messages/conversation', :locals => { :partner => partner, :messages => @chat_messages_unread[partner], :first => i == 0 }
+            = render :partial => 'chat_messages/conversation', :locals => { :partner => partner, :messages => @chat_messages_read[partner] + @chat_messages_unread[partner], :first => i == 0 }
       .outgoing
         = text_area_tag 'chat-text', '', :rows => 3, :id => 'chat-text'
 

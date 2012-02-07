@@ -78,7 +78,14 @@ class ChatMessagesController < ApplicationController
     if partner
       render :json => {
         'partner' => render_to_string( :partial => 'chat_messages/partner.html.erb', :locals => { :partner => partner, :first => true } ),
-        'conversation' => render_to_string( :partial => 'chat_messages/conversation.html.erb', :locals => { :partner => partner, :first => true, :messages => [] } )
+        'conversation' => render_to_string(
+          :partial => 'chat_messages/conversation.html.erb',
+          :locals => {
+            :partner => partner,
+            :first => true,
+            :messages => ChatMessage.history_between(current_user.person, partner, :limit => 5)
+          }
+        )
       }
     else
       render :json => { 'partner' => '', 'conversation' => '' }
