@@ -1,8 +1,5 @@
 <div class="chat_message">
   <div>
-    <% if message.author != current_user.person %>
-      <div class="to" title="Click to chat with <%= message.author.name %>" data-diaspora_handle="<%= message.author.diaspora_handle %>">change to</div>
-    <% end %>
     <div class="author"><%= person_link(message.author) %></div>
   </div>
   <span class="text"><%= markdownify(message.text) %></span>
