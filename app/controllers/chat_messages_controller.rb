@@ -35,21 +35,19 @@ class ChatMessagesController < ApplicationController
         return
       end
 
-      m = ChatMessage.create(
-        :author => current_user.person,
-        :recipient => recipient,
-        :text => text
-      )
-    end
-
-    if m && m.valid?
       # We don't want to inform people whether other people are following them back,
       # so if the recipient is not following the sender, it's an uninformative failure.
       if ! receiver_wont_receive
-        socketed = m.socket_to_user(recipient.owner)
+        m = ChatMessage.create(
+          :author => current_user.person,
+          :recipient => recipient,
+          :text => text
+        )
       end
+    end
 
-      if socketed
+    if m && m.valid?
+      if m.socket_to_user(recipient.owner)
         m.socket_to_user current_user
         render :json => { 'success' => true }
       else
