@@ -100,6 +100,7 @@ $(document).ready( function() {
       $('.partners .partner[data-person_id="'+person_id+'"]').click();
     } else {
       createChatConversation(person_id);
+      activateChatConversation(person_id);
     }
   } );
 
