@@ -52,7 +52,10 @@ class ChatMessagesController < ApplicationController
         m.socket_to_user current_user
         render :json => { 'success' => true }
       else
-        render :json => { 'success' => false, 'error' => 'Your message could not be sent.  The recipient could be offline.' }
+        render :json => {
+          'success' => false,
+          'error' => "#{recipient.name} may be offline.  Messages sent to offline contacts are saved for them to read later."
+        }
       end
     else
       render :json => { 'success' => false }
