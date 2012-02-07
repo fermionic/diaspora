@@ -5,5 +5,5 @@
     <% end %>
     <div class="author"><%= person_link(message.author) %></div>
   </div>
-  <span class="text"><%= message.text %></span>
+  <span class="text"><%= markdownify(message.text) %></span>
 </div>

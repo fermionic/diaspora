@@ -30,9 +30,8 @@ class ChatMessagesController < ApplicationController
 
     text = strip_tags( params['text'] )
     if ! text.empty?
-      text = markdownify(text)
       if text.length > 512
-        render :json => { 'success' => false, 'error' => 'Your message is too long.  Please shorten it.' }
+        render :json => { 'success' => false, 'error' => 'Messages cannot be longer than 512 characters.' }
         return
       end
 
