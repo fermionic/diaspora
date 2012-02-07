@@ -3,6 +3,9 @@
 #   the COPYRIGHT file.
 
 class ApplicationController < ActionController::Base
+  include ChatHelper
+  include MarkdownifyHelper
+
   has_mobile_fu
 
   protect_from_forgery :except => :receive
@@ -33,27 +36,13 @@ class ApplicationController < ActionController::Base
   # helper methods instead
   def set_header_data
     if user_signed_in?
-      if request.format.html? && !params[:only_posts]
-        @notification_count = Notification.for(current_user, :unread =>true).count
-        @unread_message_count = ConversationVisibility.sum(:unread, :conditions => "person_id = #{current_user.person.id}")
-
-        @chat_messages_unread = Hash.new { |h,k| h[k] = Array.new }
-        @chat_partners = []  # To provide an ordering for display
-        current_user.chat_messages_unread.order('id').each do |m|
-          if ! @chat_partners.include?(m.author)
-            @chat_partners << m.author
-          end
-          @chat_messages_unread[m.author] << m
+      if request.format.html?
+        if ! params[:only_posts]
+          @notification_count = Notification.for(current_user, :unread =>true).count
+          @unread_message_count = ConversationVisibility.sum(:unread, :conditions => "person_id = #{current_user.person.id}")
         end
 
-        @chat_messages_read = Hash.new { |h,k| h[k] = Array.new }
-        @contact_persons_online = current_user.contacts_online.map(&:person)
-        @contact_persons_online[0...6].each do |p|
-          if ! @chat_partners.include?(p)
-            @chat_partners << p
-            @chat_messages_read[p] = ChatMessage.history_between(current_user.person, p, :limit => 5)
-          end
-        end
+        initialize_chat_variables
       end
     end
   end
