@@ -23,6 +23,39 @@ function showChatMessages() {
   markActiveConversationRead();
 }
 
+function createChatConversation(person_id) {
+  $.get(
+    '/chat_messages_new_conversation.json',
+    { person_id: person_id },
+    function(response) {
+      $('.partners').prepend( response.partner );
+      $('.conversations').prepend( response.conversation );
+      $('#chat-text').focus();
+    }
+  );
+}
+
+function addChatMessageToConversation( message, conversation ) {
+  conversation
+    .append(message.html)
+    .scrollTop( $('#chat_dropdown .incoming')[0].scrollHeight )
+  ;
+  if( $('#chat_dropdown').css('display') == 'none' ) {
+    var n = parseInt( $('#chat_badge .badge_count').html() );
+    updateChatBadge( n+1 );
+  } else if( conversation.hasClass('active') ) {
+    markActiveConversationRead();
+  }
+}
+
+function activateChatConversation( person_id ) {
+  $('#chat_dropdown .conversation').hide();
+  $('.partner, .conversation').removeClass('active');
+  $('.partner[data-person_id="' + person_id + '"]').addClass('active');
+  $('.conversation[data-person_id="' + person_id + '"]').addClass('active').show();
+  markActiveConversationRead();
+}
+
 $(document).ready( function() {
   $('#chat_badge').click( function() {
     var dd = $('#chat_dropdown');
@@ -66,15 +99,7 @@ $(document).ready( function() {
     if( $('.partners .partner[data-person_id="'+person_id+'"]').length ) {
       $('.partners .partner[data-person_id="'+person_id+'"]').click();
     } else {
-      $.get(
-        '/chat_messages_new_conversation.json',
-        { person_id: person_id },
-        function(response) {
-          $('.partners').prepend( response.partner );
-          $('.conversations').prepend( response.conversation );
-          $('#chat-text').focus();
-        }
-      );
+      createChatConversation(person_id);
     }
   } );
 
@@ -85,10 +110,6 @@ $(document).ready( function() {
 
   $('.partner').live( 'click', function() {
     var person_id = $(this).data('person_id');
-    $('#chat_dropdown .conversation').hide();
-    $('.conversation[data-person_id="' + person_id + '"]').show();
-    $('.partner').removeClass('active');
-    $(this).addClass('active');
-    markActiveConversationRead();
+    activateChatConversation(person_id);
   } );
 } );

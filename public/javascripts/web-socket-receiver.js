@@ -27,15 +27,19 @@ var WSR = WebSocketReceiver = {
           break;
         case 'chat_messages':
           var convo = $('#chat_dropdown .incoming .conversation[data-person_id="' + message.person_id + '"]');
-          convo
-            .append(message.html)
-            .scrollTop( $('#chat_dropdown .incoming')[0].scrollHeight )
-          ;
-          if( $('#chat_dropdown').css('display') == 'none' ) {
-            var n = parseInt( $('#chat_badge .badge_count').html() );
-            updateChatBadge( n+1 );
-          } else if( convo.hasClass('active') ) {
-            markActiveConversationRead();
+          if( convo.length ) {
+            addChatMessageToConversation( message, convo );
+          } else {
+            $.get(
+              '/chat_messages_new_conversation.json',
+              { person_id: message.person_id },
+              function(response) {
+                $('.partners').prepend( response.partner );
+                convo = $(response.conversation);
+                addChatMessageToConversation( message, convo );
+                $('.conversations').prepend( convo );
+              }
+            );
           }
           break;
         default:
