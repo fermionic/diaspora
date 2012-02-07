@@ -37,10 +37,15 @@ class ChatMessagesController < ApplicationController
 
     text = strip_tags( params['text'] )
     if ! text.empty?
+      if text.length > 512
+        render :json => { 'success' => false, 'error' => 'Messages cannot be longer than 512 characters.' }
+        return
+      end
+
       m = ChatMessage.create(
         :author => current_user.person,
         :recipient => recipient,
-        :text => text[0...512]
+        :text => text
       )
     end
 
