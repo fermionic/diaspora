@@ -520,4 +520,13 @@ class User < ActiveRecord::Base
   def chat_messages_unread
     ChatMessage.where(:recipient_id => self.person.id, :read => false)
   end
+
+  def contacts_online
+    self.contacts.find_all { |c|
+      c.person.owner &&
+      c.sharing &&
+      c.receiving &&
+      Diaspora::WebSocket.is_connected?( c.person.owner.id )
+    }
+  end
 end

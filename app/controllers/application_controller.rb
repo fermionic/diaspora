@@ -45,6 +45,12 @@ class ApplicationController < ActionController::Base
           end
           @chat_messages_unread[m.author] << m
         end
+        @contact_persons_online = current_user.contacts_online.map(&:person)
+        @contact_persons_online.each do |p|
+          if ! @chat_partners.include?(p)
+            @chat_partners << p
+          end
+        end
       end
     end
   end

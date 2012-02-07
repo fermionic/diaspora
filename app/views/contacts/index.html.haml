@@ -30,18 +30,17 @@
     - if @contacts.size > 0
       #contacts_online
         %h3= t('.online')
-        - if @contacts_online.size == 0
+        - if @contact_persons_online.size == 0
           = t('.none_online')
         - else
-          - for contact in @contacts_online
-            - if Diaspora::WebSocket.is_connected?( contact.person.owner && contact.person.owner.id )
-              .online.stream_element{:id => contact.person.id}
-                = person_image_link(contact.person)
-                .content{:title => 'Click to chat with this person', 'data-person_id' => contact.person.id}
-                  %span.from
-                    = contact.person.name
-                  .info
-                    = contact.person.diaspora_handle
+          - @contact_persons_online.each do |person|
+            .online.stream_element{:id => person.id}
+              = person_image_link(person)
+              .content{:title => 'Click to chat with this person', 'data-person_id' => person.id}
+                %span.from
+                  = person.name
+                .info
+                  = person.diaspora_handle
 
       %h3= t('.title')
       - for contact in @contacts
