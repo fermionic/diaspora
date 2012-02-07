@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120206162739) do
+ActiveRecord::Schema.define(:version => 20120207021140) do
 
   create_table "aspect_memberships", :force => true do |t|
     t.integer  "aspect_id",  :null => false
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20120206162739) do
     t.integer  "recipient_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "read",                        :default => false, :null => false
   end
 
   create_table "comments", :force => true do |t|

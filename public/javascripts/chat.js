@@ -8,12 +8,17 @@ function updateChatBadge(n) {
   }
 }
 
+function showChatMessages() {
+  $('#chat_dropdown').show();
+  updateChatBadge(0);
+  $.get('/chat_messages_mark_all_as_read');
+}
+
 $(document).ready( function() {
   $('#chat_badge').click( function() {
     var dd = $('#chat_dropdown');
     if( dd.css('display') == 'none' ) {
-      dd.show();
-      updateChatBadge(0);
+      showChatMessages();
     } else {
       dd.hide();
     }
@@ -47,8 +52,7 @@ $(document).ready( function() {
   } );
 
   $('#people_stream.contacts .online .content, .chat_message .to').live( 'click', function() {
-    $('#chat_dropdown').show();
-    updateChatBadge(0);
+    showChatMessages();
     $('#chat-partner').val( $(this).data('diaspora_handle') );
     $('#chat-text').focus();
   } );

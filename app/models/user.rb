@@ -516,4 +516,8 @@ class User < ActiveRecord::Base
   def admin_of?(group)
     self.person.admin_of? group
   end
+
+  def chat_messages_unread
+    ChatMessage.where(:recipient_id => self.person.id, :read => false)
+  end
 end

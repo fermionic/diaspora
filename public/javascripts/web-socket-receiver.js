@@ -33,6 +33,8 @@ var WSR = WebSocketReceiver = {
           if( $('#chat_dropdown').css('display') == 'none' ) {
             var n = parseInt( $('#chat_badge .badge_count').html() );
             updateChatBadge( n+1 );
+          } else {
+            $.get('/chat_messages_mark_all_as_read');
           }
         default:
           if(WSR.onPageForAspects(message.aspect_ids)) {

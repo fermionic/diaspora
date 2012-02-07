@@ -41,8 +41,8 @@
       #chat_badge.badge
         = link_to chat_messages_path do
           = image_tag 'icons/speechbubble.png'
-          .badge_count{:class => ("hidden" if true)}
-            0
+          .badge_count{:class => ("hidden" if @chat_messages_unread.size == 0)}
+            = @chat_messages_unread.size
 
     #notification_dropdown
       .header
@@ -61,6 +61,8 @@
         To:
         = text_field_tag 'chat-partner', '', :id => 'chat-partner'
       .incoming
+        - @chat_messages_unread.order('id').each do |message|
+          = render :partial => 'chat_messages/chat_message', :locals => { :message => message }
       .outgoing
         = text_area_tag 'chat-text', '', :rows => 3, :id => 'chat-text'
 

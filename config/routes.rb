@@ -153,6 +153,7 @@ Diaspora::Application.routes.draw do
   get '/u/:username/profile_photo' => 'users#user_photo'
 
   resources :chat_messages
+  get '/chat_messages_mark_all_as_read' => 'chat_messages#mark_all_as_read'
 
   # Federation
 

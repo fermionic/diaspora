@@ -6,10 +6,6 @@ class ChatMessagesController < ApplicationController
   respond_to :html
   respond_to :json, :only => :create
 
-  def index
-
-  end
-
   def create
     if params['text'].nil? || params['partner'].nil?
       render :json => { 'success' => false }
@@ -65,5 +61,14 @@ class ChatMessagesController < ApplicationController
     else
       render :json => { 'success' => false }
     end
+  end
+
+  def mark_all_as_read
+    ActiveRecord::Base.connection.execute %{
+      UPDATE chat_messages
+      SET read = true
+      WHERE recipient_id = #{current_user.person.id}
+    }
+    render :nothing => true
   end
 end
