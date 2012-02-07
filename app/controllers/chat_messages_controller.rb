@@ -54,10 +54,10 @@ class ChatMessagesController < ApplicationController
       # so if the recipient is not following the sender, it's an uninformative failure.
       if ! receiver_wont_receive
         socketed = m.socket_to_user(recipient.owner)
-        m.socket_to_user current_user
       end
 
       if socketed
+        m.socket_to_user current_user
         render :json => { 'success' => true }
       else
         render :json => { 'success' => false, 'error' => 'Your message could not be sent.  The recipient could be offline.' }
