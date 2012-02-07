@@ -34,10 +34,17 @@ var WSR = WebSocketReceiver = {
               '/chat_messages_new_conversation.json',
               { person_id: message.person_id },
               function(response) {
-                $('.partners').prepend( response.partner );
+                var partner = $(response.partner);
                 convo = $(response.conversation);
                 addChatMessageToConversation( message, convo );
-                $('.conversations').prepend( convo );
+
+                if( $('.partner.active').length ) {
+                  partner.removeClass('active');
+                  convo.removeClass('active');
+                }
+
+                $('.partners').append( partner );
+                $('.conversations').append( convo );
               }
             );
           }
