@@ -8,10 +8,19 @@ function updateChatBadge(n) {
   }
 }
 
+function markActiveConversationRead() {
+  $.post(
+    '/chat_messages_mark_conversation_read',
+    { person_id: $('.partner.active').data('person_id') },
+    function(response) {
+      updateChatBadge( parseInt(response.num_unread) );
+    }
+  );
+}
+
 function showChatMessages() {
   $('#chat_dropdown').show();
-  updateChatBadge(0);
-  $.get('/chat_messages_mark_all_as_read');
+  markActiveConversationRead();
 }
 
 $(document).ready( function() {
@@ -33,7 +42,7 @@ $(document).ready( function() {
         '/chat_messages',
         {
           text: $(this).val(),
-          partner: $('#chat-partner').val()
+          partner: $('.partner.active').data('person_id')
         },
         function(data) {
           if( ! data.success ) {
@@ -53,7 +62,8 @@ $(document).ready( function() {
 
   $('#people_stream.contacts .online .content, .chat_message .to').live( 'click', function() {
     showChatMessages();
-    $('#chat-partner').val( $(this).data('diaspora_handle') );
+    /* TODO: Start new conversation with this person */
+    /* $('#chat-partner').val( $(this).data('diaspora_handle') ); */
     $('#chat-text').focus();
   } );
 
@@ -61,4 +71,13 @@ $(document).ready( function() {
     .live( 'mouseenter', function() { $(this).find('.to').show(); } )
     .live( 'mouseleave', function() { $(this).find('.to').hide(); } )
   ;
+
+  $('.partner').live( 'click', function() {
+    var person_id = $(this).data('person_id');
+    $('#chat_dropdown .conversation').hide();
+    $('.conversation[data-person_id="' + person_id + '"]').show();
+    $('.partner').removeClass('active');
+    $(this).addClass('active');
+    markActiveConversationRead();
+  } );
 } );

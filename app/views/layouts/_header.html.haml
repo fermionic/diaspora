@@ -57,12 +57,15 @@
           = image_tag("ajax-loader.gif")
 
     #chat_dropdown
-      .header
-        To:
-        = text_field_tag 'chat-partner', '', :id => 'chat-partner'
       .incoming
-        - @chat_messages_unread.order('id').each do |message|
-          = render :partial => 'chat_messages/chat_message', :locals => { :message => message }
+        - @chat_partners.each_with_index do |author,i|
+          %span.partner{'data-person_id' => author.id, 'class' => ('active' if i == 0)}
+            = person_image_tag(author)
+        - @chat_partners.each_with_index do |author,i|
+          .conversation{'data-person_id' => author.id, 'class' => ('active' if i == 0)}
+            %h4.with= @chat_messages_unread[author][0].author.name
+            - @chat_messages_unread[author].each do |message|
+              = render :partial => 'chat_messages/chat_message', :locals => { :message => message }
       .outgoing
         = text_area_tag 'chat-text', '', :rows => 3, :id => 'chat-text'
 

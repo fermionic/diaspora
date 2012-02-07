@@ -3238,8 +3238,26 @@ a.toggle_selector
       :width 250px
 
   .incoming
-    :overflow auto
-    :max-height 300px
+    .partner
+      :cursor pointer
+      :opacity 0.6
+      img
+        :height 32px
+        :width 32px
+    .partner.active
+      :opacity 1.0
+      img
+        :border-top 2px solid #3F8FBA
+        :border-right 2px solid #3F8FBA
+        :border-left 2px solid #3F8FBA
+
+    .conversation
+      :display none
+      :overflow auto
+      :max-height 300px
+
+    .conversation.active
+      :display block
 
   .chat_message
     :padding-top 0.4em

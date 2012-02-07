@@ -36,7 +36,15 @@ class ApplicationController < ActionController::Base
       if request.format.html? && !params[:only_posts]
         @notification_count = Notification.for(current_user, :unread =>true).count
         @unread_message_count = ConversationVisibility.sum(:unread, :conditions => "person_id = #{current_user.person.id}")
-        @chat_messages_unread = current_user.chat_messages_unread
+
+        @chat_messages_unread = Hash.new { |h,k| h[k] = Array.new }
+        @chat_partners = []  # To provide an ordering for display
+        current_user.chat_messages_unread.order('id').each do |m|
+          if ! @chat_partners.include?(m.author)
+            @chat_partners << m.author
+          end
+          @chat_messages_unread[m.author] << m
+        end
       end
     end
   end

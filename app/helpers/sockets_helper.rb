@@ -80,6 +80,10 @@ module SocketsHelper
       action_hash[:post_guid] = object.post.guid
     end
 
+    if object.is_a? ChatMessage
+      action_hash[:author_id] = object.author.id
+    end
+
     action_hash[:mine?] = object.author && (object.author.owner_id == uid) if object.respond_to?(:author)
 
     I18n.locale = old_locale unless user.nil?

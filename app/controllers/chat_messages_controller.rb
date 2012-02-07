@@ -12,14 +12,11 @@ class ChatMessagesController < ApplicationController
       return
     end
 
-    recipient = Person.find_by_diaspora_handle(params['partner'])
+    recipient = Person.find(params['partner'].to_i)
     if recipient.nil?
-      if params['partner'].empty?
-        message = 'Please specify the Diaspora ID of the person you wish to chat with.'
-      end
       # Note that we don't want to reveal IDs to guessers,
       # so we don't say whether the ID is legit or not
-      render :json => { 'success' => false, 'error' => message  }
+      render :json => { 'success' => false, 'error' => 'Invalid chat partner.' }
       return
     elsif recipient == current_user.person
       render :json => { 'success' => false, 'error' => "Chesterton said that a man that does not talk to himself must not think he's someone worth talking to.  Good for you!" }
@@ -63,12 +60,15 @@ class ChatMessagesController < ApplicationController
     end
   end
 
-  def mark_all_as_read
+  def mark_conversation_read
+    author_id = params['person_id'].to_i
     ActiveRecord::Base.connection.execute %{
       UPDATE chat_messages
       SET read = true
-      WHERE recipient_id = #{current_user.person.id}
+      WHERE
+        recipient_id = #{current_user.person.id}
+        AND author_id = #{author_id}
     }
-    render :nothing => true
+    render :json => { 'num_unread' => current_user.chat_messages_unread.size }
   end
 end
