@@ -60,11 +60,22 @@ $(document).ready( function() {
     }
   } );
 
-  $('#people_stream.contacts .online .content, .chat_message .to').live( 'click', function() {
+  $('#people_stream.contacts .online .content').live( 'click', function() {
     showChatMessages();
-    /* TODO: Start new conversation with this person */
-    /* $('#chat-partner').val( $(this).data('diaspora_handle') ); */
-    $('#chat-text').focus();
+    var person_id = $(this).data('person_id');
+    if( $('.partners .partner[data-person_id="'+person_id+'"]').length ) {
+      $('.partners .partner[data-person_id="'+person_id+'"]').click();
+    } else {
+      $.get(
+        '/chat_messages_new_conversation.json',
+        { person_id: person_id },
+        function(response) {
+          $('.partners').prepend( response.partner );
+          $('.conversations').prepend( response.conversation );
+          $('#chat-text').focus();
+        }
+      );
+    }
   } );
 
   $('.chat_message')

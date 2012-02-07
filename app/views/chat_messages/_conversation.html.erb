@@ -1,0 +1,6 @@
+<div class="conversation <%= 'active' if first %>" data-person_id="<%= partner.id %>">
+  <h4 class="with"><%= partner.name %></h4>
+  <% messages.each do |message| %>
+    <%= render :partial => 'chat_messages/chat_message', :locals => { :message => message } %>
+  <% end %>
+</div>

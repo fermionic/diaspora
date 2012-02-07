@@ -154,6 +154,7 @@ Diaspora::Application.routes.draw do
 
   resources :chat_messages
   post '/chat_messages_mark_conversation_read' => 'chat_messages#mark_conversation_read'
+  get '/chat_messages_new_conversation' => 'chat_messages#new_conversation'
 
   # Federation
 

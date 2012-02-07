@@ -26,7 +26,7 @@ var WSR = WebSocketReceiver = {
           ContentUpdater.addLikesToPost(message.post_guid, message.html);
           break;
         case 'chat_messages':
-          var convo = $('#chat_dropdown .incoming .conversation[data-person_id="' + message.author_id + '"]');
+          var convo = $('#chat_dropdown .incoming .conversation[data-person_id="' + message.person_id + '"]');
           convo
             .append(message.html)
             .scrollTop( $('#chat_dropdown .incoming')[0].scrollHeight )
@@ -34,9 +34,10 @@ var WSR = WebSocketReceiver = {
           if( $('#chat_dropdown').css('display') == 'none' ) {
             var n = parseInt( $('#chat_badge .badge_count').html() );
             updateChatBadge( n+1 );
-          } else if( ! convo.hasClass('active') ) {
-            $.post( '/chat_messages_mark_all_as_read', { person_id: message.author_id } );
+          } else if( convo.hasClass('active') ) {
+            markActiveConversationRead();
           }
+          break;
         default:
           if(WSR.onPageForAspects(message.aspect_ids)) {
             ContentUpdater.addPostToStream(message.html);

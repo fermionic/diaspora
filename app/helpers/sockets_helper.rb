@@ -81,7 +81,11 @@ module SocketsHelper
     end
 
     if object.is_a? ChatMessage
-      action_hash[:author_id] = object.author.id
+      if object.author == current_user.person
+        action_hash[:person_id] = object.recipient.id
+      else
+        action_hash[:person_id] = object.author.id
+      end
     end
 
     action_hash[:mine?] = object.author && (object.author.owner_id == uid) if object.respond_to?(:author)

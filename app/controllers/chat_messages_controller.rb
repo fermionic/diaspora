@@ -71,4 +71,16 @@ class ChatMessagesController < ApplicationController
     }
     render :json => { 'num_unread' => current_user.chat_messages_unread.size }
   end
+
+  def new_conversation
+    partner = Person.find( params['person_id'].to_i )
+    if partner
+      render :json => {
+        'partner' => render_to_string( :partial => 'chat_messages/partner.html.erb', :locals => { :partner => partner, :first => true } ),
+        'conversation' => render_to_string( :partial => 'chat_messages/conversation.html.erb', :locals => { :partner => partner, :first => true, :messages => [] } )
+      }
+    else
+      render :json => { 'partner' => '', 'conversation' => '' }
+    end
+  end
 end
