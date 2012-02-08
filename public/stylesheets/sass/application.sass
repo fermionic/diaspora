@@ -3236,17 +3236,25 @@ a.toggle_selector
 
   .incoming
     .partner
-      :cursor pointer
-      :opacity 0.6
-      img
-        :height 32px
-        :width 32px
+      .tab
+        :cursor pointer
+        :opacity 0.6
+        img
+          :height 32px
+          :width 32px
+      :position relative
+      .badge_count
+        :top -27px
+        :left 19px
     .partner.active
-      :opacity 1.0
-      img
-        :border-top 2px solid #3F8FBA
-        :border-right 2px solid #3F8FBA
-        :border-left 2px solid #3F8FBA
+      .tab
+        :opacity 1.0
+        img
+          :border-top 2px solid #3F8FBA
+          :border-right 2px solid #3F8FBA
+          :border-left 2px solid #3F8FBA
+      .badge_count
+        :left 22px
 
     .conversation
       :display none

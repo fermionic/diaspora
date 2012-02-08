@@ -60,7 +60,7 @@
       .incoming
         .partners
           - @chat_partners.each_with_index do |partner,i|
-            = render :partial => 'chat_messages/partner', :locals => { :partner => partner, :first => i == 0 }
+            = render :partial => 'chat_messages/partner', :locals => { :partner => partner, :num_unread => @chat_messages_unread[partner].size, :first => i == 0 }
         %h4.partner-current
           = @chat_partners.any? ? @chat_partners[0].name : ''
         .conversations

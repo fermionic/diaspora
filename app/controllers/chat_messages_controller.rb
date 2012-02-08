@@ -71,7 +71,7 @@ class ChatMessagesController < ApplicationController
     partner = Person.find( params['person_id'].to_i )
     if partner
       render :json => {
-        'partner' => render_to_string( :partial => 'chat_messages/partner.html.erb', :locals => { :partner => partner, :first => true } ),
+        'partner' => render_to_string( :partial => 'chat_messages/partner.html.erb', :locals => { :partner => partner, :num_unread => 0, :first => true } ),
         'conversation' => render_to_string(
           :partial => 'chat_messages/conversation.html.erb',
           :locals => {

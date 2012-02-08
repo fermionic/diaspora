@@ -10,12 +10,24 @@ function updateChatBadge(n) {
   }
 }
 
+function updateConversationBadge( person_id, n ) {
+  var badge = $('.partner[data-person_id="' + person_id + '"] .badge_count');
+  badge.html(n);
+  if( n == 0 ) {
+    badge.hide();
+  } else {
+    badge.show();
+  }
+}
+
 function markActiveConversationRead() {
+  var person_id = $('.partner.active').data('person_id');
   $.post(
     '/chat_messages_mark_conversation_read',
-    { person_id: $('.partner.active').data('person_id') },
+    { person_id: person_id },
     function(response) {
       updateChatBadge( parseInt(response.num_unread) );
+      updateConversationBadge(person_id, 0)
     }
   );
 }
@@ -59,6 +71,9 @@ function addChatMessageToConversation( message, conversation ) {
     updateChatBadge( n+1 );
   } else if( conversation.hasClass('active') ) {
     markActiveConversationRead();
+  } else {
+    var n = parseInt( $('.partner[data-person_id="' + message.person_id + '"] .badge_count').html() );
+    updateConversationBadge(message.person_id, n+1)
   }
 }
 
