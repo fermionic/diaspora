@@ -47,15 +47,9 @@ class ChatMessagesController < ApplicationController
     end
 
     if m && m.valid?
-      if m.socket_to_user(recipient.owner)
-        m.socket_to_user current_user
-        render :json => { 'success' => true }
-      else
-        render :json => {
-          'success' => false,
-          'error' => "#{recipient.name} may be offline.  Messages sent to offline contacts are saved for them to read later."
-        }
-      end
+      m.socket_to_user recipient.owner
+      m.socket_to_user current_user
+      render :json => { 'success' => true }
     else
       render :json => { 'success' => false }
     end
