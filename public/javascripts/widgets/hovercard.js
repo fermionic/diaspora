@@ -68,6 +68,7 @@
       self.hoverCard.personLink.attr("href", person.url);
       self.hoverCard.personLink.text(person.name);
       self.hoverCard.personHandle.text(person.handle);
+      self.hoverCard.personHandle.append($('<a class="chat" href="#" data-person_id="' + person.id + '">chat</a>'));
       self.hoverCard.dropdown.attr("data-person-id", person.id);
 
       self.hoverCard.hashtags.html("");

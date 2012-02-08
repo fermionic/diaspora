@@ -103,7 +103,7 @@ $(document).ready( function() {
     }
   } );
 
-  $('#people_stream.contacts .content').live( 'click', function() {
+  $('#people_stream.contacts .content, a.chat').live( 'click', function() {
     showChatMessages();
     var person_id = $(this).data('person_id');
     if( $('.partners .partner[data-person_id="'+person_id+'"]').length ) {
