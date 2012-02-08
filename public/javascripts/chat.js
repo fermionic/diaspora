@@ -1,3 +1,5 @@
+var chat_dropdown_opened = false;
+
 function updateChatBadge(n) {
   var badge = $('#chat_badge .badge_count');
   badge.html(n);
@@ -20,6 +22,10 @@ function markActiveConversationRead() {
 
 function showChatMessages() {
   $('#chat_dropdown').show();
+  if( ! chat_dropdown_opened ) {
+    scrollToBottom( $('#chat_dropdown .conversation') );
+    chat_dropdown_opened = true;
+  }
   markActiveConversationRead();
 }
 
@@ -35,11 +41,14 @@ function createChatConversation(person_id) {
   );
 }
 
+function scrollToBottom(jquery_set) {
+  jquery_set[0].scrollTop = jquery_set[0].scrollHeight;
+}
+
 function addChatMessageToConversation( message, conversation ) {
-  conversation
-    .append(message.html)
-    .scrollTop( $('#chat_dropdown .incoming')[0].scrollHeight )
-  ;
+  conversation.append(message.html);
+  scrollToBottom(conversation);
+
   if( $('#chat_dropdown').css('display') == 'none' ) {
     var n = parseInt( $('#chat_badge .badge_count').html() );
     updateChatBadge( n+1 );
