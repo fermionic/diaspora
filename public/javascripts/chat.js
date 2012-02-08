@@ -37,6 +37,7 @@ function createChatConversation(person_id) {
       $('.partners').prepend( response.partner );
       $('.conversations').prepend( response.conversation );
       scrollToBottom( $('#chat_dropdown .conversation') );
+      $('.partner-current').html( $('.partner.active').data('person_name') );
       $('#chat-text').focus();
     }
   );
@@ -63,6 +64,7 @@ function activateChatConversation( person_id ) {
   $('.partner, .conversation').removeClass('active');
   $('.partner[data-person_id="' + person_id + '"]').addClass('active');
   $('.conversation[data-person_id="' + person_id + '"]').addClass('active').show();
+  $('.partner-current').html( $('.partner.active').data('person_name') );
   markActiveConversationRead();
 }
 

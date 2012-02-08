@@ -61,6 +61,8 @@
         .partners
           - @chat_partners.each_with_index do |partner,i|
             = render :partial => 'chat_messages/partner', :locals => { :partner => partner, :first => i == 0 }
+        %h4.partner-current
+          = @chat_partners[0].name
         .conversations
           - @chat_partners.each_with_index do |partner,i|
             = render :partial => 'chat_messages/conversation', :locals => { :partner => partner, :messages => @chat_messages_read[partner] + @chat_messages_unread[partner], :first => i == 0 }
