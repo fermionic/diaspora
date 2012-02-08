@@ -1,4 +1,4 @@
-<span class="partner <%= 'active' if first %>" data-person_id="<%=partner.id%>" data-person_name="<%=partner.name%>">
+<span class="partner <%= 'active' if first %>" data-person_id="<%=partner.id%>" data-person_name="<%=partner.name%>" data-contact_status="<%= contact_status %>">
   <span class="tab"><%= person_image_tag(partner) %></span>
   <span class="badge_count <%= 'hidden' if num_unread == 0 %>">
     <%= num_unread %>

@@ -41,6 +41,15 @@ function showChatMessages() {
   markActiveConversationRead();
 }
 
+function setCurrentChatNameAndStatusFromActive() {
+  var text = $('.partner.active').data('person_name');
+  var status = $('.partner.active').data('contact_status');
+  if( status ) {
+    text = text + ' (' + status + ')';
+  }
+  $('.partner-current').html(text);
+}
+
 function createChatConversation(person_id) {
   $.get(
     '/chat_messages_new_conversation.json',
@@ -49,7 +58,7 @@ function createChatConversation(person_id) {
       $('.partners').prepend( response.partner );
       $('.conversations').prepend( response.conversation );
       scrollToBottom( $('#chat_dropdown .conversation') );
-      $('.partner-current').html( $('.partner.active').data('person_name') );
+      setCurrentChatNameAndStatusFromActive();
       $('#chat-text').focus();
     }
   );
@@ -71,9 +80,12 @@ function addChatMessageToConversation( message, conversation ) {
     updateChatBadge( n+1 );
   } else if( conversation.hasClass('active') ) {
     markActiveConversationRead();
+    $('.partner[data-person_id="' + message.person_id + '"]').data('contact_status', message.contact_status);
+    setCurrentChatNameAndStatusFromActive();
   } else {
     var n = parseInt( $('.partner[data-person_id="' + message.person_id + '"] .badge_count').html() );
     updateConversationBadge(message.person_id, n+1)
+    $('.partner[data-person_id="' + message.person_id + '"]').data('contact_status', message.contact_status);
   }
 }
 
@@ -82,7 +94,7 @@ function activateChatConversation( person_id ) {
   $('.partner, .conversation').removeClass('active');
   $('.partner[data-person_id="' + person_id + '"]').addClass('active');
   $('.conversation[data-person_id="' + person_id + '"]').addClass('active').show();
-  $('.partner-current').html( $('.partner.active').data('person_name') );
+  setCurrentChatNameAndStatusFromActive();
   markActiveConversationRead();
 }
 
@@ -142,5 +154,10 @@ $(document).ready( function() {
   $('.partner').live( 'click', function() {
     var person_id = $(this).data('person_id');
     activateChatConversation(person_id);
+  } );
+
+  $('#chat_status').change( function() {
+    var status_new = $(this).find('option:selected').val();
+    $.get('/update_chat_status/?chat_status=' + status_new);
   } );
 } );

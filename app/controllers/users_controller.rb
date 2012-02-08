@@ -173,4 +173,9 @@ class UsersController < ApplicationController
     end
     redirect_to edit_user_path
   end
+
+  def update_chat_status
+    current_user.chat_status = params[:chat_status]
+    current_user.save
+  end
 end

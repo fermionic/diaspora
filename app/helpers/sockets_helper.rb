@@ -85,6 +85,7 @@ module SocketsHelper
         action_hash[:person_id] = object.recipient.id
       else
         action_hash[:person_id] = object.author.id
+        action_hash[:contact_status] = object.author.chat_status_seen_by(current_user)
       end
     end
 

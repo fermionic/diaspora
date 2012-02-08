@@ -70,19 +70,33 @@ class ChatMessagesController < ApplicationController
   def new_conversation
     partner = Person.find( params['person_id'].to_i )
     if partner
+      contact = current_user.contacts.find_by_person_id(partner.id)
+    else
+      contact = nil
+    end
+
+    if partner.nil? || contact.nil?
+      render :json => { 'partner' => '', 'conversation' => '' }
+    else
       render :json => {
-        'partner' => render_to_string( :partial => 'chat_messages/partner.html.erb', :locals => { :partner => partner, :num_unread => 0, :first => true } ),
+        'partner' => render_to_string(
+          :partial => 'chat_messages/partner.html.erb',
+          :locals => {
+            :partner => partner,
+            :num_unread => 0,
+            :first => true,
+            :contact_status => contact.chat_status_display,
+          }
+        ),
         'conversation' => render_to_string(
           :partial => 'chat_messages/conversation.html.erb',
           :locals => {
             :partner => partner,
             :first => true,
-            :messages => ChatMessage.history_between(current_user.person, partner, :limit => 5)
+            :messages => ChatMessage.history_between(current_user.person, partner, :limit => 5),
           }
         )
       }
-    else
-      render :json => { 'partner' => '', 'conversation' => '' }
     end
   end
 end

@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   validates_exclusion_of :username, :in => USERNAME_BLACKLIST
   validates_inclusion_of :language, :in => AVAILABLE_LANGUAGE_CODES
   validates_format_of :unconfirmed_email, :with  => Devise.email_regexp, :allow_blank => true
+  validates_inclusion_of :chat_status, :in => ['offline', 'away', 'dnd', 'online',]
 
   validates_presence_of :person, :unless => proc {|user| user.invitation_token.present?}
   validates_associated :person
@@ -522,11 +523,25 @@ class User < ActiveRecord::Base
   end
 
   def contacts_online
-    self.contacts.find_all { |c|
-      c.person.owner &&
-      c.sharing &&
-      c.receiving &&
-      Diaspora::WebSocket.is_connected?( c.person.owner.id )
-    }
+    self.contacts.find_all { |c| c.appears_online? }
+  end
+
+  def chat_status_display( explicit_online = false )
+    case self.chat_status
+    when 'away', 'dnd'
+      I18n.t("chat.status.#{self.chat_status}")
+    when 'online'
+      if explicit_online
+        I18n.t("chat.status.#{self.chat_status}")
+      else
+        nil
+      end
+    else
+      I18n.t('chat.status.offline')
+    end
+  end
+
+  def actually_online?
+    Diaspora::WebSocket.is_connected?( self.id )
   end
 end
