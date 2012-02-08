@@ -44,7 +44,10 @@ function createChatConversation(person_id) {
 }
 
 function scrollToBottom(jquery_set) {
-  jquery_set[0].scrollTop = jquery_set[0].scrollHeight;
+  var obj = jquery_set[0];
+  if( obj ) {
+    obj.scrollTop = obj.scrollHeight;
+  }
 }
 
 function addChatMessageToConversation( message, conversation ) {
