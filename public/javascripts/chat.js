@@ -36,6 +36,7 @@ function createChatConversation(person_id) {
     function(response) {
       $('.partners').prepend( response.partner );
       $('.conversations').prepend( response.conversation );
+      scrollToBottom( $('#chat_dropdown .conversation') );
       $('#chat-text').focus();
     }
   );
