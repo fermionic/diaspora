@@ -2,7 +2,7 @@ module ChatHelper
   def initialize_chat_variables
     @chat_messages_unread = Hash.new { |h,k| h[k] = Array.new }
     @chat_partners = []  # To provide an ordering for display
-    @chat_statuses = Hash.new( I18n.t('chat.status.offline') )
+    @chat_statuses = Hash.new
 
     current_user.chat_messages_unread.order('id').each do |m|
       if ! @chat_partners.include?(m.author)
