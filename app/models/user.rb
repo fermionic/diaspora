@@ -544,4 +544,8 @@ class User < ActiveRecord::Base
   def actually_online?
     Diaspora::WebSocket.is_connected?( self.id )
   end
+
+  def receiving_chat?
+    self.chat_status == 'online' || self.chat_status == 'away'
+  end
 end

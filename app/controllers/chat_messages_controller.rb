@@ -47,7 +47,9 @@ class ChatMessagesController < ApplicationController
     end
 
     if m && m.valid?
-      m.socket_to_user recipient.owner
+      if recipient.owner.receiving_chat?
+        m.socket_to_user recipient.owner
+      end
       m.socket_to_user current_user
       render :json => { 'success' => true }
     else
