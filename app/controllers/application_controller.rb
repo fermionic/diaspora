@@ -60,7 +60,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_timezone
-    Time.zone = current_user.time_zone
+    if user_signed_in?
+      Time.zone = current_user.time_zone
+    end
   end
 
   ##helpers
