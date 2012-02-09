@@ -57,6 +57,10 @@ class ChatMessagesController < ApplicationController
     end
   end
 
+  def show_conversation
+    @messages = ChatMessage.where(:author_id => current_user.person.id, :recipient_id => params['recipient_id'].to_i).order('id DESC').limit(64).reverse
+  end
+
   def mark_conversation_read
     author_id = params['person_id'].to_i
     ActiveRecord::Base.connection.execute %{

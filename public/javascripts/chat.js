@@ -135,7 +135,7 @@ $(document).ready( function() {
     }
   } );
 
-  $('#people_stream.contacts .content, a.chat').live( 'click', function() {
+  $('a.chat').live( 'click', function() {
     showChatMessages();
     var person_id = $(this).data('person_id');
     if( $('.partners .partner[data-person_id="'+person_id+'"]').length ) {
@@ -144,7 +144,17 @@ $(document).ready( function() {
       createChatConversation(person_id);
       activateChatConversation(person_id);
     }
+    return false;
   } );
+
+  $('#people_stream.contacts .content').hover(
+    function() {
+      $(this).find('.chat_links').show();
+    },
+    function() {
+      $(this).find('.chat_links').hide();
+    }
+  );
 
   $('.chat_message')
     .live( 'mouseenter', function() { $(this).find('.to').show(); } )

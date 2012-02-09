@@ -156,6 +156,7 @@ Diaspora::Application.routes.draw do
   post '/chat_messages_mark_conversation_read' => 'chat_messages#mark_conversation_read'
   get '/chat_messages_new_conversation' => 'chat_messages#new_conversation'
   get '/update_chat_status' => 'users#update_chat_status'
+  get '/chat_conversation/:recipient_id' => 'chat_messages#show_conversation', :as => 'show_chat_conversation'
 
   # Federation
 

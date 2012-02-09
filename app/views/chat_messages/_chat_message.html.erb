@@ -1,6 +1,6 @@
 <div class="chat_message">
   <div>
-    <div class="time" title="<%= message.created_at.strftime "%a %b %d %H:%M:%S %Z" %>"><%= message.created_at.strftime "%H:%M" %></div>
+    <div class="time" title="<%= message.created_at.strftime "%a %b %d %H:%M:%S %Z" %>"><%= message.created_at.strftime( defined?(time_format) ? time_format : "%H:%M" ) %></div>
     <div class="author"><%= person_link(message.author) %></div>
   </div>
   <span class="text"><%= markdownify(message.text) %></span>

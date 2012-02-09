@@ -48,9 +48,14 @@
                                     :current_user => current_user }
 
           = person_image_link(contact.person)
-          .content{:title => t('.click_to_chat'), 'data-person_id' => contact.person.id}
+          .content
             %span.from
               =person_link(contact.person)
+            %span.chat_links
+              %span.chat
+                = link_to t('.chat'), '#', 'class' => 'chat', 'data-person_id' => contact.person.id
+              %span.chat_history
+                = link_to t('.chat_history'), show_chat_conversation_path(contact.person)
             .info
               = contact.person.diaspora_handle
 
