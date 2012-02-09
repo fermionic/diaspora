@@ -1046,6 +1046,7 @@ en:
       photo_export_unavailable: "Photo exporting currently unavailable"
       close_account: "Close Account"
       change_language: "Change language"
+      change_time_zone: 'Change time zone'
       change_password: "Change password"
       change_email: "Change email"
       new_password: "New password"

@@ -68,6 +68,15 @@
       = f.select :language, available_language_options
       = f.submit t('.change_language'), :class => "button"
 
+  %h3
+    = t('.change_time_zone')
+  = form_for 'user', :url => user_path, :html => { :method => :put } do |f|
+    = f.error_messages
+
+    %p
+      = f.time_zone_select 'time_zone'
+      = f.submit t('.change_time_zone'), :class => "button"
+
   %br
   %br
   %hr

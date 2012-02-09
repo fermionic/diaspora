@@ -72,7 +72,7 @@ class UsersController < ApplicationController
         else
           flash[:error] = I18n.t 'users.update.unconfirmed_email_not_changed'
         end
-      elsif u['custom_js'] || u['custom_css'] || u['chat_with_anyone']
+      elsif u['custom_js'] || u['custom_css'] || u['chat_with_anyone'] || u['time_zone']
         if @user.update_attributes(u)
           flash[:notice] = I18n.t 'users.update.settings_updated'
         else

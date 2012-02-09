@@ -69,7 +69,8 @@ class User < ActiveRecord::Base
                   :show_community_spotlight_in_stream,
                   :custom_css,
                   :custom_js,
-                  :chat_with_anyone
+                  :chat_with_anyone,
+                  :time_zone
 
 
   def self.all_sharing_with_person(person)
