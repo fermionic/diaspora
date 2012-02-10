@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   validates_exclusion_of :username, :in => USERNAME_BLACKLIST
   validates_inclusion_of :language, :in => AVAILABLE_LANGUAGE_CODES
   validates_format_of :unconfirmed_email, :with  => Devise.email_regexp, :allow_blank => true
+  validates_inclusion_of :chat_status, :in => ['offline', 'away', 'dnd', 'online',]
 
   validates_presence_of :person, :unless => proc {|user| user.invitation_token.present?}
   validates_associated :person
@@ -67,7 +68,9 @@ class User < ActiveRecord::Base
                   :invitation_identifier,
                   :show_community_spotlight_in_stream,
                   :custom_css,
-                  :custom_js
+                  :custom_js,
+                  :chat_with_anyone,
+                  :time_zone
 
 
   def self.all_sharing_with_person(person)
@@ -518,5 +521,36 @@ class User < ActiveRecord::Base
 
   def notifications
     Notification.where( 'recipient_id = ?', self.id )
+  end
+
+  def chat_messages_unread
+    ChatMessage.where(:recipient_id => self.person.id, :read => false)
+  end
+
+  def contacts_online
+    self.contacts.find_all { |c| c.appears_online? }
+  end
+
+  def chat_status_display( explicit_online = false )
+    case self.chat_status
+    when 'away', 'dnd'
+      I18n.t("chat.status.#{self.chat_status}")
+    when 'online'
+      if explicit_online
+        I18n.t("chat.status.#{self.chat_status}")
+      else
+        nil
+      end
+    else
+      I18n.t('chat.status.offline')
+    end
+  end
+
+  def actually_online?
+    Diaspora::WebSocket.is_connected?( self.id )
+  end
+
+  def receiving_chat?
+    self.chat_status == 'online' || self.chat_status == 'away'
   end
 end

@@ -25,6 +25,30 @@ var WSR = WebSocketReceiver = {
         case "likes":
           ContentUpdater.addLikesToPost(message.post_guid, message.html);
           break;
+        case 'chat_messages':
+          var convo = $('#chat_dropdown .incoming .conversation[data-person_id="' + message.person_id + '"]');
+          if( convo.length ) {
+            addChatMessageToConversation( message, convo );
+          } else {
+            $.get(
+              '/chat_messages_new_conversation.json',
+              { person_id: message.person_id },
+              function(response) {
+                var partner = $(response.partner);
+                convo = $(response.conversation);
+                addChatMessageToConversation( message, convo );
+
+                if( $('.partner.active').length ) {
+                  partner.removeClass('active');
+                  convo.removeClass('active');
+                }
+
+                $('.partners').append( partner );
+                $('.conversations').append( convo );
+              }
+            );
+          }
+          break;
         default:
           if(WSR.onPageForAspects(message.aspect_ids)) {
             ContentUpdater.addPostToStream(message.html);

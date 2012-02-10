@@ -12,6 +12,20 @@
 
 .span-12.prepend-5.last
   %h3
+    = t('.chat')
+  = form_for current_user, :url => user_path, :html => { :method => :put } do |f|
+    = f.error_messages
+
+    %p.checkbox_select
+      = f.label :chat_with_anyone, t('.chat_with_anyone')
+      = f.check_box :chat_with_anyone
+
+    %br
+    = f.submit t('.update'), :class => 'button'
+
+
+.span-12.prepend-5.last
+  %h3
     = t('.ignored_users')
 
   - @blocks.each do |block|

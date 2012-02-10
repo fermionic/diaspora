@@ -28,6 +28,7 @@
           = link_to t('.add_to_aspect', :name => @aspect.name), edit_aspect_path(@aspect), :rel => "facebox"
 
     - if @contacts.size > 0
+      %h3= t('.title')
       - for contact in @contacts
         .stream_element{:id => contact.person.id}
           .right
@@ -50,6 +51,11 @@
           .content
             %span.from
               =person_link(contact.person)
+            %span.chat_links
+              %span.chat
+                = link_to t('.chat'), '#', 'class' => 'chat', 'data-person_id' => contact.person.id
+              %span.chat_history
+                = link_to t('.chat_history'), show_chat_conversation_path(contact.person)
             .info
               = contact.person.diaspora_handle
 

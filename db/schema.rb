@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120203185339) do
+ActiveRecord::Schema.define(:version => 20120209044818) do
 
   create_table "aspect_memberships", :force => true do |t|
     t.integer  "aspect_id",  :null => false
@@ -50,6 +50,15 @@ ActiveRecord::Schema.define(:version => 20120203185339) do
   create_table "blocks", :force => true do |t|
     t.integer "user_id"
     t.integer "person_id"
+  end
+
+  create_table "chat_messages", :force => true do |t|
+    t.string   "text",         :limit => 512
+    t.integer  "author_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "read",                        :default => false, :null => false
   end
 
   create_table "comments", :force => true do |t|
@@ -513,6 +522,9 @@ ActiveRecord::Schema.define(:version => 20120203185339) do
     t.text     "custom_js"
     t.string   "api_token",                          :limit => 32
     t.datetime "api_time_last"
+    t.boolean  "chat_with_anyone",                                  :default => false, :null => false
+    t.string   "chat_status",                                       :default => "offline", :null => false
+    t.string   "time_zone",                                         :default => "Canada/Eastern", :null => false
   end
 
   add_index "users", ["api_token"], :name => "index_users_on_api_token", :unique => true

@@ -93,6 +93,25 @@ class Contact < ActiveRecord::Base
     end
   end
 
+  def actually_online?
+    self.person.owner.actually_online?
+  end
+
+  def appears_online?
+    mutual? &&
+    self.person.owner &&
+    self.person.owner.chat_status != 'offline' &&
+    actually_online?
+  end
+
+  def chat_status_display( explicit_online = false )
+    if actually_online?
+      self.person.owner.chat_status_display( explicit_online )
+    else
+      I18n.t('chat.status.offline')
+    end
+  end
+
   private
   def not_contact_for_self
     if person_id && person.owner == user

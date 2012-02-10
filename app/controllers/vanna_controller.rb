@@ -7,6 +7,8 @@ class VannaController < Vanna::Base
   include AspectGlobalHelper
   include PeopleHelper
   include UsersHelper
+  include ChatHelper
+  include MarkdownifyHelper
 
   helper :layout
   helper_method :current_user
@@ -18,6 +20,7 @@ class VannaController < Vanna::Base
   default_url_options[:host] = "localhost"
   include ActionController::MobileFu::InstanceMethods
   helper_method :is_mobile_device?
+  helper_method :markdownify
 
   protect_from_forgery :except => :receive
 
@@ -37,10 +40,14 @@ class VannaController < Vanna::Base
 
   def set_header_data
     if user_signed_in?
-      if request.format.html? && !params[:only_posts]
-        @aspect = nil
-        @notification_count = Notification.for(current_user, :unread =>true).count
-        @unread_message_count = ConversationVisibility.sum(:unread, :conditions => "person_id = #{current_user.person.id}")
+      if request.format.html?
+        if ! params[:only_posts]
+          @aspect = nil
+          @notification_count = Notification.for(current_user, :unread =>true).count
+          @unread_message_count = ConversationVisibility.sum(:unread, :conditions => "person_id = #{current_user.person.id}")
+        end
+
+        initialize_chat_variables
       end
       @all_aspects = current_user.aspects
     end

@@ -3,6 +3,9 @@
 #   the COPYRIGHT file.
 
 class ApplicationController < ActionController::Base
+  include ChatHelper
+  include MarkdownifyHelper
+
   has_mobile_fu
 
   protect_from_forgery :except => :receive
@@ -12,6 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_git_header if (AppConfig[:git_update] && AppConfig[:git_revision])
   before_filter :set_grammatical_gender
+  before_filter :set_timezone
 
   prepend_before_filter :clear_gc_stats
 
@@ -33,9 +37,13 @@ class ApplicationController < ActionController::Base
   # helper methods instead
   def set_header_data
     if user_signed_in?
-      if request.format.html? && !params[:only_posts]
-        @notification_count = Notification.for(current_user, :unread =>true).count
-        @unread_message_count = ConversationVisibility.sum(:unread, :conditions => "person_id = #{current_user.person.id}")
+      if request.format.html?
+        if ! params[:only_posts]
+          @notification_count = Notification.for(current_user, :unread =>true).count
+          @unread_message_count = ConversationVisibility.sum(:unread, :conditions => "person_id = #{current_user.person.id}")
+        end
+
+        initialize_chat_variables
       end
     end
   end
@@ -48,6 +56,12 @@ class ApplicationController < ActionController::Base
       root_path
     else
       logged_out_path
+    end
+  end
+
+  def set_timezone
+    if user_signed_in?
+      Time.zone = current_user.time_zone
     end
   end
 

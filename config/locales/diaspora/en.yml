@@ -222,6 +222,13 @@ en:
     explanation: "Post to Diaspora from anywhere by bookmarking %{link}."
     explanation_link_text: "this link"
 
+  chat:
+    status:
+      offline: 'Offline'
+      away: 'Away'
+      dnd: 'Do Not Disturb'
+      online: 'Online'
+
   comments:
     zero: "no comments"
     one: "1 comment"
@@ -266,6 +273,10 @@ en:
       only_sharing_with_me: "Only sharing with me"
       remove_person_from_aspect: "Remove %{person_name} from \"%{aspect_name}\""
       many_people_are_you_sure: "Are you sure you want to start a private conversation with more than %{suggested_limit} contacts? Posting to this aspect may be a better way to contact them."
+      online: "Online now"
+      none_online: "(no one online)"
+      chat: 'chat'
+      chat_history: 'chat history'
     spotlight:
       community_spotlight: "Community Spotlight"
     import:
@@ -434,6 +445,7 @@ en:
       view_all: "View all"
       recent_notifications: "Recent notifications"
       unread_notifications: "Unread notifications"
+      status: 'Your status'
     application:
       powered_by: "POWERED BY DIASPORA*"
       whats_new: "what's new?"
@@ -1036,6 +1048,7 @@ en:
       photo_export_unavailable: "Photo exporting currently unavailable"
       close_account: "Close Account"
       change_language: "Change language"
+      change_time_zone: 'Change time zone'
       change_password: "Change password"
       change_email: "Change email"
       new_password: "New password"
@@ -1071,6 +1084,9 @@ en:
 
     privacy_settings:
       title: "Privacy Settings"
+      chat: 'Chat'
+      chat_with_anyone: 'Receive chat messages from anyone, not just your contacts'
+      update: 'Update'
       ignored_users: "Ignored Users"
       stop_ignoring: "Stop ignoring"
 

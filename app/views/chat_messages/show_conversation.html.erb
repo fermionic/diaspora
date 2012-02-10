@@ -1,0 +1,3 @@
+<% @messages.each do |m| %>
+  <%= render :partial => 'chat_messages/chat_message', :locals => { :message => m, :time_format => '%Y-%m-%d %H:%M:%S %Z' } %>
+<% end %>

@@ -152,6 +152,13 @@ Diaspora::Application.routes.draw do
   end
   get '/u/:username' => 'people#show', :as => 'user_profile'
   get '/u/:username/profile_photo' => 'users#user_photo'
+
+  resources :chat_messages
+  post '/chat_messages_mark_conversation_read' => 'chat_messages#mark_conversation_read'
+  get '/chat_messages_new_conversation' => 'chat_messages#new_conversation'
+  get '/update_chat_status' => 'users#update_chat_status'
+  get '/chat_conversation/:recipient_id' => 'chat_messages#show_conversation', :as => 'show_chat_conversation'
+
   # Federation
 
   controller :publics do

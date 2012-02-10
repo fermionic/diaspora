@@ -53,6 +53,9 @@ module SocketsHelper
       elsif object.is_a? Notification
         v = render_to_string(:partial => 'notifications/popup', :locals => {:note => object, :person => opts[:actor]})
 
+      elsif object.is_a? ChatMessage
+        v = render_to_string( :partial => 'chat_messages/chat_message', :locals => {:message => object} )
+
       else
         raise "#{object.inspect} with class #{object.class} is not actionhashable." unless object.is_a? Retraction
       end
@@ -75,6 +78,15 @@ module SocketsHelper
 
     if object.is_a? Like
       action_hash[:post_guid] = object.post.guid
+    end
+
+    if object.is_a? ChatMessage
+      if object.author == current_user.person
+        action_hash[:person_id] = object.recipient.id
+      else
+        action_hash[:person_id] = object.author.id
+        action_hash[:contact_status] = object.author.chat_status_seen_by(current_user)
+      end
     end
 
     action_hash[:mine?] = object.author && (object.author.owner_id == uid) if object.respond_to?(:author)

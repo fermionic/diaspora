@@ -298,6 +298,21 @@ class Person < ActiveRecord::Base
     !! GroupMember.find_by_group_id_and_person_id_and_admin( group.id, self.id, true )
   end
 
+  def chat_status_seen_by(user_or_person)
+    if user_or_person.respond_to?(:owner)
+      user = user_or_person.owner
+    else
+      user = user_or_person
+    end
+
+    contact = user.contacts.detect { |c| c.person_id == self.id }
+    if contact
+      contact.chat_status_display
+    else
+      I18n.t('chat.status.offline')
+    end
+  end
+
   protected
 
   def clean_url

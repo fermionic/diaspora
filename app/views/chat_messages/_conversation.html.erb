@@ -1,0 +1,5 @@
+<div class="conversation <%= 'active' if first %>" data-person_id="<%= partner.id %>">
+  <% messages.each do |message| %>
+    <%= render :partial => 'chat_messages/chat_message.html.erb', :locals => { :message => message } %>
+  <% end %>
+</div>

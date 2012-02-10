@@ -38,6 +38,12 @@
           .badge_count{:class => ("hidden" if @unread_message_count == 0)}
             = @unread_message_count
 
+      #chat_badge.badge
+        = link_to chat_messages_path do
+          = image_tag 'icons/chat_grey.png'
+          .badge_count{:class => ("hidden" if @chat_messages_unread.values.flatten.size == 0 || ! current_user.receiving_chat? )}
+            = @chat_messages_unread.values.flatten.size
+
     #notification_dropdown
       .header
         .right
@@ -49,6 +55,26 @@
       .notifications
         .ajax_loader
           = image_tag("ajax-loader.gif")
+
+    #chat_dropdown
+      .chat_status
+        = t('.status')
+        %br
+        = select_tag( 'chat_status',  options_for_select( ['online', 'away', 'dnd', 'offline',].map { |s| [ t("chat.status.#{s}"), s, ] }, current_user.chat_status ) )
+      .incoming
+        .partners
+          - @chat_partners.each_with_index do |partner,i|
+            = render :partial => 'chat_messages/partner', :locals => { :partner => partner, :num_unread => @chat_messages_unread[partner].size, :first => i == 0, :contact_status => @chat_statuses[partner] }
+        %h4.partner-current
+          - if @chat_partners.any?
+            = @chat_partners[0].name
+            - if @chat_statuses[0]
+              = ' (' + @chat_statuses[0] + ')'
+        .conversations
+          - @chat_partners.each_with_index do |partner,i|
+            = render :partial => 'chat_messages/conversation', :locals => { :partner => partner, :messages => @chat_messages_read[partner] + @chat_messages_unread[partner], :first => i == 0, }
+      .outgoing
+        = text_area_tag 'chat-text', '', :rows => 3, :id => 'chat-text'
 
     #hovercard_container
       #hovercard
