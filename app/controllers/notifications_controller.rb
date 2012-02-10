@@ -20,13 +20,19 @@ class NotificationsController < VannaController
 
   def index(opts=params)
     @aspect = :notification
-    conditions = {:recipient_id => current_user.id}
+    conditions = {:recipient_id => current_user.id }
+    order = 'created_at desc'
+    if !!opts[:unread_only]
+      conditions[:unread] = true
+      order = 'created_at'
+    end
     page = opts[:page] || 1
     per_page = opts[:per_page] || 25
+
     notifications = WillPaginate::Collection.create(page, per_page, Notification.where(conditions).count ) do |pager|
       result = Notification.find(:all,
                                  :conditions => conditions,
-                                 :order => 'created_at desc',
+                                 :order => order,
                                  :include => [:target, {:actors => :profile}],
                                  :limit => pager.per_page,
                                  :offset => pager.offset
