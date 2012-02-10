@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120130205050) do
+ActiveRecord::Schema.define(:version => 20120203185339) do
 
   create_table "aspect_memberships", :force => true do |t|
     t.integer  "aspect_id",  :null => false
@@ -511,8 +511,11 @@ ActiveRecord::Schema.define(:version => 20120130205050) do
     t.boolean  "show_community_spotlight_in_stream",                :default => true,  :null => false
     t.text     "custom_css"
     t.text     "custom_js"
+    t.string   "api_token",                          :limit => 32
+    t.datetime "api_time_last"
   end
 
+  add_index "users", ["api_token"], :name => "index_users_on_api_token", :unique => true
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["invitation_service", "invitation_identifier"], :name => "index_users_on_invitation_service_and_invitation_identifier", :unique => true
