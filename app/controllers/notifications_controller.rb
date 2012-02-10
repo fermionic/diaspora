@@ -47,7 +47,17 @@ class NotificationsController < VannaController
       n[:target] = n.translation_key == "notifications.mentioned" ? n.target.post : n.target
     end
     group_days = notifications.group_by{|note| I18n.l(note.created_at, :format => I18n.t('date.formats.fullmonth_day')) }
-    {:group_days => group_days, :notifications => notifications}
+    {
+      :group_days => group_days,
+      :notifications => notifications,
+      :num_unread => Notification.count(
+        :conditions => [
+          'recipient_id = ? AND unread = ?',
+          current_user.id,
+          true
+        ]
+      )
+    }
   end
 
   def read_all(opts=params)

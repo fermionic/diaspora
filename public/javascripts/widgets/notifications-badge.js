@@ -85,6 +85,14 @@
         });
       });
 
+      var num_unread = parseInt(self.notifications.num_unread);
+      $('#notification_badge .badge_count').html(num_unread);
+      if( num_unread == 0 ) {
+        $('#notification_badge .badge_count').addClass('hidden');
+      } else {
+        $('#notification_badge .badge_count').removeClass('hidden');
+      }
+
       self.ajaxLoader.hide();
     };
   };
