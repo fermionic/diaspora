@@ -40,7 +40,7 @@
 
       #chat_badge.badge
         = link_to chat_messages_path do
-          = image_tag 'icons/speechbubble.png'
+          = image_tag 'icons/chat_grey.png'
           .badge_count{:class => ("hidden" if @chat_messages_unread.values.flatten.size == 0 || ! current_user.receiving_chat? )}
             = @chat_messages_unread.values.flatten.size
 
