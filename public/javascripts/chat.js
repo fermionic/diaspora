@@ -147,14 +147,10 @@ $(document).ready( function() {
     return false;
   } );
 
-  $('#people_stream.contacts .content').hover(
-    function() {
-      $(this).find('.chat_links').show();
-    },
-    function() {
-      $(this).find('.chat_links').hide();
-    }
-  );
+  $('#people_stream.contacts .content')
+    .live( 'mouseenter', function() { $(this).find('.chat_links').show(); } )
+    .live( 'mouseleave', function() { $(this).find('.chat_links').hide(); } )
+  ;
 
   $('.chat_message')
     .live( 'mouseenter', function() { $(this).find('.to').show(); } )
