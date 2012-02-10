@@ -51,10 +51,8 @@ class ChatMessagesController < ApplicationController
         m.socket_to_user recipient.owner
       end
       m.socket_to_user current_user
-      render :json => { 'success' => true }
-    else
-      render :json => { 'success' => false }
     end
+    render :json => { 'success' => true }
   end
 
   def show_conversation
