@@ -16,13 +16,18 @@ class ChatMessage < ActiveRecord::Base
   def self.history_between(p1, p2, options = {})
     limit = options[:limit] || 5
     read = options[:read].nil? ? true : options[:read]
+    if postgres?
+      read_column = 'read'
+    else # MySQL
+      read_column = '`read`'
+    end
     where(
       %{
         (
           recipient_id = ? AND author_id = ?
           OR recipient_id = ? AND author_id = ?
         )
-        AND read = ?
+        AND #{read_column} = ?
       },
       p1.id, p2.id,
       p2.id, p1.id,

@@ -61,9 +61,14 @@ class ChatMessagesController < ApplicationController
 
   def mark_conversation_read
     author_id = params['person_id'].to_i
+    if postgres?
+      read_column = 'read'
+    else # MySQL
+      read_column = '`read`'
+    end
     ActiveRecord::Base.connection.execute %{
       UPDATE chat_messages
-      SET read = true
+      SET #{read_column} = true
       WHERE
         recipient_id = #{current_user.person.id}
         AND author_id = #{author_id}
