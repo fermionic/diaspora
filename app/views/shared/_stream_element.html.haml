@@ -58,6 +58,10 @@
           %span.post_scope{:title => t('.viewable_to_anyone')}
             = t('public')
             &ndash;
+        - elsif post.pod_only?
+          %span.post_scope{:title => t('.viewable_pod_only')}
+            = t('pod_only')
+            &ndash;
         - else
           - if user_signed_in? && post.author.owner_id == current_user.id
             - aspects = aspects_with_post(all_aspects, post)
