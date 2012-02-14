@@ -317,6 +317,8 @@ en:
       fail: "Invalid message"
     destroy:
       success: "Conversation successfully removed"
+    conversation:
+      deleted: '(deleted?)'
 
   date:
     formats:
