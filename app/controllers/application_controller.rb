@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_git_header if (AppConfig[:git_update] && AppConfig[:git_revision])
   before_filter :set_grammatical_gender
-  before_filter :set_timezone
 
   prepend_before_filter :clear_gc_stats
 
@@ -56,12 +55,6 @@ class ApplicationController < ActionController::Base
       root_path
     else
       logged_out_path
-    end
-  end
-
-  def set_timezone
-    if user_signed_in?
-      Time.zone = current_user.time_zone
     end
   end
 
