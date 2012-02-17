@@ -59,7 +59,7 @@
             = t('public')
             &ndash;
         - elsif post.pod_only?
-          %span.post_scope{:title => t('.viewable_pod_only')}
+          %span.post_scope{:title => t('.viewable_pod_only', :pod => AppConfig[:pod_uri].host)}
             = t('pod_only')
             &ndash;
         - else

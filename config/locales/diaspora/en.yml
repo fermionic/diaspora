@@ -900,8 +900,8 @@ en:
     contact_list:
       all_contacts: "All contacts"
     stream_element:
-      viewable_to_anyone: "This post is viewable to anyone on the web"
-      viewable_pod_only: "This post is viewable to all logged-in users of this pod"
+      viewable_to_anyone: "This post is viewable by anyone on the web"
+      viewable_pod_only: "This post is can only be viewed by users who are logged in to %{pod}"
       connect_to_comment: "Connect to this user to comment on their post"
       currently_unavailable: 'commenting currently unavailable'
       via: "via %{link}"
