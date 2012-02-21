@@ -50,7 +50,7 @@ class Postzord::Receiver::Public < Postzord::Receiver
     @object = Diaspora::Parser::from_xml(@salmon.parsed_data)
     raise "Object is not public" if object_can_be_public_and_it_is_not?
     begin
-      @object.save
+      @object.save  if @object
     rescue ActiveRecord::RecordNotUnique
       Rails.logger.info "Received object (#{@object.class} guid #{@object.guid}) already in local DB."
       nil
