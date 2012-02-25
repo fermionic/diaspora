@@ -8,17 +8,22 @@ module Fapi
       end
 
       def create
+        if params['aspect_ids']
+          aspect_ids = params['aspect_ids'].map(&:to_i)
+        end
         msg = @user.build_post(
           :status_message,
           {
-            'aspect_ids' => ['public'],
+            'aspect_ids' => aspect_ids || ['public'],
             'text'       => params['text'],
           }
         )
-        msg.public = true
+        msg.public = ! aspect_ids
         msg.save
 
-        aspect_ids = @user.aspects.map{|a| a.id}
+        # Public posts go to all aspects
+        aspect_ids ||= @user.aspects.map{|a| a.id}
+
         aspects = @user.aspects_from_ids(aspect_ids)
         @user.add_to_streams(msg, aspects)
 
