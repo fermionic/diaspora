@@ -141,6 +141,11 @@ class AspectsController < ApplicationController
   def save_selected_aspects
     if params[:a_ids].present?
       session[:a_ids] = params[:a_ids]
+      a_ids = params['a_ids'].map(&:to_i)
+      current_user.aspects.each do |a|
+        a.selected = a_ids.include?(a.id)
+        a.save
+      end
     end
   end
 end
