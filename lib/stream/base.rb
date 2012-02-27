@@ -96,7 +96,7 @@ class Stream::Base
   #NOTE: MBS bad bad methods the fact we need these means our views are foobared. please kill them and make them
   #private methods on the streams that need them
   def aspects
-    user.aspects.where(:selected => false)
+    user.aspects.where(:selected => true)
   end
 
   # @return [Aspect] The first aspect in #aspects
