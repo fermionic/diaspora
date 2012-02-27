@@ -14,7 +14,7 @@ class AspectsController < ApplicationController
   respond_to :json, :only => [:show, :create]
 
   def index
-    aspect_ids = (session[:a_ids] ? session[:a_ids] : [])
+    aspect_ids = current_user.aspects.where(:selected => true)
     @stream = Stream::Aspect.new(current_user, aspect_ids,
                                :order => sort_order,
                                :max_time => params[:max_time].to_i)
@@ -139,8 +139,7 @@ class AspectsController < ApplicationController
   private
 
   def save_selected_aspects
-    if params[:a_ids].present?
-      session[:a_ids] = params[:a_ids]
+    if params['a_ids'].present?
       a_ids = params['a_ids'].map(&:to_i)
       current_user.aspects.each do |a|
         a.selected = a_ids.include?(a.id)
