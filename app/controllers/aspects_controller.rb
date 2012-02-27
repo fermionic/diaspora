@@ -14,7 +14,7 @@ class AspectsController < ApplicationController
   respond_to :json, :only => [:show, :create]
 
   def index
-    aspect_ids = current_user.aspects.where(:selected => true)
+    aspect_ids = current_user.aspects.where(:selected => true).map(&:id)
     @stream = Stream::Aspect.new(current_user, aspect_ids,
                                :order => sort_order,
                                :max_time => params[:max_time].to_i)
