@@ -208,8 +208,9 @@ Diaspora::Application.routes.draw do
     namespace 'v0' do
       resource 'me', :only => [:show,], :controller => :me
       resources 'aspects', :only => [:index,]
-      resources 'posts', :only => [:index, :create,]
+      resources 'contacts', :only => [:index,]
       resources 'notifications', :only => [:index,]
+      resources 'posts', :only => [:index, :create,]
     end
   end
 
