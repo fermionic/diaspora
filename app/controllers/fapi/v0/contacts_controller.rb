@@ -6,7 +6,7 @@ module Fapi
         contacts = @user.contacts.map { |c|
           h = c.as_json
           h['contact']['person'] = c.person.as_json
-          h['contact']
+          h
         }
 
         respond_with( { 'contacts' => contacts } )
