@@ -143,16 +143,13 @@ class Stream::Multi < Stream::Base
       select('posts.id').
       where(
         %{
-          COALESCE(
-            (
-              SELECT NOT sv.hidden
+          NOT EXISTS (
+              SELECT 1
               FROM share_visibilities sv
               WHERE
-                sv.shareable_type = 'Post'
-                AND sv.shareable_id = posts.id
-              LIMIT 1
-            ),
-            TRUE
+                  sv.shareable_type = 'Post'
+                  AND sv.shareable_id = posts.id
+                  AND sv.hidden
           )
         }
       ).
