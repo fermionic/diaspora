@@ -35,7 +35,7 @@
         = markdownify(@group.description)
 
     - if current_user
-      = render 'shared/publisher', :selected_aspects => @stream.aspect_ids, :aspect_ids => @stream.aspect_ids, :aspect => @stream.aspect, :publisher_public => true
+      = render 'shared/publisher', :selected_aspects => @stream.aspects, :aspect_ids => @stream.aspect_ids, :aspect => @stream.aspect, :publisher_public => true
 
     - if @stream && @stream.stream_posts.length > 0
       #main_stream.stream

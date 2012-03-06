@@ -62,7 +62,7 @@
           = t('people', :count => @stream.tag_follow_count)
 
     - if current_user
-      = render 'shared/publisher', :selected_aspects => @stream.aspect_ids, :aspect_ids => @stream.aspect_ids, :for_all_aspects => true, :aspect => @stream.aspect
+      = render 'shared/publisher', :selected_aspects => @stream.aspects, :aspect_ids => @stream.aspect_ids, :for_all_aspects => true, :aspect => @stream.aspect
 
     %hr
 
