@@ -59,7 +59,14 @@ class SignedRetraction
   end
 
   def target
-    @target ||= self.target_type.constantize.where(:guid => target_guid).first
+    begin
+      @target ||= self.target_type.constantize.where(:guid => target_guid).first
+    rescue NameError => e
+      # A pods is trying to federate an object we don't recognize.
+      # i.e. their codebase is different from ours.  Quietly discard
+      # so that no Resque job failure is created
+      nil
+    end
   end
 
   def guid
