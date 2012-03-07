@@ -3,6 +3,23 @@
 -#   the COPYRIGHT file.
 
 
+- if AppConfig[:trends]
+  .section
+    .title
+      %h5= t('trending.today')
+    .content
+      .ul
+        - ActsAsTaggableOn::Tag.trending.each do |tag|
+          .li
+            = link_to "##{tag}", tag_path(:name => tag.name)
+    .title
+      %h5= t('trending.new')
+    .content
+      .ul
+        - ActsAsTaggableOn::Tag.trending_new.each do |tag|
+          .li
+            = link_to "##{tag}", tag_path(:name => tag.name)
+
 - if AppConfig[:open_invitations]
   .section
     .title

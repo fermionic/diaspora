@@ -42,4 +42,18 @@ describe ActsAsTaggableOn::Tag do
       ActsAsTaggableOn::Tag.normalize("#<3").should == "<3"
     end
   end
+
+  describe '.trending' do
+    it 'returns the most popular tags used "today"' do
+      ActsAsTaggableOn::Tag.trending.should respond_to(:each)
+      pending
+    end
+  end
+
+  describe '.trending_new' do
+    it %{returns the most popular tags used "today" that weren't used "within the week"} do
+      ActsAsTaggableOn::Tag.trending_new.should respond_to(:each)
+      pending
+    end
+  end
 end
