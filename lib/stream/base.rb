@@ -54,7 +54,7 @@ class Stream::Base
       # Reshares and Photos don't have tags
       if user && p.respond_to?(:tag_strings)
         (
-          user.tags_that_exclude.map { |t| t.name } & p.tag_strings
+          user.tags_that_exclude.map { |t| t.name } & p.tag_strings.map(&:downcase)
         ).any?
       end
     }
