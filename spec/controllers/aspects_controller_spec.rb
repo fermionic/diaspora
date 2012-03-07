@@ -186,7 +186,7 @@ describe AspectsController do
 
       it 'respects multiple aspects' do
         aspect2 = alice.aspects.create(:name => "test aspect two")
-        Stream::Aspect.should_receive(:new).with(alice, [@aspect1.id, aspect2.id], anything).and_return(@stream)
+        Stream::Aspect.should_receive(:new).with(alice, [aspect2.id, @aspect1.id,], anything).and_return(@stream)
         get :index, :a_ids => [@aspect1.id, aspect2.id]
       end
     end

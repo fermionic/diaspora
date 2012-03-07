@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120209044818) do
+ActiveRecord::Schema.define(:version => 20120226191603) do
 
   create_table "aspect_memberships", :force => true do |t|
     t.integer  "aspect_id",  :null => false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20120209044818) do
     t.datetime "updated_at"
     t.boolean  "contacts_visible", :default => true, :null => false
     t.integer  "order_id"
+    t.boolean  "selected",         :default => true, :null => false
   end
 
   add_index "aspects", ["user_id", "contacts_visible"], :name => "index_aspects_on_user_id_and_contacts_visible"
