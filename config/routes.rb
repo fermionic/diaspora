@@ -207,8 +207,10 @@ Diaspora::Application.routes.draw do
   namespace 'fapi' do
     namespace 'v0' do
       resource 'me', :only => [:show,], :controller => :me
-      resources 'posts', :only => [:index, :create,]
+      resources 'aspects', :only => [:index,]
+      resources 'contacts', :only => [:index,]
       resources 'notifications', :only => [:index,]
+      resources 'posts', :only => [:index, :create,]
     end
   end
 
