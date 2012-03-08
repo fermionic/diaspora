@@ -95,6 +95,20 @@
     %br
     = f.submit t('.change'), :class => 'button'
 
+  %hr
+
+  %h3#publisher-preferences
+    = t('.publisher_preferences')
+  = form_for current_user, :url => user_path, :html => { :method => :put } do |f|
+    = f.error_messages
+
+    %p.checkbox_select
+      = f.label :default_to_public, t('.default_to_public')
+      = f.check_box :default_to_public
+
+    %br
+    = f.submit t('.change'), :class => 'button'
+
   %br
   %br
   %hr

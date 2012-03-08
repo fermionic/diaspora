@@ -70,7 +70,8 @@ class User < ActiveRecord::Base
                   :custom_css,
                   :custom_js,
                   :chat_with_anyone,
-                  :time_zone
+                  :time_zone,
+                  :default_to_public
 
 
   def self.all_sharing_with_person(person)
