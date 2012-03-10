@@ -20,36 +20,20 @@ var Publisher = {
     Publisher.determineSubmitAvailability();
   },
 
-  cachedForm : false,
   form: function(){
-    if(!Publisher.cachedForm){
-      Publisher.cachedForm = $('#publisher');
-    }
-    return Publisher.cachedForm;
+    return Publisher.cachedForm = Publisher.cachedForm || $('#publisher');
   },
 
-  cachedInput : false,
   input: function(){
-    if(!Publisher.cachedInput){
-      Publisher.cachedInput = Publisher.form().find('#status_message_fake_text');
-    }
-    return Publisher.cachedInput;
+    return Publisher.cachedInput = Publisher.cachedInput || Publisher.form().find('#status_message_fake_text');
   },
 
-  cachedHiddenInput : false,
   hiddenInput: function(){
-    if(!Publisher.cachedHiddenInput){
-      Publisher.cachedHiddenInput = Publisher.form().find('#status_message_text');
-    }
-    return Publisher.cachedHiddenInput;
+    return Publisher.cachedHiddenInput= Publisher.cachedHiddenInput || Publisher.form().find('#status_message_text');
   },
 
-  cachedSubmit : false,
   submit: function(){
-    if(!Publisher.cachedSubmit){
-      Publisher.cachedSubmit = Publisher.form().find('#status_message_submit');
-    }
-    return Publisher.cachedSubmit;
+    return Publisher.cachedSubmit = Publisher.cachedSubmit || Publisher.form().find('#status_message_submit');
   },
 
   autocompletion: {
@@ -367,6 +351,7 @@ var Publisher = {
       }
     }
   },
+
   createCounter: function(service){
     var counter = $("#publisher .counter");
     counter.remove();
@@ -475,8 +460,6 @@ var Publisher = {
     var selection = $(selector);
     selection.popover(options);
     selection.bind("click", function(){$(this).popover("hide")});
-
-
 
     setTimeout(function(){
       selection.popover("show");
