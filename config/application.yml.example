@@ -79,6 +79,10 @@ defaults: &defaults
   admins:
     - 'example_user1dsioaioedfhgoiesajdigtoearogjaidofgjo'
 
+  # How many posts to load at a time on stream pages.
+  # Both initial load and subsequent AJAX hits.
+  stream_pagination_size: 10
+
   # Mount resque-web into routes
   # This allows an administrator to see info about the workers
   mount_resque_web: true

@@ -44,9 +44,13 @@ module StreamHelper
   end
 
   def time_for_sort(post)
-    if controller.instance_of?(AspectsController)
-      post.send(session[:sort_order].to_sym)
+    case controller
+    when AspectsController, MultisController
+      post.send session[:sort_order].to_sym
     else
+      Rails.logger.info '!' * 30
+      Rails.logger.info controller.class.to_s
+      # Rails.logger.info session[:sort_order]
       post.created_at
     end
   end
