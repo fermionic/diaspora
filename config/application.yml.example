@@ -83,6 +83,10 @@ defaults: &defaults
   # This allows an administrator to see info about the workers
   mount_resque_web: true
 
+  # Whether or not to show Trending tags
+  # This works ONLY with PostgreSQL right now!
+  trends: false
+
   # API throttling.
   # The number of seconds callers must wait between API calls
   # (or the request is rejected)
