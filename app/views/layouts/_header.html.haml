@@ -77,15 +77,19 @@
 
     #hovercard_container
       #hovercard
-        %img.avatar
-        %h4
-          %a.person
-        %p.handle
-        #hovercard_dropdown_container
-
-        .hovercard_footer
-          .footer_container
-            .hashtags
+        %table
+          %tr
+            %td
+              %img.avatar
+            %td
+              %h4
+                %a.person
+              %p.handle
+              #hovercard_dropdown_container
+          %tr
+            .hovercard_footer
+              .footer_container
+                .hashtags
 
     %ul#user_menu.dropdown
       %li
