@@ -30,7 +30,13 @@ module PeopleHelper
 
   def person_link(person, opts={})
     opts[:class] ||= ""
-    opts[:class] << " self" if defined?(user_signed_in?) && user_signed_in? && current_user.person == person
+    if defined?(user_signed_in?) && user_signed_in?
+      if current_user.person == person
+        opts[:class] << ' self'
+      elsif current_user.person.url == person.url
+        opts[:class] << ' podmate'
+      end
+    end
     remote_or_hovercard_link = "/people/#{person.id}".html_safe
     "<a data-hovercard='#{remote_or_hovercard_link}' #{person_href(person)} class='#{opts[:class]}' #{ ("target=" + opts[:target]) if opts[:target]}>#{h(person.name)}</a>".html_safe
   end
@@ -54,12 +60,12 @@ module PeopleHelper
   def person_href(person, opts={})
     "href=\"#{local_or_remote_person_path(person, opts)}\""
   end
-  
-  
+
+
   # Rails.application.routes.url_helpers is needed since this is indirectly called from a model
   def local_or_remote_person_path(person, opts={})
     opts.merge!(:protocol => AppConfig[:pod_uri].scheme, :host => AppConfig[:pod_uri].authority)
-    
+
     if person.local?
       username = person.diaspora_handle.split('@')[0]
       unless username.include?('.')
@@ -71,7 +77,7 @@ module PeopleHelper
         end
       end
     end
-    
+
     if opts[:absolute]
       return Rails.application.routes.url_helpers.person_url(person, opts)
     else
