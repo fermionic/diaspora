@@ -231,4 +231,6 @@ Diaspora::Application.routes.draw do
 
   # Startpage
   root :to => 'home#show'
+
+  get 'privacy_info', :to => 'home#privacy_info', :as => 'privacy_info'
 end
