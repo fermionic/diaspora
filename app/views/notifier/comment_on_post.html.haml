@@ -1,4 +1,10 @@
+-#  Modified 5/4/2012 by Zach Prezkuta
+-#  Added check if user whose text is going into the email notification has disallowed
+-#  his posts etc. from showing up in email notifications. If so, use the alternate
+-#  text
+
 %p
-  = comment_message(@notification.comment, :process_newlines => true)
+  = @notification.text_owner.user_preferences.exists?(:email_type => 'silent') ? "#{t('notifier.comment_on_post.silenced', :name => "#{@notification.sender.name}")}" : comment_message(@notification.comment, :process_newlines => true)
 %p
   = link_to t('notifier.comment_on_post.reply', :name => @notification.comment.post.author.name), post_url(@notification.comment.post)
+

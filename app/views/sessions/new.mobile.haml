@@ -1,6 +1,9 @@
 -#   Copyright (c) 2010-2011, Diaspora Inc.  This file is
 -#   licensed under the Affero General Public License version 3 or later.  See
 -#   the COPYRIGHT file.
+-#
+-#   Modified 5/4/2012 by Zach Prezkuta
+-#   Added agreement to terms and conditions and privacy policy, as well as links
 
 #main_stream.stream
   - flash.each do |name, msg|
@@ -26,6 +29,11 @@
 
           .controls
             = f.submit t('devise.sessions.new.sign_in'), :class => 'btn primary'
+
+          .row
+            %br
+            != t('agreement', :linktos => link_to( t("tos"), "/tos.html"), :linkpriv => link_to( t("privacy"), "/privacy.html") )
+
 
 %footer
   - if display_registration_link?    

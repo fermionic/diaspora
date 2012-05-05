@@ -1,3 +1,5 @@
+<!-- Modified ??/??/???? and 10/10/2011 by Zach Prezkuta -->
+<!-- Took out irrelevant sections, changed sign up to sign in, and centered -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -90,8 +92,8 @@
     <div id="page">
       <div id="contentr">
         <div id="header" style="margin-bottom:24px;">
-          <a id="login-link" href="login">Log In</a>
-          <img src='assets/branding/logo_caps.png'/>
+          <a id="login-link" href="users/sign_in">Log In</a>
+          <img src='images/logo_caps.png'/>
         </div>
 
         <div id="about" style='display:none;'>
@@ -100,7 +102,7 @@
         </div>
 
         <hr>
-        <div id="getting-started">
+        <div id="getting-started" class='container' style='text-align:center;'>
           <h1>Welcome, friend.</h1>
           <h3>You're about to change the Internet.  Let's get you set up, shall we?</h3>
 
@@ -110,21 +112,9 @@
 
           <ol id="steps">
             <li>
-              <h2>Configure your <abbr class="helpful" title="A Diaspora installation">pod</abbr></h2>
-              <img src='assets/icons/cog.png'/>
-              <p>Look at <code class="helpful" title='General pod configuration (location to upload photos, SSL certs, etc.)'>config/application.yml.example</code> and <code class="helpful" title="mySQL username/password">config/database.yml.example</code> for help.</p>
-            </li>
-
-            <li>
-              <h2>Try it out</h2>
-              <img src='assets/icons/smiley_laughing.png'/>
-              <p>Start by <a href="users/sign_up">creating an account</a>.</p>
-            </li>
-
-            <li>
-              <h2>Make a contribution!</h2>
-              <img src='assets/icons/pen_write.png'/>
-              <p>Make Diaspora even better!  Fork the project on <a href="http://github.com/diaspora/diaspora/" title="github">github</a>, make some changes, and submit a pull request.</p>
+              <h2>Sign in</h2>
+              <img src='images/icons/smiley_laughing.png'/>
+              <p>If you already have an account, you can <a href="users/sign_in">sign in</a>.</p>
             </li>
           </ol>
         </div>
@@ -141,10 +131,10 @@
       <h3>Useful Resources</h3>
       <ul id="links">
         <ul class="section">
-          <li><strong><a href="http://github.com/diaspora/diaspora/" title="Git repository">Codebase</a></strong></li>
+          <li><strong><a href="http://github.com/fermionic/diaspora/" title="Git repository">Codebase</a></strong></li>
           <li><strong><a href="http://github.com/diaspora/diaspora/wiki" title="Wiki on github">Documentation</a></strong></li>
           <br>
-          <li><a href="https://github.com/diaspora/diaspora/issues" title="Bug tracker">Find & Report bugs</a></li>
+          <li><a href="http://bugs.joindiaspora.com/" title="Bug tracker">Find & Report bugs</a></li>
         </ul>
         <ul class="section">
           <li><a href="http://webchat.freenode.net/?channels=diaspora" title="#diaspora">IRC - General</a></li>
@@ -155,18 +145,10 @@
           <li><a href="http://groups.google.com/group/diaspora-dev" title="Dev mailing list">Discussion - Development</a></li>
         </ul>
         <ul class="section">
+          <li><a href="http://getsatisfaction.com/diaspora/" title="Get Satisfaction">User Feedback</a></li>
           <li><a href="http://guides.rubyonrails.org/">Learn more about Ruby On Rails!</a></li>
         </ul>
       </ul>
-    </div>
-
-    <br>
-    <br>
-
-    <hr>
-
-    <div id="change-page">
-      This page can be changed to a custom landing page by creating <code>app/views/home/_show.html.haml</code>
     </div>
   </body>
 </html>

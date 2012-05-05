@@ -1,12 +1,29 @@
 #   Copyright (c) 2010-2011, Diaspora Inc.  This file is
 #   licensed under the Affero General Public License version 3 or later.  See
 #   the COPYRIGHT file.
+#
+#   Modified 5/4/2012 by Zach Prezkuta
+#   Add function contacts_with_post to display who else a post was shared with 
+#   to users who aren't the author of the post
+#   Return only unique members of the contacts list, and alphabetize it
+
 
 module AspectGlobalHelper
   def aspects_with_post(aspects, post)
     aspects.select do |aspect|
       AspectVisibility.exists?(:aspect_id => aspect.id, :shareable_id => post.id, :shareable_type => 'Post')
     end
+  end
+
+  def contacts_with_post(post)
+    pv = ShareVisibility.where(:shareable_id => post.id, :shareable_type => 'Post')
+    contactlist = Array.new
+    pv.each do |pvi|
+      contactlist << pvi.contact.user.name
+    end
+
+#    contactlist.uniq!
+    contactlist.sort
   end
 
   def aspect_links(aspects, opts={})

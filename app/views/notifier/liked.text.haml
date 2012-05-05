@@ -1,3 +1,8 @@
+-#  Modified 5/4/2012 by Zach Prezkuta
+-#  Added check if user whose text is going into the email notification has disallowed
+-#  his posts etc. from showing up in email notifications. If so, use the alternate
+-#  text
+
 != "#{t('notifier.liked.liked', :name => "#{@notification.sender.name}")}:"
-!=post_message(@notification.like.target)
+!= @notification.text_owner.user_preferences.exists?(:email_type => 'silent') ? "#{t('notifier.liked.silenced_text')}" : post_message(@notification.like.target)
 

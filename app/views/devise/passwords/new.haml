@@ -1,7 +1,12 @@
+-#   Modified 5/4/2012 by Zach Prezkuta
+-#   Add a line to advise users that the password-reset
+-#   email may go to the Spam folder of their email
+
 .span-12.prepend-6.last
   .floating
     %h2
       = t('.forgot_password')
+    =t('.forgot_password_spam')
     - unless devise_error_messages!.empty?
       %i= t('.no_account')
 

@@ -1,8 +1,13 @@
+-#  Modified 5/4/2012 by Zach Prezkuta
+-#  Added check if user whose text is going into the email notification has disallowed
+-#  his posts etc. from showing up in email notifications. If so, use the alternate
+-#  text
+
 %p
   = "#{t('.reshared', :name => "#{@notification.sender.name}")}:"
 
 %p{:style => "font-style:italic;color:#666"}
-  = post_message(@notification.reshare.root, :process_newlines => true)
+  = @notification.text_owner.user_preferences.exists?(:email_type => 'silent') ? "#{t('notifier.reshared.silenced')}" : post_message(@notification.reshare.root, :process_newlines => true)
 
 %p
   = link_to t('.view_post'), post_url(@notification.reshare)

@@ -1,6 +1,11 @@
 -#   Copyright (c) 2010-2011, Diaspora Inc.  This file is
 -#   licensed under the Affero General Public License version 3 or later.  See
 -#   the COPYRIGHT file.
+-#
+-#   Modified 5/4/2012 Zach Prezkuta
+-#   Added code to call a function that returns a list of all contacts
+-#   a post was shared with, and make it display when a user hovers
+-#   over the word "Limited"
 
 
 .stream_element{:id => post.guid, :class => from_group(post)}
@@ -70,7 +75,8 @@
                 = t('limited')
                 (#{aspects.size})
           - else
-            %span.post_scope
+            - contacts = contacts_with_post(post)
+            %span.post_scope{:title => t('.contacts_shared_with', :contact_names => contacts.join(', '))}
               = t('limited')
           &ndash;
 

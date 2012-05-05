@@ -1,0 +1,38 @@
+5/4/2012
+--------
+
+app/helpers/aspect_global_helper.rb			-- add contacts_with_post(post) for displaying who else received a post
+app/mailers/notification_mailers/also_commented.rb	-- scrub personal information from email notifications if the owner didn't permit it
+app/mailers/notification_mailers/comment_on_post.rb	-- scrub personal information from email notifications if the owner didn't permit it
+app/mailers/notification_mailers/liked.rb		-- scrub personal information from email notifications if the owner didn't permit it
+app/mailers/notification_mailers/mentioned.rb		-- scrub personal information from email notifications if the owner didn't permit it
+app/mailers/notification_mailers/private_message.rb	-- scrub personal information from email notifications if the owner didn't permit it
+app/mailers/notification_mailers/reshared.rb		-- scrub personal information from email notifications if the owner didn't permit it
+app/models/status_message.rb				-- increase maximum post size to 500,000 characters
+app/models/user_preference.rb				-- add user preference 'silent' for whether personal info shows up in email notifications
+app/views/devise/passwords/new.haml 			-- warn users that reset password email may end up in Spam
+!!app/views/devise/passwords/new.mobile.haml 		-- warn users that reset password email may end up in Spam
+app/views/layouts/application.html.haml			-- add links to TOS and privacy policy to footer
+app/views/shared/_footer.mobile.haml			-- add notifications and private messages to footer
+app/views/shared/_photo_area.mobile.haml		-- allow viewing all pictures attached to a post in mobile view
+app/views/notifier/also_commented.html.haml		-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/also_commented.text.haml		-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/comment_on_post.html.haml		-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/comment_on_post.text.haml		-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/liked.html.haml			-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/liked.text.haml			-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/mentioned.html.haml			-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/mentioned.text.haml			-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/private_message.html.haml		-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/private_message.text.haml		-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/reshared.html.haml			-- scrub personal information from email notifications if the owner didn't permit it
+app/views/notifier/reshared.text.haml			-- scrub personal information from email notifications if the owner didn't permit it
+app/views/sessions/new.haml				-- add agreement to TOS and privacy policy to login page
+!!app/views/sessions/new.mobile.haml			-- add agreement to TOS and privacy policy to login page
+app/views/shared/_stream_element.html.haml		-- allow users to see who else received a post
+app/views/users/edit.html.haml				-- add option to hide one's personal content from email notifications
+config/locales/devise/devise.en.yml			-- text for warning about password-reset emails going to Spam
+config/locales/diaspora/en.yml				-- add or modify various texts--either supporting the above modifications or just to make the text sound nicer
+db/migrate/20120504193459_increase_post_text_limit.rb	-- add migration to re-increase post limit to 500,000 characters
+public/default.html					-- change home page to be more relevant
+

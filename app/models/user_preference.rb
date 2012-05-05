@@ -1,3 +1,7 @@
+#  Modified 5/4/2012 by Zach Prezkuta
+#  Added email type 'silent' for option to disallow self's post (or comments, etc.)
+#  to show up in email notifications
+
 class UserPreference < ActiveRecord::Base
   belongs_to :user
 
@@ -10,7 +14,8 @@ class UserPreference < ActiveRecord::Base
    "started_sharing",
    "also_commented",
    "liked",
-   "reshared"]
+   "reshared",
+   "silent"]
 
   def must_be_valid_email_type
     unless VALID_EMAIL_TYPES.include?(self.email_type)
