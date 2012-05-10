@@ -26,6 +26,11 @@ module AspectGlobalHelper
     contactlist.sort
   end
 
+  def display_contacts_with_post(post)
+    contacts_list = contacts_with_post(post)
+    t('stream.contacts_shared_with', :contact_names => contacts_list.join(', '))
+  end
+
   def aspect_links(aspects, opts={})
     str = ""
     aspects.each do |aspect|

@@ -5,7 +5,8 @@ class FederationLogger < Logger
   end
 end
 
-if Rails.env.match(/integration/)
+#if Rails.env.match(/integration/)
+if Rails.env.match(/production/)
   puts "using federation logger"
   logfile = File.open(File.join(Rails.root, "/log/#{Rails.env}_federation.log"), 'a')  #create log file
   logfile.sync = true  #automatically flushes data to file

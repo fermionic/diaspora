@@ -1,12 +1,12 @@
--# Modified 5/4/2012 Zach Prezkuta
+-# Modified 5/5/2012 Zach Prezkuta
 -# Add links to notifications and private messages to the mobile footer
 -# Rearrange links
 
 %footer
   = link_to t('notifications.index.notifications'), notifications_path
-  = "(#{@notification_count})"
+  = "(#{current_user.unread_notifications.count})"
   = link_to t('conversations.index.message_inbox'), conversations_path
-  = "(#{@unread_message_count})"
+  = "(#{current_user.unread_message_count})"
   %br
   %br
   = link_to t('layouts.application.toggle'), toggle_mobile_path

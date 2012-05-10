@@ -12,6 +12,9 @@ en:
   privacy: "Privacy"
   privacy_policy: "Privacy Policy"
   terms_and_conditions: "Terms and Conditions"
+  agreement: 'By signing in to your account, you certify that you agree to the latest %{linktos} and %{linkpriv}.'
+  tos: 'terms of service'
+  privacy_pol: 'privacy policy'
   _services: "Services"
   _applications: "Applications"
   _photos: "photos"
@@ -44,9 +47,6 @@ en:
   no_results: "No Results Found"
   _contacts: "Contacts"
   welcome: "Welcome!"
-  agreement: 'By signing in to your account, you certify that you agree to the latest %{linktos} and %{linkpriv}.'
-  tos: 'terms of service'
-  privacy: 'privacy policy'
 
   #for reference translation, the real activerecord english transations are actually
   #in en-US, en-GB, and en-AU yml files

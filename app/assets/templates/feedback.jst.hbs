@@ -1,9 +1,10 @@
-<span class="post_scope grey">
-  {{#if public}}
+{{#if public}}
+<span class="post_scope grey" title={{t "stream.viewable_to_anyone"}}>
     {{t "stream.public"}}
-  {{else}}
+{{else}}
+<span class="post_scope grey" title={{t "stream.contacts_shared_with"}}>
     {{t "stream.limited"}}
-  {{/if}}
+{{/if}}
 
   {{#if provider_display_name}}
     <strong>
