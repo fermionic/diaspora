@@ -172,7 +172,8 @@ class ApplicationController < ActionController::Base
   end
 
   def sort_order
-    is_mobile_device? ? 'created_at' : session[:sort_order]
+#    is_mobile_device? ? 'created_at' : session[:sort_order]
+    session[:sort_order]
   end
 
   def max_time

@@ -72,7 +72,8 @@
                 = t('limited')
                 (#{aspects.size})
           - else
-            %span.post_scope
+            - contacts = contacts_with_post(post)
+            %span.post_scope{:title => t('.contacts_shared_with', :contact_names => contacts.join(', '))}
               = t('limited')
           &ndash;
 

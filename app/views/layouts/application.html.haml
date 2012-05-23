@@ -119,9 +119,9 @@
     %footer
       .container
         %ul#footer_nav
-          %li= link_to 'privacy policy', privacy_info_path
-          %li= link_to '@diasp0raca', "http://twitter.com/diasp0raca"
-          %li= link_to 'github', "https://github.com/Pistos/diaspora"
+          %li= link_to t('tos'), "/tos.html"
+          %li= link_to t('privacy_pol'), "/privacy.html"
+          %li= link_to 'github', "https://github.com/fermionic/diaspora"
           %li= link_to t('layouts.header.code'), "#{root_url.chomp('/')}/source.tar.gz"
           %li= link_to(t('layouts.application.toggle'), toggle_mobile_path)  if is_mobile_device?
         = image_tag 'powered_by_diaspora.png', :height => "11px", :width => "145px"

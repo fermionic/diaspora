@@ -19,9 +19,11 @@ module MobileHelper
 
   def mobile_like_icon(post)
     if current_user && current_user.liked?(post)
-      link_to '', post_like_path(post.id, current_user.like_for(post).id), :class => "image_link like_action active"
+#      link_to '', post_like_path(post.id, current_user.like_for(post).id), :class => "image_link like_action active"
+      image_tag "/images/icons/heart_mobile_red.png?1319213932", :class => "icon"
     else
-      link_to '', post_likes_path(post.id), :class => "image_link like_action inactive"
+#      link_to '', post_likes_path(post.id), :class => "image_link like_action inactive"
+      image_tag "/images/icons/heart_mobile_grey.png?1319213932", :class => "icon"
     end
   end
 

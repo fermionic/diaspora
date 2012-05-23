@@ -9,6 +9,17 @@ module AspectGlobalHelper
     end
   end
 
+  def contacts_with_post(post)
+    pv = ShareVisibility.where(:shareable_id => post.id, :shareable_type => 'Post')
+    contactlist = Array.new
+    pv.each do |pvi|
+      contactlist << pvi.contact.user.name
+    end
+
+#    contactlist.uniq!
+    contactlist.sort
+  end
+
   def aspect_badges(aspects, opts={})
     str = ''
     aspects.each do |aspect|

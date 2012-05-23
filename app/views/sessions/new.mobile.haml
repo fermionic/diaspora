@@ -23,6 +23,10 @@
           = f.submit t('devise.sessions.new.sign_in'), :class => 'login-submit'
           - if display_password_reset_link?
             = link_to "Forgot password?", new_password_path(resource_name)
+        .row
+          %br
+
+          != t('agreement', :linktos => link_to( t("tos"), "/tos.html"), :linkpriv => link_to( t("privacy_pol"), "/privacy.html") )
 
 %footer
   - if display_registration_link?    

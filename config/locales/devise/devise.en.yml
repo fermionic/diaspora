@@ -34,6 +34,7 @@ en:
         change_password: "Change my password"
       new:
         forgot_password: "Forgot your password?"
+        forgot_password_spam: "PLEASE NOTE: The password-reset email frequently ends up in the Spam folder of some email providers (notably Gmail). If you haven't received your password-reset email in 15 minutes or so, please check your Spam folder."
         no_account: 'No account with this email exists.  If you are waiting for an invite, we are rolling them out as soon as possible'
         send_password_instructions: "Send me reset password instructions"
     confirmations:

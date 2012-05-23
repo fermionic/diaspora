@@ -12,6 +12,9 @@ en:
   account: "Account"
   privacy: "Privacy"
   privacy_policy: "Privacy Policy"
+  agreement: 'By signing in to your account, you certify that you agree to the latest %{linktos} and %{linkpriv}.'
+  tos: 'terms of service'
+  privacy_pol: 'privacy policy'
   filters: 'Filters'
   terms_and_conditions: "Terms and Conditions"
   _services: "Services"
@@ -160,7 +163,7 @@ en:
       friends: "Friends"
     index:
       donate: "Donate"
-      keep_us_running: "Keep %{pod} running fast and buy servers their coffee fix with a monthly donation!"
+      keep_us_running: "Keep %{pod} running fast and buy the webmaster his coffee fix with a one-time donation!"
       your_aspects: "View messages from:"
       no_tags: "+ Find a tag to follow"
       unfollow_tag: "Stop following #%{tag}"
@@ -452,6 +455,8 @@ en:
       powered_by: "POWERED BY DIASPORA*"
       whats_new: "what's new?"
       toggle: "toggle mobile"
+      mobile_commented_on: "sort by commented"
+      mobile_posted: "sort by posted"
       public_feed: "Public Diaspora Feed for %{name}"
       your_aspects: "your aspects"
 
@@ -594,18 +599,27 @@ en:
         sharing: "has started sharing with you!"
         view_profile: "View %{name}'s profile"
     comment_on_post:
+        silenced_subject: "%{name}'s post"
+        silenced: "%{name} has a new comment"
         reply: "Reply or view %{name}'s post >"
     mentioned:
         subject: "%{name} has mentioned you on Diaspora*"
         mentioned: "mentioned you in a post:"
+        silenced: "%{name} has mentioned you in a post."
     private_message:
+        silenced_subject: "%{name}'s private message"
+        silenced: "%{name} has sent you a private message."
         reply_to_or_view: "Reply to or view this conversation >"
     liked:
         liked: "%{name} liked your post"
         liked_comment: "%{name} liked your comment on a post"
+        silenced: "Click link below to see the post"
+        silenced_text: "Visit the Diaspora page to see the post"
         view_post: "View post >"
     reshared:
         reshared: "%{name} reshared your post"
+        silenced: "Click link below to see the post"
+        silenced_text: "Login to your account to see the post"
         view_post: "View post >"
     confirm_email:
         subject: "Please activate your new email address %{unconfirmed_email}"
@@ -914,6 +928,7 @@ en:
       unlike: "Unlike"
       dislike: "Dislike"
       shared_with: "Shared with: %{aspect_names}"
+      contacts_shared_with: "Shared with: %{contact_names}"
     footer:
       logged_in_as: "logged in as %{name}"
       your_aspects: "your aspects"
@@ -1066,13 +1081,14 @@ en:
       your_email: "Your email"
       edit_account: "Edit account"
       receive_email_notifications: "Receive email notifications when..."
-      also_commented: "...someone also comments on your contact's post?"
+      also_commented: "...someone else comments on a post you commented on?"
       comment_on_post: "...someone comments on your post?"
       mentioned: "...you are mentioned in a post?"
       started_sharing: "...someone starts sharing with you?"
       private_message: "...you receive a private message?"
       liked: "...someone likes your post?"
       reshared: "...someone reshares your post?"
+      silenced: "Allow the text of your posts (or comments, messages, etc.) to be in email notifications?"
       change: "Change"
       email_awaiting_confirmation: "We have sent you an activation link to %{unconfirmed_email}. Until you follow this link and activate the new address, we will continue to use your original address %{email}."
       stream_preferences: "Stream Preferences"

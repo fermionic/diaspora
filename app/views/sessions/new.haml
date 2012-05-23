@@ -45,6 +45,11 @@
         = f.submit t('devise.sessions.new.sign_in'), :tabindex => 4
 
 
+      %br
+      %br
+      != t('agreement', :linktos => link_to( t("tos"), "/tos.html"), :linkpriv => link_to( t("privacy_pol"), "/privacy.html") )
+
+
       - if display_registration_link?
         %br
         %br

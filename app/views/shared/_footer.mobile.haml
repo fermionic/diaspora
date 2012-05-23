@@ -1,5 +1,13 @@
 %footer
+  = link_to t('notifications.index.notifications'), notifications_path
+  = "(#{@notification_count})"
+  = link_to t('conversations.index.message_inbox'), conversations_path
+  = "(#{@unread_message_count})"
+  %br
+  = @stream != nil ? ( session[:sort_order] == 'created_at' ? link_to(t('layouts.application.mobile_commented_on'), @stream.link(:sort_order => 'updated_at')) : link_to(t('layouts.application.mobile_posted'), @stream.link(:sort_order => 'created_at' )) ) : ''
+  = link_to t('layouts.application.toggle'), toggle_mobile_path
+  %br
   %strong
     = link_to current_user.name, current_user.person
-  = link_to t('layouts.application.toggle'), toggle_mobile_path
   = link_to t('layouts.header.logout'), destroy_user_session_path
+
