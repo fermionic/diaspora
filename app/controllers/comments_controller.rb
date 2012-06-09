@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
 
   def create
     target = current_user.find_visible_shareable_by_id Post, params[:post_id]
-    text = params[:text]
+    text = params[:text].to_s.strip    # to_s if nil, for whatever reason
 
     if target
       @comment = current_user.build_comment(:text => text, :post => target)
