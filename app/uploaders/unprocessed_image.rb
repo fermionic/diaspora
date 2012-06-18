@@ -17,6 +17,16 @@ class UnprocessedImage < CarrierWave::Uploader::Base
     model.random_string + File.extname(@filename) if @filename
   end
 
+  process :prepare_image
+
+  def prepare_image
+    manipulate! do |img|
+      img.auto_orient
+      img.quality(80)
+      img
+    end
+  end
+
   version :thumb_small
   version :thumb_medium
   version :thumb_large
