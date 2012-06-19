@@ -18,12 +18,12 @@ class UnprocessedImage < CarrierWave::Uploader::Base
   end
 
   process :prepare_image
+  process :resize_to_limit => [2000,2000]
 
   def prepare_image
     manipulate! do |img|
       img.auto_orient
       img.quality(80)
-      img.resize_to_limit(2000,2000)
       img
     end
   end
