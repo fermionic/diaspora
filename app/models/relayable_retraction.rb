@@ -33,6 +33,21 @@ class RelayableRetraction < SignedRetraction
     true
   end
 
+  def perform receiving_user
+    Rails.logger.debug "Performing relayable retraction for #{target_guid}"
+    if not self.parent_author_signature.nil? or self.parent.author.remote?
+      # Don't destroy a relayable unless the top-level owner has received it, otherwise it may not get relayed
+      #
+      # The self.parent.author.remote? test might cause a problem for likes on comments--imagine the situation
+      # where a Diaspora person unlikes a remote comment that's on a local top-level post. Unfortunately, if
+      # the unlike has to get sent out remotely and come back before actually deleting, then I think the user
+      # interface won't reflect the unlike action until it comes back--which could be many seconds
+      self.target.unsocket_from_user receiving_user if self.target.respond_to? :unsocket_from_user
+      self.target.destroy
+      Rails.logger.info(:event => :relayable_retraction, :status => :complete, :target_type => self.target_type, :guid => self.target_guid)
+    end
+  end
+
   def receive(recipient, sender)
     if self.target.nil?
       Rails.logger.info("event=retraction status=abort reason='no post found' sender=#{sender.diaspora_handle} target_guid=#{target_guid}")
