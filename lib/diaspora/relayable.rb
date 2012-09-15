@@ -91,7 +91,11 @@ module Diaspora
 
     # @return [Boolean]
     def verify_parent_author_signature
-      verify_signature(self.parent_author_signature, self.parent.author)
+      verified = verify_signature(self.parent_author_signature, self.parent.author)
+      if not verified and not self.parent.parent.nil?
+        verified = verify_signature(self.parent_author_signature, self.parent.parent.author)
+
+      verified
     end
 
     # @return [Boolean]
