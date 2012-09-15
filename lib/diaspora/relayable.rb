@@ -94,6 +94,7 @@ module Diaspora
       verified = verify_signature(self.parent_author_signature, self.parent.author)
       if not verified and not self.parent.parent.nil?
         verified = verify_signature(self.parent_author_signature, self.parent.parent.author)
+      end
 
       verified
     end
